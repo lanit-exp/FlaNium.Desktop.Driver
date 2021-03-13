@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B214C2BA-43FA-486F-AD0B-D4890C1748C0}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FlaNium.Desktop.Driver</RootNamespace>
+    <AssemblyName>FlaNium.Driver</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>flanium.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="CommandLine, Version=2.8.0.0, Culture=neutral, PublicKeyToken=5a870481e358d379, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommandLineParser.2.8.0\lib\net461\CommandLine.dll</HintPath>
+    </Reference>
+    <Reference Include="FlaUI.Core, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FlaUI.Core.3.2.0\lib\net45\FlaUI.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FlaUI.UIA3, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FlaUI.UIA3.3.2.0\lib\net45\FlaUI.UIA3.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.UIAutomationClient, Version=10.0.19041.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Interop.UIAutomationClient.10.19041.0\lib\net45\Interop.UIAutomationClient.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.7.5\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WebDriver, Version=3.141.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.WebDriver.3.141.0\lib\net45\WebDriver.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsInput, Version=1.0.4.0, Culture=neutral, PublicKeyToken=9b287f7dc5073cad, processorArchitecture=MSIL">
+      <HintPath>..\packages\InputSimulator.1.0.4.0\lib\net20\WindowsInput.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Automator\Automator.cs" />
+    <Compile Include="Automator\Capabilities.cs" />
+    <Compile Include="CommandExecutors\Elements\Button\ButtonInvokeExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Calendar\CalendarAddToSelectionExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Calendar\CalendarSelectDateExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Calendar\CalendarSelectedDatesExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\CheckBox\CheckBoxToggleStateExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ComboBox\ComboBoxCollapseExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ComboBox\ComboBoxEditableTextExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ComboBox\ComboBoxExpandCollapseStateExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ComboBox\ComboBoxExpandExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ComboBox\ComboBoxSetEditableTextExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ComboBox\ComboBoxIsEditableExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ComboBox\ComboBoxIsReadOnlyExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ComboBox\ComboBoxItemsExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ComboBox\ComboBoxSelectedItemExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ComboBox\ComboBoxSelectedItemsExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ComboBox\ComboBoxSelectExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ComboBox\ComboBoxSelectIndexExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ComboBox\ComboBoxValueExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\DataGridView\DataGridViewCellGetValueExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\DataGridView\DataGridViewCellSetValueExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\DataGridView\DataGridViewGetHeaderExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\DataGridView\DataGridViewGetRowsExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\DataGridView\DataGridViewHasAddRowExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\DataGridView\DataGridViewHeaderGetColumnsExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\DataGridView\DataGridViewRowGetCellsExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\DateTimePicker\DateTimePickerGetDateExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\DateTimePicker\DateTimePickerSetDateExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridAddToSelectionExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridAddToSelectionTextExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridCellContainingGridExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridCellContainingRowExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridColumnCountExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridColumnHeadersExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridGetHeaderExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridGetRowByIndexExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridGetRowByValueExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridGetRowsByValueExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridGetRowsExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridHeaderColumnsExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridRemoveFromSelectionExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridRemoveFromSelectionTextExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridRowCellsExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridRowCountExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridRowFindCellByTextExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridRowHeaderExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridRowHeadersExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridRowOrColumnMajorExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridRowScrollIntoViewExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridSelectedItemExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridSelectedItemsExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridSelectExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Grid\GridSelectTextExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ListBox\ListBoxAddToSelectionIndexExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ListBox\ListBoxAddToSelectionTextExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ListBox\ListBoxItemIsCheckedExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ListBox\ListBoxItemScrollIntoViewExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ListBox\ListBoxItemSetCheckedExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ListBox\ListBoxItemsExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ListBox\ListBoxRemoveFromSelectionIndexExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ListBox\ListBoxRemoveFromSelectionTextExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ListBox\ListBoxSelectedItemExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ListBox\ListBoxSelectedItemsExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ListBox\ListBoxSelectIndexExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ListBox\ListBoxSelectTextExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Menu\MenuItemCollapseExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Menu\MenuItemExpandExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Menu\MenuItemInvokeExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Menu\MenuItemIsCheckedExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Menu\MenuItemItemsExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Menu\MenuItemsExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ProgressBar\ProgressBarMaximumExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ProgressBar\ProgressBarMinimumExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ProgressBar\ProgressBarValueExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ScrollBar\HorizontalScrollBarScrollLeftExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ScrollBar\HorizontalScrollBarScrollLeftLargeExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ScrollBar\HorizontalScrollBarScrollRightExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ScrollBar\HorizontalScrollBarScrollRightLargeExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ScrollBar\ScrollBarBaseIsReadOnlyExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ScrollBar\ScrollBarBaseLargeChangeExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ScrollBar\ScrollBarBaseMaximumValueExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ScrollBar\ScrollBarBaseMinimumValueExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ScrollBar\ScrollBarBaseSmallChangeExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ScrollBar\ScrollBarBaseValueExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ScrollBar\VerticalScrollBarScrollDownExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ScrollBar\VerticalScrollBarScrollDownLargeExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ScrollBar\VerticalScrollBarScrollUpExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ScrollBar\VerticalScrollBarScrollUpLargeExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Slider\SliderGetLargeDecreaseButtonExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Slider\SliderGetLargeIncreaseButtonExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Slider\SliderGetThumbExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Slider\SliderGetValueExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Slider\SliderIsOnlyValueExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Slider\SliderLargeChangeExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Slider\SliderLargeDecrementExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Slider\SliderLargeIncrementExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Slider\SliderMaximumExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Slider\SliderMinimumExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Slider\SliderSetValueExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Slider\SliderSmallChangeExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Slider\SliderSmallDecrementExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Slider\SliderSmallIncrementExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Spinner\SpinnerDecrementExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Spinner\SpinnerGetValueExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Spinner\SpinnerIncrementExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Spinner\SpinnerIsOnlyValueExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Spinner\SpinnerMaximumExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Spinner\SpinnerMinimumExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Spinner\SpinnerSetValueExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Spinner\SpinnerSmallChangeExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Tab\TabItemAddToSelectionExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Tab\TabItemRemoveFromSelectionExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Tab\TabItemSelectExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Tab\TabSelectTabItemIndexExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Tab\TabSelectedTabItemExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Tab\TabSelectedTabItemIndexExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Tab\TabSelectTabItemTextExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Tab\TabTabItemsExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\TextBox\TextBoxEnterExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\TextBox\TextBoxGetTextExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\TextBox\TextBoxIsReadOnlyExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\TextBox\TextBoxSetTextExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Thumb\ThumbSlideHorizontallyExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Thumb\ThumbSlideVerticallyExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\TitleBar\TitleBarCloseButtonExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\TitleBar\TitleBarMaximizeButtonExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\TitleBar\TitleBarMinimizeButtonExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\TitleBar\TitleBarRestoreButtonExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ToggleButton\ToggleButtonGetToggleStateExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ToggleButton\ToggleButtonSetToggleStateExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\ToggleButton\ToggleButtonToggleExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Tree\TreeItemAddToSelectionExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Tree\TreeItemCollapseExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Tree\TreeItemExpandCollapseStateExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Tree\TreeItemExpandExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Tree\TreeItemGetTextExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Tree\TreeItemIsCheckedExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Tree\TreeItemItemsExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Tree\TreeItemRemoveFromSelectionExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Tree\TreeItemSelectExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Tree\TreeItemSetCheckedExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Tree\TreeItemsExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Tree\TreeSelectedTreeItemExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Window\WindowGetActiveWindowExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Window\WindowCloseExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Window\WindowContextMenuExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Window\WindowIsModalExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Window\WindowModalWindowsExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Window\WindowMoveExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Window\WindowPopupExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Window\WindowSetTransparencyExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Window\WindowTitleBarExecutor.cs" />
+    <Compile Include="CommandExecutors\Elements\Window\WindowTitleExecutor.cs" />
+    <Compile Include="CommandExecutors\GetElementTagNameExecutor.cs" />
+    <Compile Include="CommandExecutors\GetOrientationExecutor.cs" />
+    <Compile Include="CommandExecutors\GetWindowHandlesExecutor.cs" />
+    <Compile Include="CommandExecutors\GetCurrentWindowHandleExecutor.cs" />
+    <Compile Include="CommandExecutors\SetOrientationExecutor.cs" />
+    <Compile Include="CommandExecutors\StatusExecutor.cs" />
+    <Compile Include="CommandExecutors\SubmitElementExecutor.cs" />
+    <Compile Include="CommandExecutors\ExecuteScriptExecutor.cs" />
+    <Compile Include="CommandExecutors\ElementEqualsExecutor.cs" />
+    <Compile Include="CommandExecutors\GetActiveElementExecutor.cs" />
+    <Compile Include="CommandExecutors\MouseDoubleClickExecutor.cs" />
+    <Compile Include="CommandExecutors\MouseClickExecutor.cs" />
+    <Compile Include="CommandExecutors\QuitExecutor.cs" />
+    <Compile Include="CommandExecutorDispatchTable.cs" />
+    <Compile Include="CommandExecutors\ScreenshotExecutor.cs" />
+    <Compile Include="CommandExecutors\FindChildElementsExecutor.cs" />
+    <Compile Include="CommandExecutors\FindElementsExecutor.cs" />
+    <Compile Include="CommandExecutors\GetElementAttributeExecutor.cs" />
+    <Compile Include="CommandExecutors\IsElementEnabledExecutor.cs" />
+    <Compile Include="CommandExecutors\IsElementDisplayedExecutor.cs" />
+    <Compile Include="CommandExecutors\ImplicitlyWaitExecutor.cs" />
+    <Compile Include="CommandExecutors\GetElementSizeExecutor.cs" />
+    <Compile Include="CommandExecutors\GetElementTextExecutor.cs" />
+    <Compile Include="CommandExecutors\ClearElementExecutor.cs" />
+    <Compile Include="CommandExecutors\MouseMoveToExecutor.cs" />
+    <Compile Include="CommandExecutors\SendKeysToActiveElementExecutor.cs" />
+    <Compile Include="CommandExecutors\SendKeysToElementExecutor.cs" />
+    <Compile Include="CommandExecutors\ClickElementExecutor.cs" />
+    <Compile Include="CommandExecutors\CloseExecutor.cs" />
+    <Compile Include="CommandExecutors\CommandExecutorBase.cs" />
+    <Compile Include="CommandExecutors\FindChildElementExecutor.cs" />
+    <Compile Include="CommandExecutors\FindElementExecutor.cs" />
+    <Compile Include="CommandExecutors\NewSessionExecutor.cs" />
+    <Compile Include="CommandExecutors\NotImplementedExecutor.cs" />
+    <Compile Include="CommandExecutors\SwitchToWindowExecutor.cs" />
+    <Compile Include="CommandExecutors\MaximizeWindowExecutor.cs" />
+    <Compile Include="CommandLineOptions.cs" />
+    <Compile Include="Common\Command.cs" />
+    <Compile Include="Common\CommandInfo.cs" />
+    <Compile Include="Common\CommandResponse.cs" />
+    <Compile Include="Common\DriverCommand.cs" />
+    <Compile Include="Common\HttpResponseHelper.cs" />
+    <Compile Include="Common\JsonErrorCodes.cs" />
+    <Compile Include="Common\JsonWireClasses.cs" />
+    <Compile Include="Common\ResponseStatus.cs" />
+    <Compile Include="ElementsRegistry.cs" />
+    <Compile Include="Exceptions\AutomationException.cs" />
+    <Compile Include="Exceptions\InnerDriverRequestException.cs" />
+    <Compile Include="Extensions\AutomationElementXPathNavigatorExtended.cs" />
+    <Compile Include="Extensions\ByHelper.cs" />
+    <Compile Include="Extensions\ByXpath.cs" />
+    <Compile Include="FlaUI\DriverManager.cs" />
+    <Compile Include="FlaUI\FlaUIDriverElement.cs" />
+    <Compile Include="FlaUI\WhiteNetElementProperties.cs" />
+    <Compile Include="HttpRequest.cs" />
+    <Compile Include="CommandExecutors\IsElementSelectedExecutor.cs" />
+    <Compile Include="Input\KeyboardModifiers.cs" />
+    <Compile Include="Input\KeyEvent.cs" />
+    <Compile Include="Input\FlaNiumKeyboard.cs" />
+    <Compile Include="Listener.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="Logo.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Requester.cs" />
+    <Compile Include="CommandHelpers\OSInfo.cs" />
+    <Compile Include="CommandHelpers\BuildInfo.cs" />
+    <Compile Include="UriDispatchTables.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 и x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="flanium.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+    <Error Condition="!Exists('..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  -->
+  <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release' ">
+    <MakeDir Directories="$(OutDir)Merge" />
+  </Target>
+  <Import Project="..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets" Condition="Exists('..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets')" />
+</Project>
