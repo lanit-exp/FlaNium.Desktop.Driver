@@ -702,6 +702,15 @@ namespace FlaNium.Desktop.Driver.Common
         public static readonly string DateTimePickerSetDate = "dateTimePickerSetDate";
         #endregion
 
+        #region Other
+        public static readonly string CustomScreenshot = "customScreenshot";
+        public static readonly string ElementScreenshot = "elementScreenshot";
+        public static readonly string DragAndDrop = "DragAndDrop";
+        public static readonly string GetActiveWindow = "GetActiveWindow";
+        public static readonly string ElementDragAndDrop = "ElementDragAndDrop";
+        #endregion
+
+
         #endregion
 
         #endregion

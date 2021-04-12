@@ -108,6 +108,10 @@
   <ItemGroup>
     <Compile Include="Automator\Automator.cs" />
     <Compile Include="Automator\Capabilities.cs" />
+    <Compile Include="CommandExecutors\CustomScreenshotExecutor.cs" />
+    <Compile Include="CommandExecutors\DragAndDropExecutor.cs" />
+    <Compile Include="CommandExecutors\ElementDragAndDropExecutor.cs" />
+    <Compile Include="CommandExecutors\ElementScreenshotExecutor.cs" />
     <Compile Include="CommandExecutors\Elements\Button\ButtonInvokeExecutor.cs" />
     <Compile Include="CommandExecutors\Elements\Calendar\CalendarAddToSelectionExecutor.cs" />
     <Compile Include="CommandExecutors\Elements\Calendar\CalendarSelectDateExecutor.cs" />
@@ -260,6 +264,7 @@
     <Compile Include="CommandExecutors\Elements\Window\WindowSetTransparencyExecutor.cs" />
     <Compile Include="CommandExecutors\Elements\Window\WindowTitleBarExecutor.cs" />
     <Compile Include="CommandExecutors\Elements\Window\WindowTitleExecutor.cs" />
+    <Compile Include="CommandExecutors\GetActiveWindowExecutor.cs" />
     <Compile Include="CommandExecutors\GetElementTagNameExecutor.cs" />
     <Compile Include="CommandExecutors\GetOrientationExecutor.cs" />
     <Compile Include="CommandExecutors\GetWindowHandlesExecutor.cs" />
@@ -302,6 +307,7 @@
     <Compile Include="Common\CommandResponse.cs" />
     <Compile Include="Common\DriverCommand.cs" />
     <Compile Include="Common\HttpResponseHelper.cs" />
+    <Compile Include="Common\ImFormat.cs" />
     <Compile Include="Common\JsonErrorCodes.cs" />
     <Compile Include="Common\JsonWireClasses.cs" />
     <Compile Include="Common\ResponseStatus.cs" />

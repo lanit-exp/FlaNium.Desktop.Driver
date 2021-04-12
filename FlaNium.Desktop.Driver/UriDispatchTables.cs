@@ -957,6 +957,31 @@
             DriverCommand.DateTimePickerSetDate,
             new CommandInfo("POST", "/session/{sessionId}/element/{id}/dateTimePicker/setDate/{dateTime}"));
             #endregion
+
+            #region Other
+
+            this.commandDictionary.Add(
+            DriverCommand.CustomScreenshot,
+            new CommandInfo("POST", "/session/{sessionId}/customScreenshot/{format}"));
+
+            this.commandDictionary.Add(
+            DriverCommand.ElementScreenshot,
+            new CommandInfo("POST", "/session/{sessionId}/element/{id}/elementScreenshot/{format}"));
+
+            this.commandDictionary.Add(
+            DriverCommand.DragAndDrop,
+            new CommandInfo("POST", "/session/{sessionId}/dragAndDrop"));
+
+            this.commandDictionary.Add(
+            DriverCommand.GetActiveWindow,
+            new CommandInfo("POST", "/session/{sessionId}/getActiveWindow"));
+
+            this.commandDictionary.Add(
+            DriverCommand.ElementDragAndDrop,
+            new CommandInfo("POST", "/session/{sessionId}/element/{id}/elementDragAndDrop"));
+
+            #endregion
+
         }
 
         #endregion
