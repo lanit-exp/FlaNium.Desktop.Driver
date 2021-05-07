@@ -1,32 +1,28 @@
 ﻿namespace FlaNium.Desktop.Driver.Input
 {
-    #region using
-
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    
+    using System.Runtime.InteropServices;
     using global::FlaUI.Core.Input;
     using global::FlaUI.Core.WindowsAPI;
     using OpenQA.Selenium;
 
-    
-    #endregion
 
     internal class FlaNiumKeyboard
     {
-        #region Fields
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern bool PostMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+
+        [DllImport("user32.dll")]
+        private static extern int LoadKeyboardLayout(string pwszKLID, uint Flags);
+
 
         private readonly KeyboardModifiers modifiers = new KeyboardModifiers();
-
-        #endregion
-
-        #region Constructors and Destructors
-               
-
-        #endregion
-
-        #region Public Methods and Operators
+        
 
         public void KeyDown(string keyToPress)
         {
@@ -50,9 +46,7 @@
             this.SendKeys(builder);
         }
 
-        #endregion
-
-        #region Methods
+       
 
         protected void ReleaseModifiers()
         {
@@ -115,6 +109,13 @@
             Keyboard.Type(str);
         }
 
-        #endregion
+
+        public static bool SwitchInputLanguageToEng() {
+            string lang = "00000409"; //Eng
+
+            int ret = LoadKeyboardLayout(lang, 1);
+            return  PostMessage(GetForegroundWindow(), 0x50, 1, ret);
+        }
+                
     }
 }
