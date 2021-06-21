@@ -980,6 +980,10 @@
             DriverCommand.ElementDragAndDrop,
             new CommandInfo("POST", "/session/{sessionId}/element/{id}/elementDragAndDrop"));
 
+            this.commandDictionary.Add(
+            DriverCommand.SendCharsToActiveElement,
+            new CommandInfo("POST", "/session/{sessionId}/sendCharsToActiveElement"));
+
             #endregion
 
         }
