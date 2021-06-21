@@ -708,6 +708,7 @@ namespace FlaNium.Desktop.Driver.Common
         public static readonly string DragAndDrop = "DragAndDrop";
         public static readonly string GetActiveWindow = "GetActiveWindow";
         public static readonly string ElementDragAndDrop = "ElementDragAndDrop";
+        public static readonly string SendCharsToActiveElement = "SendCharsToActiveElement";
         #endregion
 
 

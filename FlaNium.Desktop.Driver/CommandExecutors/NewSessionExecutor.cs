@@ -10,6 +10,7 @@
     using FlaNium.Desktop.Driver.Automator;
     using FlaNium.Desktop.Driver.Common;
     using FlaNium.Desktop.Driver.FlaUI;
+    using FlaNium.Desktop.Driver.Input;
 
     #endregion
 
@@ -26,6 +27,8 @@
             this.InitializeApplication(this.Automator.ActualCapabilities.DebugConnectToRunningApp);
                       
             Thread.Sleep(this.Automator.ActualCapabilities.LaunchDelay);
+
+            FlaNiumKeyboard.SwitchInputLanguageToEng(); // Имеются проблемы ввода текста при активной русской раскладке. Добавлено переключение на английскую раскладку.
 
             return this.JsonResponse(ResponseStatus.Success, this.Automator.ActualCapabilities);
            

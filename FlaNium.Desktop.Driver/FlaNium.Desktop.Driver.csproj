@@ -269,6 +269,7 @@
     <Compile Include="CommandExecutors\GetOrientationExecutor.cs" />
     <Compile Include="CommandExecutors\GetWindowHandlesExecutor.cs" />
     <Compile Include="CommandExecutors\GetCurrentWindowHandleExecutor.cs" />
+    <Compile Include="CommandExecutors\SendCharsToActiveElementExecutor.cs" />
     <Compile Include="CommandExecutors\SetOrientationExecutor.cs" />
     <Compile Include="CommandExecutors\StatusExecutor.cs" />
     <Compile Include="CommandExecutors\SubmitElementExecutor.cs" />
