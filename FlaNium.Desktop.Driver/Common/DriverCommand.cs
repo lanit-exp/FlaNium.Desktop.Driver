@@ -709,6 +709,11 @@ namespace FlaNium.Desktop.Driver.Common
         public static readonly string GetActiveWindow = "GetActiveWindow";
         public static readonly string ElementDragAndDrop = "ElementDragAndDrop";
         public static readonly string SendCharsToActiveElement = "SendCharsToActiveElement";
+        public static readonly string GetKeyboardLayout = "GetKeyboardLayout";
+        public static readonly string SetKeyboardLayout = "SetKeyboardLayout";
+        public static readonly string ElementMouseAction = "ElementMouseAction";
+        public static readonly string GetClipboardText = "GetClipboardText";
+        public static readonly string KeyCombination = "KeyCombination";
         #endregion
 
 

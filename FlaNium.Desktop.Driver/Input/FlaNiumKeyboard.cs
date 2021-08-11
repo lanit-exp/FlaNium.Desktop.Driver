@@ -20,6 +20,12 @@
         [DllImport("user32.dll")]
         private static extern int LoadKeyboardLayout(string pwszKLID, uint Flags);
 
+        [DllImport("user32.dll")] 
+        private static extern uint GetWindowThreadProcessId(IntPtr hwnd, IntPtr proccess);
+
+        [DllImport("user32.dll")] 
+        private static extern ushort GetKeyboardLayout(uint thread);
+
 
         private readonly KeyboardModifiers modifiers = new KeyboardModifiers();
         
@@ -113,9 +119,19 @@
         public static bool SwitchInputLanguageToEng() {
             string lang = "00000409"; //Eng
 
-            int ret = LoadKeyboardLayout(lang, 1);
-            return  PostMessage(GetForegroundWindow(), 0x50, 1, ret);
+            return SwitchInputLanguage(lang);
         }
-                
+
+        public static bool SwitchInputLanguage(string lang)
+        {
+            int ret = LoadKeyboardLayout(lang, 1);
+            return PostMessage(GetForegroundWindow(), 0x50, 1, ret);
+        }
+
+        public static string GetKeyboardLayout()
+        {
+            return string.Format("{0:x8}", GetKeyboardLayout(GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero)));
+        }
+
     }
 }
