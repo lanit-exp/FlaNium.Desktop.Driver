@@ -984,6 +984,26 @@
             DriverCommand.SendCharsToActiveElement,
             new CommandInfo("POST", "/session/{sessionId}/sendCharsToActiveElement"));
 
+            this.commandDictionary.Add(
+            DriverCommand.GetKeyboardLayout,
+            new CommandInfo("POST", "/session/{sessionId}/getKeyboardLayout"));
+
+            this.commandDictionary.Add(
+            DriverCommand.SetKeyboardLayout,
+            new CommandInfo("POST", "/session/{sessionId}/setKeyboardLayout"));
+
+            this.commandDictionary.Add(
+            DriverCommand.ElementMouseAction,
+            new CommandInfo("POST", "/session/{sessionId}/element/{id}/elementMouseAction"));
+
+            this.commandDictionary.Add(
+            DriverCommand.GetClipboardText,
+            new CommandInfo("POST", "/session/{sessionId}/getClipboardText"));
+            
+            this.commandDictionary.Add(
+            DriverCommand.KeyCombination,
+            new CommandInfo("POST", "/session/{sessionId}/keyCombination"));
+
             #endregion
 
         }

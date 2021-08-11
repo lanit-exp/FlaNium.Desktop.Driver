@@ -111,6 +111,7 @@
     <Compile Include="CommandExecutors\CustomScreenshotExecutor.cs" />
     <Compile Include="CommandExecutors\DragAndDropExecutor.cs" />
     <Compile Include="CommandExecutors\ElementDragAndDropExecutor.cs" />
+    <Compile Include="CommandExecutors\ElementMouseActionExecutor.cs" />
     <Compile Include="CommandExecutors\ElementScreenshotExecutor.cs" />
     <Compile Include="CommandExecutors\Elements\Button\ButtonInvokeExecutor.cs" />
     <Compile Include="CommandExecutors\Elements\Calendar\CalendarAddToSelectionExecutor.cs" />
@@ -266,10 +267,14 @@
     <Compile Include="CommandExecutors\Elements\Window\WindowTitleExecutor.cs" />
     <Compile Include="CommandExecutors\GetActiveWindowExecutor.cs" />
     <Compile Include="CommandExecutors\GetElementTagNameExecutor.cs" />
+    <Compile Include="CommandExecutors\GetKeyboardLayoutExecutor.cs" />
     <Compile Include="CommandExecutors\GetOrientationExecutor.cs" />
     <Compile Include="CommandExecutors\GetWindowHandlesExecutor.cs" />
     <Compile Include="CommandExecutors\GetCurrentWindowHandleExecutor.cs" />
+    <Compile Include="CommandExecutors\GetClipboardTextExecutor.cs" />
+    <Compile Include="CommandExecutors\KeyCombinationExecutor.cs" />
     <Compile Include="CommandExecutors\SendCharsToActiveElementExecutor.cs" />
+    <Compile Include="CommandExecutors\SetKeyboardLayoutExecutor.cs" />
     <Compile Include="CommandExecutors\SetOrientationExecutor.cs" />
     <Compile Include="CommandExecutors\StatusExecutor.cs" />
     <Compile Include="CommandExecutors\SubmitElementExecutor.cs" />
