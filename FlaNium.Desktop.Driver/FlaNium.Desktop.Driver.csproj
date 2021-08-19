@@ -274,6 +274,7 @@
     <Compile Include="CommandExecutors\GetClipboardTextExecutor.cs" />
     <Compile Include="CommandExecutors\KeyCombinationExecutor.cs" />
     <Compile Include="CommandExecutors\SendCharsToActiveElementExecutor.cs" />
+    <Compile Include="CommandExecutors\SetClipboardTextExecutor.cs" />
     <Compile Include="CommandExecutors\SetKeyboardLayoutExecutor.cs" />
     <Compile Include="CommandExecutors\SetOrientationExecutor.cs" />
     <Compile Include="CommandExecutors\StatusExecutor.cs" />

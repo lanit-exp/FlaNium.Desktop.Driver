@@ -263,5 +263,11 @@ namespace FlaNium.Desktop.Driver.FlaUI
             File.Delete(path);
             return Convert.ToBase64String(inArray);
         }
+
+
+        public static void AttachToProcess(string processName)
+        {
+            DriverManager.Application = Application.Attach(processName);
+        }
     }
 }

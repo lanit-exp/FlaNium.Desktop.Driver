@@ -19,6 +19,7 @@
             this.LaunchDelay = 0;
             this.DebugConnectToRunningApp = false;
             this.InnerPort = 9998;
+            this.ProcessName = string.Empty;
         }
 
         #endregion
@@ -39,6 +40,9 @@
         
         [JsonProperty("launchDelay")]
         public int LaunchDelay { get; set; }
+
+        [JsonProperty("processName")]
+        public string ProcessName { get; set; }
 
         #endregion
 
