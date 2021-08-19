@@ -713,6 +713,7 @@ namespace FlaNium.Desktop.Driver.Common
         public static readonly string SetKeyboardLayout = "SetKeyboardLayout";
         public static readonly string ElementMouseAction = "ElementMouseAction";
         public static readonly string GetClipboardText = "GetClipboardText";
+        public static readonly string SetClipboardText = "SetClipboardText";
         public static readonly string KeyCombination = "KeyCombination";
         #endregion
 

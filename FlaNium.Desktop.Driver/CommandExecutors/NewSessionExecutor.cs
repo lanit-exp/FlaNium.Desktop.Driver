@@ -1,47 +1,57 @@
 ﻿namespace FlaNium.Desktop.Driver.CommandExecutors
 {
-    #region using
-
     using System.Threading;
-
     using Newtonsoft.Json;
-
-    
     using FlaNium.Desktop.Driver.Automator;
     using FlaNium.Desktop.Driver.Common;
     using FlaNium.Desktop.Driver.FlaUI;
     using FlaNium.Desktop.Driver.Input;
 
-    #endregion
 
     internal class NewSessionExecutor : CommandExecutorBase
     {
-        #region Methods
 
         protected override string DoImpl()
         {            
-            var serializedCapability =
-                JsonConvert.SerializeObject(this.ExecutedCommand.Parameters["desiredCapabilities"]);
+            var serializedCapability = JsonConvert.SerializeObject(this.ExecutedCommand.Parameters["desiredCapabilities"]);
+
             this.Automator.ActualCapabilities = Capabilities.CapabilitiesFromJsonString(serializedCapability);
 
-            this.InitializeApplication(this.Automator.ActualCapabilities.DebugConnectToRunningApp);
-                      
-            Thread.Sleep(this.Automator.ActualCapabilities.LaunchDelay);
+            this.InitializeApplication();
 
             FlaNiumKeyboard.SwitchInputLanguageToEng(); // Имеются проблемы ввода текста при активной русской раскладке. Добавлено переключение на английскую раскладку.
 
             return this.JsonResponse(ResponseStatus.Success, this.Automator.ActualCapabilities);
-           
         }
 
-        private void InitializeApplication(bool debugDoNotDeploy = false)
+        private void InitializeApplication()
         {
             var appPath = this.Automator.ActualCapabilities.App;
             var appArguments = this.Automator.ActualCapabilities.Arguments;
-                    
-            DriverManager.StartApp(appPath, appArguments, debugDoNotDeploy);
+            var debugDoNotDeploy = this.Automator.ActualCapabilities.DebugConnectToRunningApp;
+            var processName = this.Automator.ActualCapabilities.ProcessName;
+            var launchDelay = this.Automator.ActualCapabilities.LaunchDelay;
+            
+
+            if (processName.Length == 0)
+            {
+                DriverManager.StartApp(appPath, appArguments, debugDoNotDeploy);
+                Thread.Sleep(launchDelay);
+            }
+            else
+            {
+                try
+                {
+                    DriverManager.StartApp(appPath, appArguments, debugDoNotDeploy);
+                    Thread.Sleep(launchDelay);
+                }
+                catch
+                {
+                    Thread.Sleep(launchDelay);
+                    DriverManager.AttachToProcess(processName);
+                }
+            }
         }
 
-        #endregion
     }
 }

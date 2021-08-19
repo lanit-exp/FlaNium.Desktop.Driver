@@ -999,7 +999,11 @@
             this.commandDictionary.Add(
             DriverCommand.GetClipboardText,
             new CommandInfo("POST", "/session/{sessionId}/getClipboardText"));
-            
+
+            this.commandDictionary.Add(
+            DriverCommand.SetClipboardText,
+            new CommandInfo("POST", "/session/{sessionId}/setClipboardText"));
+
             this.commandDictionary.Add(
             DriverCommand.KeyCombination,
             new CommandInfo("POST", "/session/{sessionId}/keyCombination"));
