@@ -966,7 +966,7 @@
 
             this.commandDictionary.Add(
             DriverCommand.ElementScreenshot,
-            new CommandInfo("POST", "/session/{sessionId}/element/{id}/elementScreenshot/{format}"));
+            new CommandInfo("POST", "/session/{sessionId}/element/{id}/elementScreenshot"));
 
             this.commandDictionary.Add(
             DriverCommand.DragAndDrop,

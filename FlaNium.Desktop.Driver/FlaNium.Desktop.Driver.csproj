@@ -313,6 +313,7 @@
     <Compile Include="Common\CommandInfo.cs" />
     <Compile Include="Common\CommandResponse.cs" />
     <Compile Include="Common\DriverCommand.cs" />
+    <Compile Include="Common\ElementCapture.cs" />
     <Compile Include="Common\HttpResponseHelper.cs" />
     <Compile Include="Common\ImFormat.cs" />
     <Compile Include="Common\JsonErrorCodes.cs" />
