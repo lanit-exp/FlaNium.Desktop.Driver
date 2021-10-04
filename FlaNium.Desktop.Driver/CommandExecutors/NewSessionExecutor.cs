@@ -43,13 +43,15 @@
                 try
                 {
                     DriverManager.StartApp(appPath, appArguments, debugDoNotDeploy);
-                    Thread.Sleep(launchDelay);
                 }
                 catch
                 {
-                    Thread.Sleep(launchDelay);
-                    DriverManager.AttachToProcess(processName);
+                    
                 }
+
+                Thread.Sleep(launchDelay);
+                DriverManager.AttachToProcess(processName);
+
             }
         }
 
