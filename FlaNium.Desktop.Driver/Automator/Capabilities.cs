@@ -20,6 +20,7 @@
             this.DebugConnectToRunningApp = false;
             this.InnerPort = 9998;
             this.ProcessName = string.Empty;
+            this.ResponseTimeout = 300000;
         }
 
         #endregion
@@ -43,6 +44,9 @@
 
         [JsonProperty("processName")]
         public string ProcessName { get; set; }
+
+        [JsonProperty("responseTimeout")]
+        public int ResponseTimeout { get; set; }
 
         #endregion
 

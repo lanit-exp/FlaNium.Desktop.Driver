@@ -10,24 +10,18 @@
     using FlaNium.Desktop.Driver.Automator;
     using FlaNium.Desktop.Driver.Common;
     using FlaNium.Desktop.Driver.Exceptions;
+    using System.Threading.Tasks;
+    using System.Collections.Generic;
 
     #endregion
 
     internal abstract class CommandExecutorBase
     {
-        #region Public Properties
 
         public Command ExecutedCommand { get; set; }
 
-        #endregion
-
-        #region Properties
-
         protected Automator Automator { get; set; }
 
-        #endregion
-
-        #region Public Methods and Operators
 
         public CommandResponse Do()
         {
@@ -40,7 +34,7 @@
             {
                 var session = this.ExecutedCommand.SessionId;
                 this.Automator = Automator.InstanceForSession(session);
-                return CommandResponse.Create(HttpStatusCode.OK, this.DoImpl());
+                return CommandResponse.Create(HttpStatusCode.OK, this.DoInOtherThread());
             }
             catch (AutomationException exception)
             {
@@ -48,21 +42,50 @@
             }
             catch (NotImplementedException exception)
             {
-                return CommandResponse.Create(
-                    HttpStatusCode.NotImplemented,
-                    this.JsonResponse(ResponseStatus.UnknownCommand, exception));
+                return CommandResponse.Create(HttpStatusCode.NotImplemented, this.JsonResponse(ResponseStatus.UnknownCommand, exception));
+            }
+            catch (TimeoutException exception)
+            {
+                return CommandResponse.Create(HttpStatusCode.NotImplemented, this.JsonResponse(ResponseStatus.Timeout, exception));
             }
             catch (Exception exception)
             {
-                return CommandResponse.Create(
-                    HttpStatusCode.OK,
-                    this.JsonResponse(ResponseStatus.UnknownError, exception));
+                return CommandResponse.Create(HttpStatusCode.OK, this.JsonResponse(ResponseStatus.UnknownError, exception));
             }
         }
 
-        #endregion
 
-        #region Methods
+        private string DoInOtherThread()
+        {
+            if (this is GetClipboardTextExecutor || this is SetClipboardTextExecutor)
+            {
+                return DoImpl();
+            }
+
+            string result = null;
+
+            Task task = Task.Factory.StartNew(() =>
+            {
+                result = DoImpl();
+            });
+
+
+            try
+            {
+                if (!task.Wait(this.Automator.ActualCapabilities == null? 300000: this.Automator.ActualCapabilities.ResponseTimeout))
+                {
+                    throw new TimeoutException("Response timed out!!!");
+                }
+            }
+            catch (AggregateException exception)
+            {
+                IEnumerator<Exception> enumerator = exception.InnerExceptions.GetEnumerator();
+                enumerator.MoveNext();
+                throw enumerator.Current;
+            }
+
+            return result;
+        }
 
         protected abstract string DoImpl();
 
@@ -81,6 +104,5 @@
                 Formatting.Indented);
         }
 
-        #endregion
     }
 }

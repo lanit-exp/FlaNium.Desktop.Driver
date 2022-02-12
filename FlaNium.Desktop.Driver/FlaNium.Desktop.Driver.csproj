@@ -308,6 +308,12 @@
     <Compile Include="CommandExecutors\NotImplementedExecutor.cs" />
     <Compile Include="CommandExecutors\SwitchToWindowExecutor.cs" />
     <Compile Include="CommandExecutors\MaximizeWindowExecutor.cs" />
+    <Compile Include="CommandExecutors\TouchActions\TouchActionsDragExecutor.cs" />
+    <Compile Include="CommandExecutors\TouchActions\TouchActionsHoldExecutor.cs" />
+    <Compile Include="CommandExecutors\TouchActions\TouchActionsPinchExecutor.cs" />
+    <Compile Include="CommandExecutors\TouchActions\TouchActionsRotateExecutor.cs" />
+    <Compile Include="CommandExecutors\TouchActions\TouchActionsTapExecutor.cs" />
+    <Compile Include="CommandExecutors\TouchActions\TouchActionsTransitionExecutor.cs" />
     <Compile Include="CommandLineOptions.cs" />
     <Compile Include="Common\Command.cs" />
     <Compile Include="Common\CommandInfo.cs" />
@@ -330,9 +336,11 @@
     <Compile Include="FlaUI\WhiteNetElementProperties.cs" />
     <Compile Include="HttpRequest.cs" />
     <Compile Include="CommandExecutors\IsElementSelectedExecutor.cs" />
+    <Compile Include="Input\Interpolation.cs" />
     <Compile Include="Input\KeyboardModifiers.cs" />
     <Compile Include="Input\KeyEvent.cs" />
     <Compile Include="Input\FlaNiumKeyboard.cs" />
+    <Compile Include="Input\Touch.cs" />
     <Compile Include="Listener.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Logo.cs" />
@@ -364,6 +372,7 @@
   <ItemGroup>
     <Content Include="flanium.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -181,8 +181,17 @@
             var executor = this.executorDispatcher.GetExecutor(command.Name);
             executor.ExecutedCommand = command;
             var respnose = executor.Do();
-            Logger.Debug("RESPONSE:\r\n{0}", respnose);
 
+            // Имеется значительная задержка при выводе объемных логов (таких как скриншоты) в консоль
+            if (command.Name.ToLower().Contains("screenshot"))
+            {
+                Logger.Debug("RESPONSE:\r\n Content length: {0}", respnose.Content.Length);
+            }
+            else
+            {
+                Logger.Debug("RESPONSE:\r\n{0}", respnose);
+            }
+         
             return respnose;
         }
 
