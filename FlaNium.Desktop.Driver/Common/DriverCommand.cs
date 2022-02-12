@@ -715,6 +715,13 @@ namespace FlaNium.Desktop.Driver.Common
         public static readonly string GetClipboardText = "GetClipboardText";
         public static readonly string SetClipboardText = "SetClipboardText";
         public static readonly string KeyCombination = "KeyCombination";
+
+        public static readonly string TouchActionsTap = "TouchActionsTap";
+        public static readonly string TouchActionsHold = "TouchActionsHold";
+        public static readonly string TouchActionsPinch = "TouchActionsPinch";
+        public static readonly string TouchActionsTransition = "TouchActionsTransition";
+        public static readonly string TouchActionsDrag = "TouchActionsDrag";
+        public static readonly string TouchActionsRotate = "TouchActionsRotate";
         #endregion
 
 

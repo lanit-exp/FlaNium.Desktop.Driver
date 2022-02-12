@@ -1008,6 +1008,32 @@
             DriverCommand.KeyCombination,
             new CommandInfo("POST", "/session/{sessionId}/keyCombination"));
 
+
+
+            this.commandDictionary.Add(
+            DriverCommand.TouchActionsTap,
+            new CommandInfo("POST", "/session/{sessionId}/touchActionsTap"));
+
+            this.commandDictionary.Add(
+            DriverCommand.TouchActionsHold,
+            new CommandInfo("POST", "/session/{sessionId}/touchActionsHold"));
+
+            this.commandDictionary.Add(
+            DriverCommand.TouchActionsPinch,
+            new CommandInfo("POST", "/session/{sessionId}/touchActionsPinch"));
+
+            this.commandDictionary.Add(
+            DriverCommand.TouchActionsTransition,
+            new CommandInfo("POST", "/session/{sessionId}/touchActionsTransition"));
+
+            this.commandDictionary.Add(
+            DriverCommand.TouchActionsDrag,
+            new CommandInfo("POST", "/session/{sessionId}/touchActionsDrag"));
+
+            this.commandDictionary.Add(
+            DriverCommand.TouchActionsRotate,
+            new CommandInfo("POST", "/session/{sessionId}/touchActionsRotate"));
+
             #endregion
 
         }

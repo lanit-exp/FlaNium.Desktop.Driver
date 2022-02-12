@@ -40,6 +40,12 @@
             }
             else
             {
+                if (!debugDoNotDeploy)
+                {
+                    DriverManager.CloseDriver();
+                    DriverManager.CloseAllApplication(processName);
+                }
+
                 try
                 {
                     DriverManager.StartApp(appPath, appArguments, debugDoNotDeploy);
@@ -51,8 +57,8 @@
 
                 Thread.Sleep(launchDelay);
                 DriverManager.AttachToProcess(processName);
-
-            }
+                       
+            }               
         }
 
     }
