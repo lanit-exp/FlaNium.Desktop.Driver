@@ -5,12 +5,14 @@
     using FlaNium.Desktop.Driver.Automator;
     using FlaNium.Desktop.Driver.Common;
     using FlaNium.Desktop.Driver.FlaUI;
+    using static FlaNium.Desktop.Driver.Inject.DLLFilesToInject;
+    using InjectDll;
+    using FlaNium.Desktop.Driver.Inject;
+    using System.IO;
     using FlaNium.Desktop.Driver.Input;
-
 
     internal class NewSessionExecutor : CommandExecutorBase
     {
-
         protected override string DoImpl()
         {            
             var serializedCapability = JsonConvert.SerializeObject(this.ExecutedCommand.Parameters["desiredCapabilities"]);
@@ -21,7 +23,35 @@
 
             FlaNiumKeyboard.SwitchInputLanguageToEng(); // Имеются проблемы ввода текста при активной русской раскладке. Добавлено переключение на английскую раскладку.
 
+
+            if (this.Automator.ActualCapabilities.InjectionActivate) {
+
+                string appType = this.Automator.ActualCapabilities.AppType;
+
+                if (appType == string.Empty) return this.JsonResponse(ResponseStatus.UnknownCommand, "AppType Capabilities (DesktopOptions) should NOT be EMPTY!");
+
+                try
+                {
+                    DLLFile dllFile = DLLFilesToInject.GetDLLFile(appType);
+
+                    if (!InjectDll(dllFile))
+                    {
+                        return this.JsonResponse(ResponseStatus.SessionNotCreatedException, "Injecting FAILED!");
+                    }
+
+
+                }
+                catch (InvalidDataException) {
+                    return this.JsonResponse(ResponseStatus.UnknownCommand, "Not correct AppType Capabilities (DesktopOptions)!");
+                }
+
+
+                DriverManager.ClientSocket = new ClientSocket();
+
+            }
+
             return this.JsonResponse(ResponseStatus.Success, this.Automator.ActualCapabilities);
+
         }
 
         private void InitializeApplication()
@@ -59,6 +89,19 @@
                 DriverManager.AttachToProcess(processName);
                        
             }               
+        }
+
+        private bool InjectDll(DLLFile dLLFile) {
+
+            string dllPath = getFullDllPath(dLLFile);
+
+            if (dllPath == null) return false;
+
+            int procID = DriverManager.Application.ProcessId;
+
+            if (!Injector.InjectDLL(procID, dllPath)) return false;
+
+            return true;
         }
 
     }

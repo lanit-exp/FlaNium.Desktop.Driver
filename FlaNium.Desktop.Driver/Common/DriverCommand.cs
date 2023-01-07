@@ -472,6 +472,8 @@ namespace FlaNium.Desktop.Driver.Common
 
         #region FlaNium
 
+        public static readonly string ExecuteInApp = "executeInApp";
+
         #region ComboBox
         public static readonly string ComboBoxCollapse = "comboBoxCollapse";
         public static readonly string ComboBoxExpand = "comboBoxExpand";

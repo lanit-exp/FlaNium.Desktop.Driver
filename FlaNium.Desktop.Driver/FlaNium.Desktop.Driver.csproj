@@ -265,6 +265,7 @@
     <Compile Include="CommandExecutors\Elements\Window\WindowSetTransparencyExecutor.cs" />
     <Compile Include="CommandExecutors\Elements\Window\WindowTitleBarExecutor.cs" />
     <Compile Include="CommandExecutors\Elements\Window\WindowTitleExecutor.cs" />
+    <Compile Include="CommandExecutors\ExecuteInAppExecutor.cs" />
     <Compile Include="CommandExecutors\GetActiveWindowExecutor.cs" />
     <Compile Include="CommandExecutors\GetElementTagNameExecutor.cs" />
     <Compile Include="CommandExecutors\GetKeyboardLayoutExecutor.cs" />
@@ -336,6 +337,9 @@
     <Compile Include="FlaUI\WhiteNetElementProperties.cs" />
     <Compile Include="HttpRequest.cs" />
     <Compile Include="CommandExecutors\IsElementSelectedExecutor.cs" />
+    <Compile Include="Inject\ClientSocket.cs" />
+    <Compile Include="Inject\DLLFilesToInject.cs" />
+    <Compile Include="Inject\Injector.cs" />
     <Compile Include="Input\Interpolation.cs" />
     <Compile Include="Input\KeyboardModifiers.cs" />
     <Compile Include="Input\KeyEvent.cs" />

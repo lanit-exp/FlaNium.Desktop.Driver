@@ -17,7 +17,7 @@ using System.Drawing;
 using System.IO;
 
 using System.Threading;
-
+using FlaNium.Desktop.Driver.Inject;
 
 namespace FlaNium.Desktop.Driver.FlaUI
 {
@@ -44,19 +44,28 @@ namespace FlaNium.Desktop.Driver.FlaUI
 
         public static Application Application { get; private set; }
 
+        public static ClientSocket ClientSocket { get; set; }
+
         public static void CloseDriver(bool isDebug = false)
         {
             try
             {
                 if (!isDebug)
-                    DriverManager.Application?.Close();
-                DriverManager.Application?.Dispose();
+                {
+                    Application?.Close();
+                }
+
+                Application?.Dispose();
+                ClientSocket.FreeSocket();
             }
             catch
             {
             }
-            DriverManager.Application = (Application)null;
-            DriverManager._currentWindow = (Window)null;
+
+            Application = (Application)null;
+            _currentWindow = (Window)null;
+            ClientSocket = null;
+
             GC.Collect();
         }
 

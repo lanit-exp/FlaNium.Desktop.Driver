@@ -292,6 +292,12 @@
 
         private void InitializeFlaNiumCommandDictionary()
         {
+
+            this.commandDictionary.Add(
+                DriverCommand.ExecuteInApp,
+                new CommandInfo("POST", "/session/{sessionId}/executeInApp"));
+
+
             #region ComboBox
             this.commandDictionary.Add(
                 DriverCommand.ComboBoxCollapse,
@@ -957,6 +963,7 @@
             DriverCommand.DateTimePickerSetDate,
             new CommandInfo("POST", "/session/{sessionId}/element/{id}/dateTimePicker/setDate/{dateTime}"));
             #endregion
+
 
             #region Other
 
