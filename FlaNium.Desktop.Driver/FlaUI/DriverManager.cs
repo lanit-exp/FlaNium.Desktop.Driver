@@ -275,8 +275,14 @@ namespace FlaNium.Desktop.Driver.FlaUI
 
 
         public static void AttachToProcess(string processName)
-        {
-            DriverManager.Application = Application.Attach(processName);
+        {            
+            var processes = Process.GetProcessesByName(processName);
+
+            if (processes.Length > 0)
+            {
+                DriverManager.Application = Application.Attach(processes[0]);
+            } else throw new Exception("Unable to find process with name: " + processName);
+
         }
     }
 }

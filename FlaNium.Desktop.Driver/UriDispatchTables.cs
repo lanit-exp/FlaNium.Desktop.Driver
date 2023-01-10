@@ -1004,10 +1004,6 @@
             new CommandInfo("POST", "/session/{sessionId}/element/{id}/elementMouseAction"));
 
             this.commandDictionary.Add(
-            DriverCommand.SmoothSlide,
-            new CommandInfo("POST", "/session/{sessionId}/smoothSlide"));
-
-            this.commandDictionary.Add(
             DriverCommand.GetClipboardText,
             new CommandInfo("POST", "/session/{sessionId}/getClipboardText"));
 
