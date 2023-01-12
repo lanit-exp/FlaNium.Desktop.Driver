@@ -1,17 +1,14 @@
-﻿namespace FlaNium.Desktop.Driver.CommandExecutors
-{
+﻿using System;
+using System.Drawing.Imaging;
+using System.IO;
+using FlaNium.Desktop.Driver.Common;
+using FlaUI.Core.Capturing;
 
-    using System;
-    using System.Drawing.Imaging;
-    using System.IO;
-    using global::FlaUI.Core.Capturing;
-    using FlaNium.Desktop.Driver.Common;
+namespace FlaNium.Desktop.Driver.CommandExecutors.Auxiliary {
 
-    internal class ElementScreenshotExecutor : CommandExecutorBase
-    {
-       
-        protected override string DoImpl()
-        {
+    internal class ElementScreenshotExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var elementId = this.ExecutedCommand.Parameters["ID"].ToString();
             var imageFormatStr = this.ExecutedCommand.Parameters["format"].ToString();
             var foreground = Boolean.Parse(this.ExecutedCommand.Parameters["foreground"].ToString());
@@ -23,20 +20,18 @@
             MemoryStream memoryStream = new MemoryStream();
             CaptureImage captureImage;
 
-            if (foreground)
-            {
+            if (foreground) {
                 captureImage = Capture.Element(element.FlaUIElement);
             }
-            else
-            {
+            else {
                 captureImage = ElementCapture.CaptureImageOfElement(element.FlaUIElement);
             }
 
-            captureImage.Bitmap.Save((Stream)memoryStream, imageFormat); 
+            captureImage.Bitmap.Save((Stream)memoryStream, imageFormat);
 
             return this.JsonResponse(ResponseStatus.Success, (object)Convert.ToBase64String(memoryStream.ToArray()));
         }
 
-
     }
+
 }

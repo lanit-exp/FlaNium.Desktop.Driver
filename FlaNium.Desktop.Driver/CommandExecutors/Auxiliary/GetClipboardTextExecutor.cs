@@ -1,13 +1,11 @@
-﻿
-namespace FlaNium.Desktop.Driver.CommandExecutors
-{
-    using FlaNium.Desktop.Driver.Common;
-    using System.Windows;
+﻿using System.Windows;
+using FlaNium.Desktop.Driver.Common;
 
-    class GetClipboardTextExecutor : CommandExecutorBase
-    {
-        protected override string DoImpl()
-        {
+namespace FlaNium.Desktop.Driver.CommandExecutors.Auxiliary {
+
+    class GetClipboardTextExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             string clipboardString = "";
 
             if (Clipboard.ContainsText()) {
@@ -17,5 +15,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors
 
             return this.JsonResponse(ResponseStatus.Success, clipboardString);
         }
+
     }
+
 }
