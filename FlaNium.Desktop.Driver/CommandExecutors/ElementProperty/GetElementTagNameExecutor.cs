@@ -1,20 +1,12 @@
-﻿namespace FlaNium.Desktop.Driver.CommandExecutors
-{
-    #region using
+﻿using FlaNium.Desktop.Driver.Common;
+using FlaNium.Desktop.Driver.FlaUI;
+using FlaUI.Core.AutomationElements;
 
-    using global::FlaUI.Core.AutomationElements;
-    using FlaNium.Desktop.Driver.FlaUI;
-    using FlaNium.Desktop.Driver.Common;
+namespace FlaNium.Desktop.Driver.CommandExecutors.ElementProperty {
 
+    internal class GetElementTagNameExecutor : CommandExecutorBase {
 
-    #endregion
-
-    internal class GetElementTagNameExecutor : CommandExecutorBase
-    {
-        #region Methods
-
-        protected override string DoImpl()
-        {
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             FlaUIDriverElement element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
@@ -24,9 +16,8 @@
             var value = flaUiElement.Properties.ControlType.ToString();
 
             return this.JsonResponse(ResponseStatus.Success, value);
-
         }
 
-        #endregion
     }
+
 }
