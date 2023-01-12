@@ -1,22 +1,15 @@
-﻿namespace FlaNium.Desktop.Driver.CommandExecutors
-{
-    #region using
+﻿using System;
+using System.Linq;
+using FlaNium.Desktop.Driver.Common;
+using FlaNium.Desktop.Driver.Extensions;
+using FlaNium.Desktop.Driver.FlaUI;
+using FlaUI.Core.AutomationElements;
 
-    using System.Linq;
-    using global::FlaUI.Core.AutomationElements;
-    using FlaNium.Desktop.Driver.Extensions;
-    using FlaNium.Desktop.Driver.Common;
-    using FlaUI;
-    using System;
+namespace FlaNium.Desktop.Driver.CommandExecutors.FindElement {
 
-    #endregion
+    internal class FindChildElementsExecutor : CommandExecutorBase {
 
-    internal class FindChildElementsExecutor : CommandExecutorBase
-    {
-        #region Methods
-
-        protected override string DoImpl()
-        {
+        protected override string DoImpl() {
             var parentKey = this.ExecutedCommand.Parameters["ID"].ToString();
             var searchValue = this.ExecutedCommand.Parameters["value"].ToString();
             var searchStrategy = this.ExecutedCommand.Parameters["using"].ToString();
@@ -25,28 +18,27 @@
 
             AutomationElement[] elements;
 
-            if (searchStrategy.Equals("xpath"))
-            {
+            if (searchStrategy.Equals("xpath")) {
                 elements = ByXpath.FindAllByXPath(searchValue, parent.FlaUIElement);
             }
-            else
-            {
+            else {
                 var condition = ByHelper.GetStrategy(searchStrategy, searchValue);
 
                 elements = parent.FlaUIElement.FindAllDescendants(condition);
             }
 
             var flaUiDriverElementList = elements
-                .Select<AutomationElement, FlaUIDriverElement>((Func<AutomationElement, FlaUIDriverElement>)(x => new FlaUIDriverElement(x)))
+                .Select<AutomationElement, FlaUIDriverElement>(
+                    (Func<AutomationElement, FlaUIDriverElement>)(x => new FlaUIDriverElement(x)))
                 .ToList<FlaUIDriverElement>();
 
             var registeredKeys = this.Automator.ElementsRegistry.RegisterElements(flaUiDriverElementList);
 
             var registeredObjects = registeredKeys.Select(e => new JsonElementContent(e));
+
             return this.JsonResponse(ResponseStatus.Success, registeredObjects);
-               
         }
-        
-        #endregion
+
     }
+
 }

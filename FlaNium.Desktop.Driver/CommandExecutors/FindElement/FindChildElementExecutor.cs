@@ -1,22 +1,14 @@
-﻿   
-namespace FlaNium.Desktop.Driver.CommandExecutors
-{
-    using FlaNium.Desktop.Driver.Extensions;
-    #region using
+﻿using FlaNium.Desktop.Driver.Common;
+using FlaNium.Desktop.Driver.Exceptions;
+using FlaNium.Desktop.Driver.Extensions;
+using FlaNium.Desktop.Driver.FlaUI;
+using FlaUI.Core.AutomationElements;
 
-    using FlaNium.Desktop.Driver.FlaUI;
-    using FlaNium.Desktop.Driver.Common;
-    using FlaNium.Desktop.Driver.Exceptions;
-    using global::FlaUI.Core.AutomationElements;
+namespace FlaNium.Desktop.Driver.CommandExecutors.FindElement {
 
-    #endregion
+    internal class FindChildElementExecutor : CommandExecutorBase {
 
-    internal class FindChildElementExecutor : CommandExecutorBase
-    {
-        #region Methods
-
-        protected override string DoImpl()
-        {
+        protected override string DoImpl() {
             var parentKey = this.ExecutedCommand.Parameters["ID"].ToString();
             var searchValue = this.ExecutedCommand.Parameters["value"].ToString();
             var searchStrategy = this.ExecutedCommand.Parameters["using"].ToString();
@@ -25,8 +17,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors
 
             AutomationElement element;
 
-            if (searchStrategy.Equals("xpath"))
-            {
+            if (searchStrategy.Equals("xpath")) {
                 element = ByXpath.FindFirstByXPath(searchValue, parent.FlaUIElement);
             }
             else {
@@ -34,17 +25,17 @@ namespace FlaNium.Desktop.Driver.CommandExecutors
 
                 element = parent.FlaUIElement.FindFirstDescendant(condition);
             }
-       
-            if (element == null)
-            {
+
+            if (element == null) {
                 throw new AutomationException("Element cannot be found", ResponseStatus.NoSuchElement);
             }
 
             var registeredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUIDriverElement(element));
             var registeredObject = new JsonElementContent(registeredKey);
+
             return this.JsonResponse(ResponseStatus.Success, registeredObject);
         }
 
-        #endregion
     }
+
 }

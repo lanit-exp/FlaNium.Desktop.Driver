@@ -1,19 +1,13 @@
-﻿namespace FlaNium.Desktop.Driver.CommandExecutors
-{
-    #region using
+﻿using FlaNium.Desktop.Driver.Common;
+using FlaNium.Desktop.Driver.Exceptions;
+using FlaNium.Desktop.Driver.FlaUI;
+using FlaUI.Core.AutomationElements;
 
-    using FlaNium.Desktop.Driver.Common;
-    using FlaUI;
-    using FlaNium.Desktop.Driver.Exceptions;
-    using global::FlaUI.Core.AutomationElements;
-    #endregion
+namespace FlaNium.Desktop.Driver.CommandExecutors.FindElement {
 
-    internal class GetActiveElementExecutor : CommandExecutorBase
-    {
-        #region Methods
+    internal class GetActiveElementExecutor : CommandExecutorBase {
 
-        protected override string DoImpl()
-        {
+        protected override string DoImpl() {
             AutomationElement uiItem = DriverManager.GetActiveWindow().Automation.FocusedElement();
 
             if (uiItem == null)
@@ -21,11 +15,10 @@
 
             var registeredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUIDriverElement(uiItem));
             var registeredObject = new JsonElementContent(registeredKey);
-           
+
             return this.JsonResponse(ResponseStatus.Success, registeredObject);
-                        
         }
 
-        #endregion
     }
+
 }
