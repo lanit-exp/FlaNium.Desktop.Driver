@@ -1,21 +1,12 @@
-﻿namespace FlaNium.Desktop.Driver.CommandExecutors
-{
-    #region using
+﻿using System;
+using FlaNium.Desktop.Driver.FlaUI;
 
-    using System;
-    using FlaNium.Desktop.Driver.FlaUI;
-    
+namespace FlaNium.Desktop.Driver.CommandExecutors {
 
-    #endregion
+    internal class ImplicitlyWaitExecutor : CommandExecutorBase {
 
-    internal class ImplicitlyWaitExecutor : CommandExecutorBase
-    {
-        #region Methods
-
-        protected override string DoImpl()
-        {
-            if (this.ExecutedCommand.Parameters.ContainsKey("ms"))
-            {
+        protected override string DoImpl() {
+            if (this.ExecutedCommand.Parameters.ContainsKey("ms")) {
                 int parameter = (int)this.ExecutedCommand.Parameters["ms"];
                 if (parameter > 5000)
                     DriverManager.ImplicitTimeout = TimeSpan.FromMilliseconds((double)parameter);
@@ -26,9 +17,10 @@
                 DriverManager.ImplicitTimeout = TimeSpan.FromMinutes((double)this.ExecutedCommand.Parameters["m"]);
             else
                 Logger.Error("Unknown time unit!");
+
             return this.JsonResponse();
         }
 
-        #endregion
     }
+
 }

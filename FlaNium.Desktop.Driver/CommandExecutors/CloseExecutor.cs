@@ -1,15 +1,11 @@
 ﻿using FlaNium.Desktop.Driver.FlaUI;
 
-namespace FlaNium.Desktop.Driver.CommandExecutors
-{
-    internal class CloseExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors {
 
-        protected override string DoImpl()
-        {
-            if (!this.Automator.ActualCapabilities.DebugConnectToRunningApp)
-            {
+    internal class CloseExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
+            if (!this.Automator.ActualCapabilities.DebugConnectToRunningApp) {
                 DriverManager.CloseDriver(this.Automator.ActualCapabilities.App.StartsWith("#"));
 
                 this.Automator.ElementsRegistry.Clear();
@@ -18,6 +14,6 @@ namespace FlaNium.Desktop.Driver.CommandExecutors
             return this.JsonResponse();
         }
 
-        #endregion
     }
+
 }

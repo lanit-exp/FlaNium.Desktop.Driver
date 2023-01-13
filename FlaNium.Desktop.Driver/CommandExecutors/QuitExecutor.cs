@@ -1,15 +1,10 @@
-﻿namespace FlaNium.Desktop.Driver.CommandExecutors
-{
-    internal class QuitExecutor : CommandExecutorBase
-    {
-        #region Methods
+﻿namespace FlaNium.Desktop.Driver.CommandExecutors {
 
-        protected override string DoImpl()
-        {
-            if (!this.Automator.ActualCapabilities.DebugConnectToRunningApp)
-            {
-                if (!this.Automator.Application.Close())
-                {
+    internal class QuitExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
+            if (!this.Automator.ActualCapabilities.DebugConnectToRunningApp) {
+                if (!this.Automator.Application.Close()) {
                     this.Automator.Application.Kill();
                 }
 
@@ -19,6 +14,6 @@
             return this.JsonResponse();
         }
 
-        #endregion
     }
+
 }

@@ -1,51 +1,39 @@
-﻿namespace FlaNium.Desktop.Driver.CommandExecutors
-{
-    #region using
+﻿using System;
+using FlaNium.Desktop.Driver.Common;
+using FlaNium.Desktop.Driver.FlaUI;
+using FlaUI.Core.Input;
 
-    using System;
-    using global::FlaUI.Core.Input;
-    using FlaNium.Desktop.Driver.FlaUI;
-    using FlaNium.Desktop.Driver.Common;
+namespace FlaNium.Desktop.Driver.CommandExecutors.StandardActions {
 
-    #endregion
+    internal class MouseMoveToExecutor : CommandExecutorBase {
 
-    internal class MouseMoveToExecutor : CommandExecutorBase
-    {
-        #region Methods
-
-        protected override string DoImpl()
-        {
+        protected override string DoImpl() {
             var haveElement = this.ExecutedCommand.Parameters.ContainsKey("element");
             var haveOffset = this.ExecutedCommand.Parameters.ContainsKey("xoffset")
                              && this.ExecutedCommand.Parameters.ContainsKey("yoffset");
 
-            if (!(haveElement || haveOffset))
-            {
+            if (!(haveElement || haveOffset)) {
                 // TODO: in the future '400 : invalid argument' will be used
                 return this.JsonResponse(ResponseStatus.UnknownError, "WRONG PARAMETERS");
             }
 
             var resultPoint = Mouse.Position;
-            if (haveElement)
-            {
+            if (haveElement) {
                 var registeredKey = this.ExecutedCommand.Parameters["element"].ToString();
                 FlaUIDriverElement element = this.Automator.ElementsRegistry.GetRegisteredElementOrNull(registeredKey);
-                
-                if (element != null)
-                {
+
+                if (element != null) {
                     var rect = element.Properties.BoundingRectangle;
                     resultPoint.X = rect.Left;
                     resultPoint.Y = rect.Top;
-                    if (!haveOffset)
-                    {
+                    if (!haveOffset) {
                         resultPoint.X += rect.Width / 2;
                         resultPoint.Y += rect.Height / 2;
                     }
                 }
             }
 
-            if (haveOffset)
-            {
+            if (haveOffset) {
                 resultPoint.X += Convert.ToInt32(this.ExecutedCommand.Parameters["xoffset"]);
                 resultPoint.Y += Convert.ToInt32(this.ExecutedCommand.Parameters["yoffset"]);
             }
@@ -55,9 +43,8 @@
             Mouse.MoveTo(resultPoint.X, resultPoint.Y);
 
             return this.JsonResponse();
-           
         }
 
-        #endregion
     }
+
 }

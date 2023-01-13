@@ -1,13 +1,12 @@
-﻿namespace FlaNium.Desktop.Driver.CommandExecutors
-{
-    using global::FlaUI.Core.Input;
-    using System;
-    using System.Drawing;
+﻿using System;
+using System.Drawing;
+using FlaUI.Core.Input;
 
-    class DragAndDropExecutor : CommandExecutorBase
-    {
-        protected override string DoImpl()
-        {
+namespace FlaNium.Desktop.Driver.CommandExecutors.StandardActions {
+
+    class DragAndDropExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var x = Convert.ToInt32(this.ExecutedCommand.Parameters["x"]);
             var y = Convert.ToInt32(this.ExecutedCommand.Parameters["y"]);
             var dx = Convert.ToInt32(this.ExecutedCommand.Parameters["dx"]);
@@ -16,8 +15,7 @@
             var duration = Convert.ToInt32(this.ExecutedCommand.Parameters["duration"]);
 
 
-            if (duration > 0)
-            {
+            if (duration > 0) {
                 Mouse.Position = new Point(x, y);
                 Mouse.Down();
 
@@ -30,8 +28,7 @@
 
                 Mouse.Up();
             }
-            else
-            {
+            else {
                 Mouse.Drag(new Point(x, y), dx, dy, MouseButton.Left);
             }
 
@@ -39,5 +36,7 @@
 
             return this.JsonResponse();
         }
+
     }
+
 }

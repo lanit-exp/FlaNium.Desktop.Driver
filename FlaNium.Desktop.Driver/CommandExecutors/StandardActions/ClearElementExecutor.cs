@@ -1,11 +1,8 @@
-﻿namespace FlaNium.Desktop.Driver.CommandExecutors
-{
-    internal class ClearElementExecutor : CommandExecutorBase
-    {
-        #region Methods
+﻿namespace FlaNium.Desktop.Driver.CommandExecutors.StandardActions {
 
-        protected override string DoImpl()
-        {
+    internal class ClearElementExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
@@ -14,6 +11,6 @@
             return this.JsonResponse();
         }
 
-        #endregion
     }
+
 }

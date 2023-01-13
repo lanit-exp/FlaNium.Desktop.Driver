@@ -1,20 +1,8 @@
-namespace FlaNium.Desktop.Driver.CommandExecutors
-{
-    #region using
+namespace FlaNium.Desktop.Driver.CommandExecutors.StandardActions {
 
-    using System;
+    internal class SetOrientationExecutor : CommandExecutorBase {
 
-    using FlaNium.Desktop.Driver.Common;
-   
-
-    #endregion using
-
-    internal class SetOrientationExecutor : CommandExecutorBase
-    {
-        #region Methods
-
-        protected override string DoImpl()
-        {
+        protected override string DoImpl() {
             //if (!this.ExecutedCommand.Parameters.ContainsKey("orientation"))
             //{
             //    // TODO: in the future '400 : invalid argument' will be used
@@ -49,6 +37,6 @@ namespace FlaNium.Desktop.Driver.CommandExecutors
             return null;
         }
 
-        #endregion
     }
+
 }

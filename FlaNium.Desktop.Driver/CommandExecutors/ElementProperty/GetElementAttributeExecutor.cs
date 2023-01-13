@@ -18,9 +18,9 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.ElementProperty {
 
 
             if (propertyName == "ToggleState") {
-                var ToggleState = flaUiElement.Patterns.Toggle.PatternOrDefault.ToggleState;
+                var toggleState = flaUiElement.Patterns.Toggle.PatternOrDefault.ToggleState;
 
-                return this.JsonResponse(ResponseStatus.Success, ToggleState.ToString());
+                return this.JsonResponse(ResponseStatus.Success, toggleState.ToString());
             }
 
 
