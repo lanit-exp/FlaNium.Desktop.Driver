@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Threading;
+﻿using System.Threading;
 using FlaNium.Desktop.Driver.Automator;
 using FlaNium.Desktop.Driver.Common;
 using FlaNium.Desktop.Driver.FlaUI;
@@ -20,8 +19,8 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
 
             this.InitializeApplication();
 
-            FlaNiumKeyboard
-                .SwitchInputLanguageToEng(); // Имеются проблемы ввода текста при активной русской раскладке. Добавлено переключение на английскую раскладку.
+            // Имеются проблемы ввода текста при активной русской раскладке. Добавлено переключение на английскую раскладку.
+            FlaNiumKeyboard.SwitchInputLanguageToEng();
 
 
             if (this.Automator.ActualCapabilities.InjectionActivate) {
@@ -29,20 +28,14 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
 
                 if (appType == string.Empty)
                     return this.JsonResponse(ResponseStatus.UnknownCommand,
-                        "AppType Capabilities (DesktopOptions) should NOT be EMPTY!");
+                        "AppType Capabilities (DesktopOptions) should NOT be EMPTY! (OR injectionActivate should be false)");
 
-                try {
-                    DLLFilesToInject.DLLFile dllFile = DLLFilesToInject.GetDLLFile(appType);
 
-                    if (!InjectDll(dllFile)) {
-                        return this.JsonResponse(ResponseStatus.SessionNotCreatedException, "Injecting FAILED!");
-                    }
+                string dllFilePath = DllFilesToInject.GetDllFilePath(appType);
+
+                if (!Injector.InjectDll(DriverManager.Application.ProcessId, dllFilePath)) {
+                    return this.JsonResponse(ResponseStatus.SessionNotCreatedException, "Injecting FAILED!");
                 }
-                catch (InvalidDataException) {
-                    return this.JsonResponse(ResponseStatus.UnknownCommand,
-                        "Not correct AppType Capabilities (DesktopOptions)!");
-                }
-
 
                 DriverManager.ClientSocket = new ClientSocket();
             }
@@ -72,23 +65,12 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
                     DriverManager.StartApp(appPath, appArguments, debugDoNotDeploy);
                 }
                 catch {
+                    // ignored
                 }
 
                 Thread.Sleep(launchDelay);
                 DriverManager.AttachToProcess(processName);
             }
-        }
-
-        private bool InjectDll(DLLFilesToInject.DLLFile dLLFile) {
-            string dllPath = DLLFilesToInject.getFullDllPath(dLLFile);
-
-            if (dllPath == null) return false;
-
-            int procID = DriverManager.Application.ProcessId;
-
-            if (!Injector.InjectDLL(procID, dllPath)) return false;
-
-            return true;
         }
 
     }

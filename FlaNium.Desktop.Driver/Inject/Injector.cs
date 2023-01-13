@@ -1,16 +1,16 @@
-﻿using FlaNium.Desktop.Driver;
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Threading;
+using FlaNium.Desktop.Driver;
 
+namespace InjectDll {
 
-namespace InjectDll
-{
-    class Injector
-    {
-        #region dll import
+    class Injector {
+
         [DllImport("kernel32")]
-        public static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, UIntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, out IntPtr lpThreadId);
+        public static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize,
+                                                       UIntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags,
+                                                       out IntPtr lpThreadId);
 
 
         [DllImport("kernel32.dll")]
@@ -30,11 +30,13 @@ namespace InjectDll
 
 
         [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
-        static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);
+        static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint flAllocationType,
+                                            uint flProtect);
 
 
         [DllImport("kernel32.dll")]
-        static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, string lpBuffer, UIntPtr nSize, out IntPtr lpNumberOfBytesWritten);
+        static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, string lpBuffer, UIntPtr nSize,
+                                              out IntPtr lpNumberOfBytesWritten);
 
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
@@ -43,34 +45,33 @@ namespace InjectDll
 
         [DllImport("kernel32", SetLastError = true, ExactSpelling = true)]
         internal static extern UInt32 WaitForSingleObject(IntPtr handle, Int32 milliseconds);
-        #endregion
 
 
-        public static bool InjectDLL(Int32 ProcID, String strDLLName)
-        {
-            Logger.Debug("Inject DLL: \"{0}\" into process: {1}", strDLLName, ProcID);
+        public static bool InjectDll(Int32 procId, String filePath) {
+            Logger.Debug("Inject DLL: \"{0}\" into process: {1}", filePath, procId);
 
-            IntPtr hProcess = OpenProcess(0x1F0FFF, 1, ProcID);
+            IntPtr hProcess = OpenProcess(0x1F0FFF, 1, procId);
 
 
-            if (hProcess == null)
-            {
+            if (hProcess == IntPtr.Zero) {
                 Logger.Error("OpenProcess Failed!");
+
                 return false;
             }
 
-            Int32 LenWrite = strDLLName.Length + 1;
+            Int32 LenWrite = filePath.Length + 1;
 
             // выделение памяти в виртуальном адресном пространстве инжектируемого процесса  
             IntPtr AllocMem = VirtualAllocEx(hProcess, (IntPtr)null, (uint)LenWrite, 0x1000 | 0x2000, 0x04);
 
 
             // запись dll в память инжектируемого процесса
-            bool writeProcMem = WriteProcessMemory(hProcess, AllocMem, strDLLName, (UIntPtr)LenWrite, out IntPtr bytesout);
+            bool writeProcMem =
+                WriteProcessMemory(hProcess, AllocMem, filePath, (UIntPtr)LenWrite, out IntPtr bytesout);
 
-            if (!writeProcMem)
-            {
+            if (!writeProcMem) {
                 Logger.Error("WriteProcessMemory ERROR!");
+
                 return false;
             }
 
@@ -78,9 +79,9 @@ namespace InjectDll
             // получение адреса
             UIntPtr Injector = GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
 
-            if (Injector == null)
-            {
+            if (Injector == UIntPtr.Zero) {
                 Logger.Error("GetProcAddress ERROR!");
+
                 return false;
             }
 
@@ -89,9 +90,9 @@ namespace InjectDll
             IntPtr hThread = CreateRemoteThread(hProcess, (IntPtr)null, 0, Injector, AllocMem, 0, out IntPtr bytesout2);
 
             // проверка валидности треда
-            if (hThread == null)
-            {
+            if (hThread == IntPtr.Zero) {
                 Logger.Error("CreateRemoteThread ERROR!");
+
                 return false;
             }
 
@@ -118,8 +119,7 @@ namespace InjectDll
 
 
             // проверка валидности треда предотвращение раннего краша процесса приложения  
-            if (hThread != null)
-            {
+            if (hThread != null) {
                 CloseHandle(hThread);
             }
 
@@ -127,5 +127,7 @@ namespace InjectDll
 
             return true;
         }
+
     }
+
 }

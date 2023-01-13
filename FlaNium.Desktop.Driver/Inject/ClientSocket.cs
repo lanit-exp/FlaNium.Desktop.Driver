@@ -1,32 +1,30 @@
 ﻿using System;
-using System.Text;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Text.RegularExpressions;
-using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
-namespace FlaNium.Desktop.Driver.Inject
-{
-    class ClientSocket
-    {
+namespace FlaNium.Desktop.Driver.Inject {
+
+    class ClientSocket {
+
         private Socket socket;
         private IPEndPoint ipPoint;
 
-        public ClientSocket(int port = 8889, string address = "127.0.0.1")
-        {
+        public ClientSocket(int port = 8889, string address = "127.0.0.1") {
             ipPoint = new IPEndPoint(IPAddress.Parse(address), port);
 
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             socket.Connect(ipPoint);
 
-            Logger.Debug(ipPoint.ToString() + " - connection was SUCCESSFUL!");
+            Logger.Debug(ipPoint + " - connection was SUCCESSFUL!");
         }
 
-        public string DataExchange(string message)
-        {
+        public string DataExchange(string message) {
             Logger.Debug("[REQUEST  to   {0}]: {1}", ipPoint.ToString(), message);
 
             Send(message);
@@ -38,8 +36,7 @@ namespace FlaNium.Desktop.Driver.Inject
             return answer;
         }
 
-        public IDictionary<string, JToken> DataExchange(IDictionary<string, JToken> map)
-        {
+        public IDictionary<string, JToken> DataExchange(IDictionary<string, JToken> map) {
             string request = JsonConvert.SerializeObject(map);
             string response = DataExchange(request);
 
@@ -47,47 +44,40 @@ namespace FlaNium.Desktop.Driver.Inject
         }
 
 
-        private void Send(string message)
-        {
+        private void Send(string message) {
             byte[] data = Encoding.Unicode.GetBytes(message);
             socket.Send(data);
         }
 
-        private string Receive()
-        {
+        private string Receive() {
             byte[] data = new byte[4096];
 
             StringBuilder builder = new StringBuilder();
 
             int bytes;
-            do
-            {
+            do {
                 bytes = socket.Receive(data, data.Length, 0);
                 builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
-            }
-            while (socket.Available > 0);
+            } while (socket.Available > 0);
 
             var regex = new Regex(@"[\p{Cc}\p{Cf}\p{Mn}\p{Me}\p{Zl}\p{Zp}]");
 
             return regex.Replace(builder.ToString(), "");
         }
 
-        public void FreeSocket()
-        {
-            try
-            {
+        public void FreeSocket() {
+            try {
                 socket.Shutdown(SocketShutdown.Both);
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Logger.Error(ex.Message);
             }
-            finally
-            {
+            finally {
                 socket.Close();
-                Logger.Debug(ipPoint.ToString() + " - connection CLOSED!");
+                Logger.Debug(ipPoint + " - connection CLOSED!");
             }
-
         }
+
     }
+
 }

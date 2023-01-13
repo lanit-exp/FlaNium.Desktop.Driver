@@ -1,48 +1,29 @@
 ﻿using System.IO;
+using System.Reflection;
 
-namespace FlaNium.Desktop.Driver.Inject
-{
-    public class DLLFilesToInject
-    {
-        public enum DLLFile
-        {
-            DELPHI
-        }
+namespace FlaNium.Desktop.Driver.Inject {
 
+    public static class DllFilesToInject {
 
+        public static string GetDllFilePath(string appType) {
+            string dllFilePath;
 
-        public static string getFullDllPath(DLLFile dLLFile)
-        {
-            string filePath = null;
+            switch (appType) {
+                case "DELPHI":
+                    dllFilePath = "iLibs/DEDL.dll";
 
-            switch (dLLFile)
-            {
-                case DLLFile.DELPHI:
-                    filePath = "iLibs/DEDL.dll";
                     break;
+
+                default: throw new InvalidDataException($"Incorrect AppType Capabilities: {appType}");
             }
 
-            string fullPath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), filePath);
+            var fullPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), dllFilePath);
 
-            if (!File.Exists(fullPath))
-            {
-                Logger.Error("File to inject not found : \"{0}\"", fullPath);
+            if (File.Exists(fullPath)) return fullPath;
 
-                return null;
-            }
-
-            return fullPath;
+            throw new FileNotFoundException($"File to inject not found : \"{fullPath}\"");
         }
 
-        public static DLLFile GetDLLFile(string dllFile)
-        {
-
-            switch (dllFile)
-            {
-                case "DELPHI": return DLLFile.DELPHI;
-                default: throw new InvalidDataException();
-            }
-
-        }
     }
+
 }
