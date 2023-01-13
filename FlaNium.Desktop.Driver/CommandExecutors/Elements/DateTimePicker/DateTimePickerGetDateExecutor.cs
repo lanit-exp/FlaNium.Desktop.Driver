@@ -1,15 +1,11 @@
-﻿
+﻿using FlaNium.Desktop.Driver.Common;
 using FlaUI.Core.AutomationElements;
-using FlaNium.Desktop.Driver.Common;
 
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.DateTimePicker
-{
-    class DateTimePickerGetDateExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.DateTimePicker {
 
-        protected override string DoImpl()
-        {
+    class DateTimePickerGetDateExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
@@ -21,6 +17,6 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.DateTimePicker
             return this.JsonResponse(ResponseStatus.Success, result.ToString());
         }
 
-        #endregion
     }
+
 }

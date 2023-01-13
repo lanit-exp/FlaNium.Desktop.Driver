@@ -1,53 +1,24 @@
-﻿namespace FlaNium.Desktop.Driver.CommandHelpers
-{
-    #region using
+﻿using System;
+using Newtonsoft.Json;
 
-    using System;
-
-    using Newtonsoft.Json;
-
-    #endregion
+namespace FlaNium.Desktop.Driver.CommandHelpers {
 
     // ReSharper disable once InconsistentNaming
-    public class OSInfo
-    {
-        #region Static Fields
+    public class OSInfo {
 
-        private static string architecture;
+        private static string _architecture;
 
-        private static string version;
+        private static string _version;
 
-        #endregion
-
-        #region Public Properties
 
         [JsonProperty("arch")]
-        public string Architecture
-        {
-            get
-            {
-                return architecture ?? (architecture = Environment.Is64BitOperatingSystem ? "x64" : "x86");
-            }
-        }
+        public string Architecture =>
+            _architecture ?? (_architecture = Environment.Is64BitOperatingSystem ? "x64" : "x86");
 
-        [JsonProperty("name")]
-        public string Name
-        {
-            get
-            {
-                return "windows";
-            }
-        }
+        [JsonProperty("name")] public string Name => "windows";
 
-        [JsonProperty("version")]
-        public string Version
-        {
-            get
-            {
-                return version ?? (version = Environment.OSVersion.VersionString);
-            }
-        }
+        [JsonProperty("version")] public string Version => _version ?? (_version = Environment.OSVersion.VersionString);
 
-        #endregion
     }
+
 }

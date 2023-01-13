@@ -17,10 +17,10 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Auxiliary {
             CaptureImage captureImage = Capture.Screen();
             MemoryStream memoryStream = new MemoryStream();
 
-            captureImage.Bitmap.Save((Stream)memoryStream, imageFormat);
+            captureImage.Bitmap.Save(memoryStream, imageFormat);
 
 
-            return this.JsonResponse(ResponseStatus.Success, (object)Convert.ToBase64String(memoryStream.ToArray()));
+            return this.JsonResponse(ResponseStatus.Success, Convert.ToBase64String(memoryStream.ToArray()));
         }
 
     }

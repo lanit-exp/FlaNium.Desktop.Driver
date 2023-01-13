@@ -1,14 +1,10 @@
-﻿
-using FlaUI.Core.AutomationElements;
+﻿using FlaUI.Core.AutomationElements;
 
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Window
-{
-    class WindowSetTransparencyExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Window {
 
-        protected override string DoImpl()
-        {
+    class WindowSetTransparencyExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var alpha = this.ExecutedCommand.Parameters["index"].ToString();
@@ -22,6 +18,6 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Window
             return this.JsonResponse();
         }
 
-        #endregion
     }
+
 }

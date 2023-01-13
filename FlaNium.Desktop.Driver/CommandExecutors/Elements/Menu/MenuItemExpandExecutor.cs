@@ -1,17 +1,13 @@
-﻿
-using FlaUI.Core.AutomationElements;
-using FlaNium.Desktop.Driver.FlaUI;
-using FlaNium.Desktop.Driver.Common;
+﻿using FlaNium.Desktop.Driver.Common;
 using FlaNium.Desktop.Driver.Exceptions;
+using FlaNium.Desktop.Driver.FlaUI;
+using FlaUI.Core.AutomationElements;
 
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Menu
-{
-    class MenuItemExpandExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Menu {
 
-        protected override string DoImpl()
-        {
+    class MenuItemExpandExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
@@ -20,8 +16,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Menu
 
             var result = menuItem.Expand();
 
-            if (result == null)
-            {
+            if (result == null) {
                 throw new AutomationException("Element cannot be found", ResponseStatus.NoSuchElement);
             }
 
@@ -32,6 +27,6 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Menu
             return this.JsonResponse(ResponseStatus.Success, registeredObject);
         }
 
-        #endregion
     }
+
 }

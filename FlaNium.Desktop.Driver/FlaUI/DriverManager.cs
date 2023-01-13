@@ -1,212 +1,191 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
-
+using System.Threading;
 using System.Threading.Tasks;
-
+using FlaNium.Desktop.Driver.Inject;
 using FlaUI.Core;
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Input;
 using FlaUI.Core.Tools;
 using FlaUI.UIA3;
 
+namespace FlaNium.Desktop.Driver.FlaUI {
 
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
+    class DriverManager {
 
-using System.Threading;
-using FlaNium.Desktop.Driver.Inject;
-
-namespace FlaNium.Desktop.Driver.FlaUI
-{
-    class DriverManager
-    {
-        private static TimeSpan implicitTimeout = new TimeSpan(0, 0, 30);
+        private static TimeSpan _implicitTimeout = new TimeSpan(0, 0, 30);
         private static Window _currentWindow;
 
-        public static TimeSpan ImplicitTimeout
-        {
-            get => DriverManager.implicitTimeout;
-            set
-            {
-                DriverManager.implicitTimeout = value;
-                Console.WriteLine(string.Format(" setImplicitTimeout: {0}", (object)DriverManager.ImplicitTimeout));
+        public static TimeSpan ImplicitTimeout {
+            get => _implicitTimeout;
+            set {
+                _implicitTimeout = value;
+                Console.WriteLine($" setImplicitTimeout: {ImplicitTimeout}");
             }
         }
 
-        public static void refreshImplicitTimeout() => DriverManager.ImplicitTimeout = TimeSpan.FromSeconds(30.0);
+        public static void RefreshImplicitTimeout() => ImplicitTimeout = TimeSpan.FromSeconds(30.0);
 
         public static string AutomationIdWindowForIgnore { get; } = "ProgressWindowForm";
 
-        public static AutomationBase Automation { get; } = (AutomationBase)new UIA3Automation();
+        public static AutomationBase Automation { get; } = new UIA3Automation();
 
         public static Application Application { get; private set; }
 
         public static ClientSocket ClientSocket { get; set; }
 
-        public static void CloseDriver(bool isDebug = false)
-        {
-            try
-            {
-                if (!isDebug)
-                {
+        public static void CloseDriver(bool isDebug = false) {
+            try {
+                if (!isDebug) {
                     Application?.Close();
                 }
 
                 Application?.Dispose();
                 ClientSocket.FreeSocket();
             }
-            catch
-            {
+            catch {
+                // ignored
             }
 
-            Application = (Application)null;
-            _currentWindow = (Window)null;
+            Application = null;
+            _currentWindow = null;
             ClientSocket = null;
 
             GC.Collect();
         }
 
-        public static void CloseAllApplication(string name)
-        {
-            try
-            {
-                if (name != null)
-                {
+        public static void CloseAllApplication(string name) {
+            try {
+                if (name != null) {
                     string str = name;
-                    string[] separator = new string[2]
-                    {
-            ".exe",
-            ".EXE"
+                    string[] separator = new string[] {
+                        ".exe",
+                        ".EXE"
                     };
-                    foreach (Process process in Process.GetProcessesByName(str.Split(separator, StringSplitOptions.None)[0]))
-                    {
-                        try
-                        {
+                    foreach (Process process in Process.GetProcessesByName(
+                                 str.Split(separator, StringSplitOptions.None)[0])) {
+                        try {
                             process.Kill();
                         }
-                        catch
-                        {
+                        catch {
+                            // ignored
                         }
                     }
                 }
             }
-            catch
-            {
+            catch {
+                // ignored
             }
-            DriverManager.Application = (Application)null;
-            DriverManager._currentWindow = (Window)null;
+
+            Application = null;
+            _currentWindow = null;
             GC.Collect();
         }
 
-        public static Window[] GetWindows()
-        {
-            try
-            {
-                Window mainWindow = DriverManager.Application.GetMainWindow(DriverManager.Automation);
-                Window[] array = new List<Window>()
-        {
-          mainWindow
-        }.Union<Window>((IEnumerable<Window>)mainWindow.ModalWindows).Union<Window>((IEnumerable<Window>)DriverManager._currentWindow.ModalWindows).Where<Window>((Func<Window, bool>)(x => x.Properties.AutomationId?.ValueOrDefault != DriverManager.AutomationIdWindowForIgnore)).ToArray<Window>();
-                return ((IEnumerable<Window>)array).Any<Window>() ? array : throw new Exception();
+        public static Window[] GetWindows() {
+            try {
+                Window mainWindow = Application.GetMainWindow(Automation);
+                Window[] array = new List<Window>() {
+                        mainWindow
+                    }.Union(mainWindow.ModalWindows)
+                    .Union(_currentWindow.ModalWindows)
+                    .Where(x =>
+                        x.Properties.AutomationId?.ValueOrDefault != AutomationIdWindowForIgnore).ToArray();
+
+                return (array).Any() ? array : throw new Exception();
             }
-            catch
-            {
-                return DriverManager.GetAllProcessWindows();
+            catch {
+                return GetAllProcessWindows();
             }
         }
 
-        private static Window[] GetAllProcessWindows()
-        {
-            Window[] allTopLevelWindows = DriverManager.Application.GetAllTopLevelWindows(DriverManager.Automation);
-            return ((IEnumerable<Window>)allTopLevelWindows).Union<Window>(((IEnumerable<Window>)allTopLevelWindows).SelectMany<Window, Window>((Func<Window, IEnumerable<Window>>)(w => (IEnumerable<Window>)w.ModalWindows))).Where<Window>((Func<Window, bool>)(x => x.Properties.AutomationId?.ValueOrDefault != DriverManager.AutomationIdWindowForIgnore)).ToArray<Window>();
+        private static Window[] GetAllProcessWindows() {
+            Window[] allTopLevelWindows = Application.GetAllTopLevelWindows(Automation);
+
+            return (allTopLevelWindows)
+                .Union((allTopLevelWindows).SelectMany(
+                    (w => w.ModalWindows)))
+                .Where((x =>
+                    x.Properties.AutomationId?.ValueOrDefault != AutomationIdWindowForIgnore)).ToArray();
         }
 
-        public static Window GetActiveWindow()
-        {
-            if (DriverManager._currentWindow == null)
-            {
-                DriverManager._currentWindow = Retry.While<Window>((Func<Window>)(() => DriverManager.Application.GetMainWindow(DriverManager.Automation)), (Func<Window, bool>)(x =>
-                {
-                    try
-                    {
-                        return x.Properties.AutomationId?.ValueOrDefault == DriverManager.AutomationIdWindowForIgnore;
-                    }
-                    catch
-                    {
-                        return true;
-                    }
-                }), new TimeSpan?(TimeSpan.FromMinutes(5.0))).Result;
+        public static Window GetActiveWindow() {
+            if (_currentWindow == null) {
+                _currentWindow = Retry.While((() => Application.GetMainWindow(Automation)),
+                    (x => {
+                        try {
+                            return x.Properties.AutomationId?.ValueOrDefault == AutomationIdWindowForIgnore;
+                        }
+                        catch {
+                            return true;
+                        }
+                    }), TimeSpan.FromMinutes(5.0)).Result;
 
-                if (DriverManager._currentWindow.FindAllDescendants().Length == 0)
-                {
-                    DriverManager._currentWindow = DriverManager.Application.GetAllTopLevelWindows(DriverManager.Automation)[0];
+                if (_currentWindow.FindAllDescendants().Length == 0) {
+                    _currentWindow = Application.GetAllTopLevelWindows(Automation)[0];
                 }
-
             }
-            return DriverManager._currentWindow;
+
+            return _currentWindow;
         }
 
-        public static Window StartApp(string appPath, string arguments, bool debugDoNotDeploy = false)
-        {
+        public static Window StartApp(string appPath, string arguments, bool debugDoNotDeploy = false) {
             appPath = appPath.Replace("\\\\", "\\");
             string name = appPath.Substring(appPath.LastIndexOf('\\') + 1);
-          
-            if (!debugDoNotDeploy)
-            {
-                DriverManager.CloseDriver();
-                DriverManager.CloseAllApplication(name);
+
+            if (!debugDoNotDeploy) {
+                CloseDriver();
+                CloseAllApplication(name);
             }
 
-            if (!File.Exists(appPath))
-            {
+            if (!File.Exists(appPath)) {
                 // Добавлен механизм запуска приложений из WindowsStore.
-                try
-                {
-                    DriverManager.Application = Application.LaunchStoreApp(name);
-                    DriverManager.Application.WaitWhileBusy(new TimeSpan?(TimeSpan.FromSeconds(5.0)));
+                try {
+                    Application = Application.LaunchStoreApp(name);
+                    Application.WaitWhileBusy(TimeSpan.FromSeconds(5.0));
 
-                    Window activeWindow = DriverManager.GetActiveWindow();
+                    Window activeWindow = GetActiveWindow();
                     activeWindow.FindAllChildren();
+
                     return activeWindow;
                 }
-                
-                catch (Win32Exception)
-                {
-                    DriverManager.CloseDriver();
-                    DriverManager.CloseAllApplication(name);
+
+                catch (Win32Exception) {
+                    CloseDriver();
+                    CloseAllApplication(name);
                 }
 
-                catch (Exception)
-                {
-                    throw new FileNotFoundException(string.Format("Некорректный путь ({0})", (object)appPath));
+                catch (Exception) {
+                    throw new FileNotFoundException(string.Format("Некорректный путь ({0})", appPath));
                 }
-
             }
 
             Directory.SetCurrentDirectory(Path.GetDirectoryName(appPath));
-            ProcessStartInfo processStartInfo = new ProcessStartInfo()
-            {
+            ProcessStartInfo processStartInfo = new ProcessStartInfo() {
                 FileName = appPath
             };
-            switch (arguments)
-            {
+            switch (arguments) {
                 case "":
                 case null:
-                    try
-                    {
-                        DriverManager.Application = debugDoNotDeploy ? Application.AttachOrLaunch(processStartInfo) : Application.Launch(processStartInfo);
-                        DriverManager.Application.WaitWhileBusy(new TimeSpan?(TimeSpan.FromSeconds(5.0)));
+                    try {
+                        Application = debugDoNotDeploy
+                            ? Application.AttachOrLaunch(processStartInfo)
+                            : Application.Launch(processStartInfo);
+                        Application.WaitWhileBusy(TimeSpan.FromSeconds(5.0));
                     }
-                    catch (Win32Exception)
-                    {
-                        DriverManager.CloseDriver();
-                        DriverManager.CloseAllApplication(name);
+                    catch (Win32Exception) {
+                        CloseDriver();
+                        CloseAllApplication(name);
                     }
-                    Window activeWindow = DriverManager.GetActiveWindow();
+
+                    Window activeWindow = GetActiveWindow();
                     activeWindow.FindAllChildren();
+
                     return activeWindow;
                 default:
                     processStartInfo.Arguments = arguments;
@@ -214,75 +193,80 @@ namespace FlaNium.Desktop.Driver.FlaUI
             }
         }
 
-        public static void Click(Point p)
-        {
-            DriverManager.GetActiveWindow().SetForeground();
+        public static void Click(Point p) {
+            GetActiveWindow().SetForeground();
             Mouse.Position = p;
             Mouse.Click(MouseButton.Left);
         }
 
         public static async Task<Task<RetryResult<Window>>> FindWindow(
-          string title,
-          TimeSpan timeout)
-        {
-            Func<RetryResult<Window>> function1 = (Func<RetryResult<Window>>)(() => Retry.While<Window>((Func<Window>)(() => ((IEnumerable<Window>)DriverManager.GetAllProcessWindows()).FirstOrDefault<Window>((Func<Window, bool>)(x => x.Title == title))), (Func<Window, bool>)(x => x == null), new TimeSpan?(timeout)));
-            Func<RetryResult<Window>> function2 = (Func<RetryResult<Window>>)(() => Retry.While<Window>((Func<Window>)(() => ((IEnumerable<Window>)DriverManager.GetWindows()).FirstOrDefault<Window>((Func<Window, bool>)(x => x.Title == title))), (Func<Window, bool>)(x => x == null), new TimeSpan?(timeout)));
-            return await Task.WhenAny<RetryResult<Window>>(Task.Run<RetryResult<Window>>(function1), Task.Run<RetryResult<Window>>(function2));
+            string title,
+            TimeSpan timeout) {
+            RetryResult<Window> Function1() =>
+                Retry.While((() => (GetAllProcessWindows()).FirstOrDefault((x => x.Title == title))), (x => x == null),
+                    timeout);
+
+            RetryResult<Window> Function2() =>
+                Retry.While((() => (GetWindows()).FirstOrDefault((x => x.Title == title))), (x => x == null),
+                    timeout);
+
+            return await Task.WhenAny(Task.Run(Function1),
+                Task.Run(Function2));
         }
 
-        public static void SwitchWindow(string title)
-        {
+        public static void SwitchWindow(string title) {
             long timeMilliseconds = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            Task<RetryResult<Window>> task = (Task<RetryResult<Window>>)null;
-            while ((double)timeMilliseconds > (double)DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - DriverManager.ImplicitTimeout.TotalMilliseconds)
-            {
-                if (title == "")
-                {
-                    DriverManager._currentWindow = DriverManager.Application.GetMainWindow(DriverManager.Automation);
-                    DriverManager._currentWindow.SetForeground();
+            Task<RetryResult<Window>> task = null;
+            while (timeMilliseconds > DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() -
+                   ImplicitTimeout.TotalMilliseconds) {
+                if (title == "") {
+                    _currentWindow = Application.GetMainWindow(Automation);
+                    _currentWindow.SetForeground();
+
                     return;
                 }
-                Task<Task<RetryResult<Window>>> window = DriverManager.FindWindow(title, DriverManager.ImplicitTimeout);
+
+                Task<Task<RetryResult<Window>>> window = FindWindow(title, ImplicitTimeout);
                 window.Wait();
                 task = !window.IsFaulted ? window.Result : throw window.Exception;
+
                 if (task.IsFaulted)
                     Thread.Sleep(1000);
                 else
                     break;
             }
+
             if (task.IsFaulted)
-                throw new Exception(string.Format("Fail to get Window {0}", (object)title), (Exception)task.Exception);
-            DriverManager._currentWindow = task.Result.Result;
-            DriverManager._currentWindow.SetForeground();
+                throw new Exception($"Fail to get Window {title}", task.Exception);
+            _currentWindow = task.Result.Result;
+            _currentWindow.SetForeground();
         }
 
-        public static void PrintTimestamp(string comment)
-        {
-        }
+        public static string DownloadTempFile(string filename) {
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory.Replace("\\", "\\\\").TrimEnd('\\', '/'),
+                filename);
+            if (!File.Exists(path)) {
+                Logger.Error(string.Format("File does not exist {0}", path));
 
-        public static string DownloadTempFile(string filename)
-        {
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory.Replace("\\", "\\\\").TrimEnd('\\', '/'), filename);
-            if (!File.Exists(path))
-            {
-                Logger.Error(string.Format("File does not exist {0}", (object)path));
-                return (string)null;
+                return null;
             }
+
             byte[] inArray = File.ReadAllBytes(path);
             File.Delete(path);
+
             return Convert.ToBase64String(inArray);
         }
 
 
-        public static void AttachToProcess(string processName)
-        {            
+        public static void AttachToProcess(string processName) {
             var processes = Process.GetProcessesByName(processName);
 
-            if (processes.Length > 0)
-            {
-                DriverManager.Application = Application.Attach(processes[0]);
-            } else throw new Exception("Unable to find process with name: " + processName);
-
+            if (processes.Length > 0) {
+                Application = Application.Attach(processes[0]);
+            }
+            else throw new Exception("Unable to find process with name: " + processName);
         }
+
     }
+
 }

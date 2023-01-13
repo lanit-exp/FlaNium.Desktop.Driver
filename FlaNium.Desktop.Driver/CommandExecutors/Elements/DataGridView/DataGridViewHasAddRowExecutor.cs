@@ -1,26 +1,22 @@
-﻿
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.DataGridView
-{
-    using global::FlaUI.Core.AutomationElements;
-    using FlaNium.Desktop.Driver.Common;
+﻿using FlaNium.Desktop.Driver.Common;
+using FlaUI.Core.AutomationElements;
 
-    class DataGridViewHasAddRowExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.DataGridView {
 
-        protected override string DoImpl()
-        {
+    class DataGridViewHasAddRowExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            DataGridView item = element.FlaUIElement.AsDataGridView();
+            global::FlaUI.Core.AutomationElements.DataGridView item = element.FlaUIElement.AsDataGridView();
 
             var result = item.HasAddRow;
 
             return this.JsonResponse(ResponseStatus.Success, result);
         }
 
-        #endregion
     }
+
 }

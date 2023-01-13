@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-
-using FlaUI.Core;
 using System.Drawing;
+using FlaUI.Core;
 
-namespace FlaNium.Desktop.Driver.FlaUI
-{
-    class WhiteNetElementProperties
-    {
+namespace FlaNium.Desktop.Driver.FlaUI {
+
+    class WhiteNetElementProperties {
+
         private FrameworkAutomationElementBase.IProperties properties;
 
         public Rectangle BoundingRectangle => this.properties.BoundingRectangle.ValueOrDefault;
@@ -19,16 +18,18 @@ namespace FlaNium.Desktop.Driver.FlaUI
 
         public string Name => this.properties.Name.ValueOrDefault;
 
-        public string RuntimeId => string.Join<int>("", (IEnumerable<int>)(this.properties.RuntimeId.ValueOrDefault ?? new int[0]));
+        public string RuntimeId =>
+            string.Join<int>("", (IEnumerable<int>)(this.properties.RuntimeId.ValueOrDefault ?? new int[0]));
 
         public string AutomationId => this.properties.AutomationId.ValueOrDefault;
 
         public string ClassName => this.properties.ClassName.ValueOrDefault;
 
         public WhiteNetElementProperties(
-          FrameworkAutomationElementBase.IProperties properties)
-        {
+            FrameworkAutomationElementBase.IProperties properties) {
             this.properties = properties;
         }
+
     }
+
 }

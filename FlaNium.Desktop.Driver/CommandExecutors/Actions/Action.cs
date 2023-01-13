@@ -6,45 +6,45 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Actions
 {
     public class Action
     {
-        [JsonProperty(Required = Required.Always)]
-        public string id { get; set; }
+        [JsonProperty(Required = Required.Always, PropertyName = "id")]
+        public string Id { get; set; }
         
-        [JsonProperty(Required = Required.Default)]
-        public string key { get; set; }
+        [JsonProperty(Required = Required.Default, PropertyName = "key")]
+        public string Key { get; set; }
         
-        [JsonProperty(Required = Required.Always)]
-        public List<ActionStep> actions { get; set; }
+        [JsonProperty(Required = Required.Always, PropertyName = "actions")]
+        public List<ActionStep> Actions { get; set; }
         
-        [JsonProperty(Required = Required.Always)]
-        public string type { get; set; }
+        [JsonProperty(Required = Required.Always, PropertyName = "type")]
+        public string Type { get; set; }
         
-        [JsonProperty(Required = Required.Default)]
-        public JObject parameters { get; set; }
+        [JsonProperty(Required = Required.Default, PropertyName = "parameters")]
+        public JObject Parameters { get; set; }
 
         
         
         public class ActionStep
         {
-            [JsonProperty(Required = Required.Always)]
-            public string type { get; set; }
+            [JsonProperty(Required = Required.Always, PropertyName = "type")]
+            public string Type { get; set; }
             
-            [JsonProperty(Required = Required.Default)]
-            public string value { get; set; }
+            [JsonProperty(Required = Required.Default, PropertyName = "value")]
+            public string Value { get; set; }
             
-            [JsonProperty(Required = Required.Default)]
-            public int duration { get; set; }
+            [JsonProperty(Required = Required.Default, PropertyName = "duration")]
+            public int Duration { get; set; }
             
-            [JsonProperty(Required = Required.Default)]
-            public int button { get; set; }
+            [JsonProperty(Required = Required.Default, PropertyName = "button")]
+            public int Button { get; set; }
             
-            [JsonProperty(Required = Required.Default)]
-            public int x { get; set; }
+            [JsonProperty(Required = Required.Default, PropertyName = "x")]
+            public int X { get; set; }
             
-            [JsonProperty(Required = Required.Default)]
-            public int y { get; set; }
+            [JsonProperty(Required = Required.Default, PropertyName = "y")]
+            public int Y { get; set; }
             
-            [JsonProperty(Required = Required.Default)]
-            public JToken origin { get; set; }
+            [JsonProperty(Required = Required.Default, PropertyName = "origin")]
+            public JToken Origin { get; set; }
         }
        
         

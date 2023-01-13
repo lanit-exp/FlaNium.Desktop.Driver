@@ -1,14 +1,10 @@
-﻿
-using FlaUI.Core.AutomationElements;
+﻿using FlaUI.Core.AutomationElements;
 
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.TextBox
-{
-    class TextBoxEnterExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.TextBox {
 
-        protected override string DoImpl()
-        {
+    class TextBoxEnterExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var value = this.ExecutedCommand.Parameters["value"].ToString();
@@ -22,6 +18,6 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.TextBox
             return this.JsonResponse();
         }
 
-        #endregion
     }
+
 }

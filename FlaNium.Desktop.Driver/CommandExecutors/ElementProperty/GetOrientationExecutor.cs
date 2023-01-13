@@ -15,7 +15,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.ElementProperty {
             AutomationElement flaUiElement = element.FlaUIElement;
 
 
-            OrientationType orientationType = (OrientationType)flaUiElement.Properties.Orientation.ValueOrDefault;
+            OrientationType orientationType = flaUiElement.Properties.Orientation.ValueOrDefault;
 
             return this.JsonResponse(ResponseStatus.Success, orientationType.ToString());
         }

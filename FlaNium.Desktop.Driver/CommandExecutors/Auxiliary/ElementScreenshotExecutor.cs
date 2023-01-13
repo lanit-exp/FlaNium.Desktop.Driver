@@ -2,6 +2,7 @@
 using System.Drawing.Imaging;
 using System.IO;
 using FlaNium.Desktop.Driver.Common;
+using FlaNium.Desktop.Driver.FlaUI;
 using FlaUI.Core.Capturing;
 
 namespace FlaNium.Desktop.Driver.CommandExecutors.Auxiliary {
@@ -13,7 +14,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Auxiliary {
             var imageFormatStr = this.ExecutedCommand.Parameters["format"].ToString();
             var foreground = Boolean.Parse(this.ExecutedCommand.Parameters["foreground"].ToString());
 
-            var element = this.Automator.ElementsRegistry.GetRegisteredElement(elementId);
+            FlaUIDriverElement element = this.Automator.ElementsRegistry.GetRegisteredElement(elementId);
 
             ImageFormat imageFormat = ImFormat.GetImageFormat(imageFormatStr);
 
@@ -27,9 +28,9 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Auxiliary {
                 captureImage = ElementCapture.CaptureImageOfElement(element.FlaUIElement);
             }
 
-            captureImage.Bitmap.Save((Stream)memoryStream, imageFormat);
+            captureImage.Bitmap.Save(memoryStream, imageFormat);
 
-            return this.JsonResponse(ResponseStatus.Success, (object)Convert.ToBase64String(memoryStream.ToArray()));
+            return this.JsonResponse(ResponseStatus.Success, Convert.ToBase64String(memoryStream.ToArray()));
         }
 
     }

@@ -12,20 +12,20 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.ElementProperty {
 
             if (element.FlaUIElement.Patterns.Value.IsSupported)
                 return this.JsonResponse(ResponseStatus.Success,
-                    (object)element.FlaUIElement.Patterns.Value.Pattern.Value.ToString());
+                    element.FlaUIElement.Patterns.Value.Pattern.Value.ToString());
 
             if (element.FlaUIElement.Patterns.Text.IsSupported)
                 return this.JsonResponse(ResponseStatus.Success,
-                    (object)element.FlaUIElement.Patterns.Text.Pattern.DocumentRange.GetText(int.MaxValue).ToString());
+                    element.FlaUIElement.Patterns.Text.Pattern.DocumentRange.GetText(int.MaxValue));
 
             if (element.FlaUIElement.Patterns.Text2.IsSupported)
                 return this.JsonResponse(ResponseStatus.Success,
-                    (object)element.FlaUIElement.Patterns.Text2.Pattern.DocumentRange.GetText(int.MaxValue).ToString());
+                    element.FlaUIElement.Patterns.Text2.Pattern.DocumentRange.GetText(int.MaxValue));
 
             return element.FlaUIElement.Patterns.LegacyIAccessible.IsSupported
                 ? this.JsonResponse(ResponseStatus.Success,
-                    (object)element.FlaUIElement.Patterns.LegacyIAccessible.Pattern.Value.ValueOrDefault.ToString())
-                : this.JsonResponse(ResponseStatus.Success, (object)element.Text);
+                    element.FlaUIElement.Patterns.LegacyIAccessible.Pattern.Value.ValueOrDefault)
+                : this.JsonResponse(ResponseStatus.Success, element.Text);
         }
 
     }

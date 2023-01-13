@@ -1,8 +1,8 @@
 ﻿namespace FlaNium.Desktop.Driver.CommandExecutors.Actions
 {
-    public class DefaultKeyboardAction
+    public static class DefaultKeyboardAction
     {
-        public static void performAction(Action action)
+        public static void PerformAction(Action action)
         {
             
         }

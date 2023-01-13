@@ -1,15 +1,12 @@
-﻿
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.DataGridView
-{
-    using global::FlaUI.Core.AutomationElements;
-    class DataGridViewCellSetValueExecutor : CommandExecutorBase
-    {
-        #region Methods
+﻿using FlaUI.Core.AutomationElements;
 
-        protected override string DoImpl()
-        {
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.DataGridView {
+
+    class DataGridViewCellSetValueExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
-            
+
             var value = this.ExecutedCommand.Parameters["value"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
@@ -21,6 +18,6 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.DataGridView
             return this.JsonResponse();
         }
 
-        #endregion
     }
+
 }

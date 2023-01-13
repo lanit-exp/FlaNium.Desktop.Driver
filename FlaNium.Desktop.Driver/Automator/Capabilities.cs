@@ -1,15 +1,11 @@
-﻿namespace FlaNium.Desktop.Driver.Automator
-{
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Serialization;
+namespace FlaNium.Desktop.Driver.Automator {
 
+    internal class Capabilities {
 
-    internal class Capabilities
-    {
-
-        internal Capabilities()
-        {
+        internal Capabilities() {
             this.App = string.Empty;
             this.AppType = string.Empty;
             this.Arguments = string.Empty;
@@ -22,55 +18,41 @@
         }
 
 
-        [JsonProperty("app")]
-        public string App { get; set; }
+        [JsonProperty("app")] public string App { get; set; }
 
-        [JsonProperty("args")]
-        public string Arguments { get; set; }
+        [JsonProperty("args")] public string Arguments { get; set; }
 
         [JsonProperty("debugConnectToRunningApp")]
         public bool DebugConnectToRunningApp { get; set; }
 
-        [JsonProperty("innerPort")]
-        public int InnerPort { get; set; }
-        
-        [JsonProperty("launchDelay")]
-        public int LaunchDelay { get; set; }
+        [JsonProperty("innerPort")] public int InnerPort { get; set; }
 
-        [JsonProperty("processName")]
-        public string ProcessName { get; set; }
+        [JsonProperty("launchDelay")] public int LaunchDelay { get; set; }
 
-        [JsonProperty("injectionActivate")]
-        public bool InjectionActivate { get; set; }
+        [JsonProperty("processName")] public string ProcessName { get; set; }
 
-        [JsonProperty("appType")]
-        public string AppType { get; set; }
+        [JsonProperty("injectionActivate")] public bool InjectionActivate { get; set; }
 
-        [JsonProperty("responseTimeout")]
-        public int ResponseTimeout { get; set; }
+        [JsonProperty("appType")] public string AppType { get; set; }
+
+        [JsonProperty("responseTimeout")] public int ResponseTimeout { get; set; }
 
 
-
-        public static Capabilities CapabilitiesFromJsonString(string jsonString)
-        {
+        public static Capabilities CapabilitiesFromJsonString(string jsonString) {
             var capabilities = JsonConvert.DeserializeObject<Capabilities>(
-                jsonString, 
-                new JsonSerializerSettings
-                    {
-                        Error =
-                            delegate(object sender, ErrorEventArgs args)
-                                {
-                                    args.ErrorContext.Handled = true;
-                                }
-                    });
+                jsonString,
+                new JsonSerializerSettings {
+                    Error =
+                        delegate(object sender, ErrorEventArgs args) { args.ErrorContext.Handled = true; }
+                });
 
             return capabilities;
         }
 
-        public string CapabilitiesToJsonString()
-        {
+        public string CapabilitiesToJsonString() {
             return JsonConvert.SerializeObject(this);
         }
 
     }
+
 }

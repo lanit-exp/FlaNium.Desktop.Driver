@@ -1,14 +1,10 @@
-﻿
-using FlaUI.Core.AutomationElements;
+﻿using FlaUI.Core.AutomationElements;
 
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Tab
-{
-    class TabItemSelectExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Tab {
 
-        protected override string DoImpl()
-        {
+    class TabItemSelectExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
@@ -20,6 +16,6 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Tab
             return this.JsonResponse();
         }
 
-        #endregion
     }
+
 }

@@ -1,17 +1,13 @@
-﻿
-using FlaUI.Core.AutomationElements;
-using FlaNium.Desktop.Driver.FlaUI;
-using FlaNium.Desktop.Driver.Common;
+﻿using FlaNium.Desktop.Driver.Common;
 using FlaNium.Desktop.Driver.Exceptions;
+using FlaNium.Desktop.Driver.FlaUI;
+using FlaUI.Core.AutomationElements;
 
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ListBox
-{
-    class ListBoxRemoveFromSelectionTextExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ListBox {
 
-        protected override string DoImpl()
-        {
+    class ListBoxRemoveFromSelectionTextExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var text = this.ExecutedCommand.Parameters["value"].ToString();
@@ -22,8 +18,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ListBox
 
             var result = listBox.RemoveFromSelection(text);
 
-            if (result == null)
-            {
+            if (result == null) {
                 throw new AutomationException("Element cannot be found", ResponseStatus.NoSuchElement);
             }
 
@@ -34,6 +29,6 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ListBox
             return this.JsonResponse(ResponseStatus.Success, registeredObject);
         }
 
-        #endregion
     }
+
 }

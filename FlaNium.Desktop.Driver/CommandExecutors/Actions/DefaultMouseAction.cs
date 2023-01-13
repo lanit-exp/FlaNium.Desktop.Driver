@@ -1,8 +1,8 @@
 ﻿namespace FlaNium.Desktop.Driver.CommandExecutors.Actions
 {
-    public class DefaultMouseAction
+    public static class DefaultMouseAction
     {
-        public static void performAction(Action action)
+        public static void PerformAction(Action action)
         {
             
         }

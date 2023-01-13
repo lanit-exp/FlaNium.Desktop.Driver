@@ -1,15 +1,11 @@
-﻿
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ScrollBar
-{
-    using global::FlaUI.Core.AutomationElements;
-    using global::FlaUI.Core.AutomationElements.Scrolling;
+﻿using FlaUI.Core.AutomationElements;
+using FlaUI.Core.AutomationElements.Scrolling;
 
-    class VerticalScrollBarScrollUpLargeExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ScrollBar {
 
-        protected override string DoImpl()
-        {
+    class VerticalScrollBarScrollUpLargeExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
@@ -21,6 +17,6 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ScrollBar
             return this.JsonResponse();
         }
 
-        #endregion
     }
+
 }

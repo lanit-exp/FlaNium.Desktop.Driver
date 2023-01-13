@@ -1,15 +1,11 @@
-﻿
+﻿using FlaNium.Desktop.Driver.Common;
 using FlaUI.Core.AutomationElements;
-using FlaNium.Desktop.Driver.Common;
 
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Spinner
-{
-    class SpinnerGetValueExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Spinner {
 
-        protected override string DoImpl()
-        {
+    class SpinnerGetValueExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
@@ -18,9 +14,9 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Spinner
 
             double value = spinner.Value;
 
-            return this.JsonResponse(ResponseStatus.Success, value.ToString());
+            return this.JsonResponse(ResponseStatus.Success, value);
         }
 
-        #endregion
     }
+
 }

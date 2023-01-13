@@ -1,24 +1,13 @@
-﻿
-namespace FlaNium.Desktop.Driver.Common
-{
-    #region using
+﻿using System.Collections.Generic;
 
-    using System.Collections.Generic;
+namespace FlaNium.Desktop.Driver.Common {
 
-    #endregion
-
-    public static class JsonErrorCodes
-    {
-        #region Static Fields
+    public static class JsonErrorCodes {
 
         private static readonly Dictionary<ResponseStatus, string> ErrorMap = new Dictionary<ResponseStatus, string>();
 
-        #endregion
 
-        #region Constructors and Destructors
-
-        static JsonErrorCodes()
-        {
+        static JsonErrorCodes() {
             ErrorMap.Add(ResponseStatus.NoSuchElement, "no such element");
             ErrorMap.Add(ResponseStatus.NoSuchFrame, "no such frame");
             ErrorMap.Add(ResponseStatus.UnknownCommand, "unknown command");
@@ -41,15 +30,11 @@ namespace FlaNium.Desktop.Driver.Common
             ErrorMap.Add(ResponseStatus.MoveTargetOutOfBounds, "move target out of bounds");
         }
 
-        #endregion
 
-        #region Public Methods and Operators
-
-        public static string Parse(ResponseStatus status)
-        {
+        public static string Parse(ResponseStatus status) {
             return ErrorMap.ContainsKey(status) ? ErrorMap[status] : status.ToString();
         }
 
-        #endregion
     }
+
 }

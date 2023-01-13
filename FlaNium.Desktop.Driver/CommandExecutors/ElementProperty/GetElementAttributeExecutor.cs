@@ -26,7 +26,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.ElementProperty {
 
             try {
                 var propertyObject = flaUiElement.Properties.GetType().GetProperty(propertyName)
-                    .GetValue((object)flaUiElement.Properties, null);
+                    .GetValue(flaUiElement.Properties, null);
 
                 var property = propertyObject.GetType().GetProperty("ValueOrDefault").GetValue(propertyObject);
 

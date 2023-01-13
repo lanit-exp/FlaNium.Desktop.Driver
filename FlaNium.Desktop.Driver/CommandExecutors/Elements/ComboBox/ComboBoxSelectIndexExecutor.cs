@@ -1,30 +1,25 @@
-﻿
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ComboBox
-{
-    using System.Linq;
-    using global::FlaUI.Core.AutomationElements;
-    using FlaNium.Desktop.Driver.FlaUI;
-    using FlaNium.Desktop.Driver.Common;
-    using FlaNium.Desktop.Driver.Exceptions;
+﻿using System.Linq;
+using FlaNium.Desktop.Driver.Common;
+using FlaNium.Desktop.Driver.Exceptions;
+using FlaNium.Desktop.Driver.FlaUI;
+using FlaUI.Core.AutomationElements;
 
-    class ComboBoxSelectIndexExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ComboBox {
 
-        protected override string DoImpl()
-        {
+    class ComboBoxSelectIndexExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var value = this.ExecutedCommand.Parameters["value"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            ComboBox comboBox = element.FlaUIElement.AsComboBox();
-            
+            global::FlaUI.Core.AutomationElements.ComboBox comboBox = element.FlaUIElement.AsComboBox();
+
             ComboBoxItem item;
-            
-            if (comboBox.Patterns.Selection.IsSupported)
-            {
+
+            if (comboBox.Patterns.Selection.IsSupported) {
                 item = comboBox.Select(int.Parse(value));
                 comboBox.Collapse();
             }
@@ -33,8 +28,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ComboBox
                 item.Click();
             }
 
-            if (item == null)
-            {
+            if (item == null) {
                 throw new AutomationException("Element cannot be found", ResponseStatus.NoSuchElement);
             }
 
@@ -45,6 +39,6 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ComboBox
             return this.JsonResponse(ResponseStatus.Success, registeredObject);
         }
 
-        #endregion
     }
+
 }

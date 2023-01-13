@@ -1,26 +1,23 @@
-﻿
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ComboBox
-{
-    using global::FlaUI.Core.AutomationElements;
-    class ComboBoxSetEditableTextExecutor : CommandExecutorBase
-    {
-        #region Methods
+﻿using FlaUI.Core.AutomationElements;
 
-        protected override string DoImpl()
-        {
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ComboBox {
+
+    class ComboBoxSetEditableTextExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
-            
+
             var value = this.ExecutedCommand.Parameters["value"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            ComboBox comboBox = element.FlaUIElement.AsComboBox();
+            global::FlaUI.Core.AutomationElements.ComboBox comboBox = element.FlaUIElement.AsComboBox();
 
             comboBox.EditableText = value;
 
             return this.JsonResponse();
         }
 
-        #endregion
     }
+
 }

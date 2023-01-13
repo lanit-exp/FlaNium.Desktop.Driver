@@ -15,16 +15,16 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Actions
 
             foreach (Action action in actions)
             {
-                switch (action.id)
+                switch (action.Id)
                 {
                     case "default keyboard":
-                        DefaultKeyboardAction.performAction(action);
+                        DefaultKeyboardAction.PerformAction(action);
                         break;
                     case "default mouse":
-                        DefaultMouseAction.performAction(action);
+                        DefaultMouseAction.PerformAction(action);
                         break;
                     default:
-                        return this.JsonResponse(ResponseStatus.UnknownCommand, "Unknown action: " + action.id);
+                        return this.JsonResponse(ResponseStatus.UnknownCommand, "Unknown action: " + action.Id);
                 }
             }
 

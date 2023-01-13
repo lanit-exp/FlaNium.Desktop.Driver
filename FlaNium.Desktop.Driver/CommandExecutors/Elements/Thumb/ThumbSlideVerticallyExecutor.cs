@@ -1,14 +1,10 @@
-﻿
-using FlaUI.Core.AutomationElements;
+﻿using FlaUI.Core.AutomationElements;
 
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Thumb
-{
-    class ThumbSlideVerticallyExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Thumb {
 
-        protected override string DoImpl()
-        {
+    class ThumbSlideVerticallyExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var value = this.ExecutedCommand.Parameters["index"].ToString();
@@ -22,6 +18,6 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Thumb
             return this.JsonResponse();
         }
 
-        #endregion
     }
+
 }

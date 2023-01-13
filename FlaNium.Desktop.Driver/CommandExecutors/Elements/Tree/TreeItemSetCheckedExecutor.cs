@@ -1,16 +1,12 @@
-﻿
-using FlaUI.Core.AutomationElements;
+﻿using FlaUI.Core.AutomationElements;
 
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Tree
-{
-    class TreeItemSetCheckedExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Tree {
 
-        protected override string DoImpl()
-        {
+    class TreeItemSetCheckedExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
-            
+
             var value = this.ExecutedCommand.Parameters["value"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
@@ -22,6 +18,6 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Tree
             return this.JsonResponse();
         }
 
-        #endregion
     }
+
 }

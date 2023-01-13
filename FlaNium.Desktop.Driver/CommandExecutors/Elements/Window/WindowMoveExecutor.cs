@@ -1,16 +1,12 @@
-﻿
-using FlaUI.Core.AutomationElements;
+﻿using FlaUI.Core.AutomationElements;
 
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Window
-{
-    class WindowMoveExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Window {
 
-        protected override string DoImpl()
-        {
+    class WindowMoveExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
-           
+
             var x = this.ExecutedCommand.Parameters["x"].ToString();
             var y = this.ExecutedCommand.Parameters["y"].ToString();
 
@@ -23,6 +19,6 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Window
             return this.JsonResponse();
         }
 
-        #endregion
     }
+
 }

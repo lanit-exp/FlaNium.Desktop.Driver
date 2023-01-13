@@ -1,15 +1,11 @@
-﻿
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ScrollBar
-{
-    using global::FlaUI.Core.AutomationElements;
-    using FlaNium.Desktop.Driver.Common;
+﻿using FlaNium.Desktop.Driver.Common;
+using FlaUI.Core.AutomationElements;
 
-    class ScrollBarBaseMinimumValueExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ScrollBar {
 
-        protected override string DoImpl()
-        {
+    class ScrollBarBaseMinimumValueExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
@@ -18,9 +14,9 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ScrollBar
 
             var result = scroll.MinimumValue;
 
-            return this.JsonResponse(ResponseStatus.Success, result.ToString());
+            return this.JsonResponse(ResponseStatus.Success, result);
         }
 
-        #endregion
     }
+
 }
