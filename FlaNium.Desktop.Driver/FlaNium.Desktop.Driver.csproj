@@ -368,6 +368,7 @@
     <Compile Include="Inject\DLLFilesToInject.cs" />
     <Compile Include="Inject\Injector.cs" />
     <Compile Include="Input\Interpolation.cs" />
+    <Compile Include="Input\KeyboardLayout.cs" />
     <Compile Include="Input\KeyboardModifiers.cs" />
     <Compile Include="Input\KeyEvent.cs" />
     <Compile Include="Input\FlaNiumKeyboard.cs" />

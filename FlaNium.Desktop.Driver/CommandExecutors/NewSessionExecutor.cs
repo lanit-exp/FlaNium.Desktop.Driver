@@ -20,7 +20,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
             this.InitializeApplication();
 
             // Имеются проблемы ввода текста при активной русской раскладке. Добавлено переключение на английскую раскладку.
-            FlaNiumKeyboard.SwitchInputLanguageToEng();
+            KeyboardLayout.SwitchInputLanguageToEng();
 
 
             if (this.Automator.ActualCapabilities.InjectionActivate) {

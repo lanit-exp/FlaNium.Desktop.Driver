@@ -7,7 +7,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Auxiliary {
         protected override string DoImpl() {
             var layoutValue = this.ExecutedCommand.Parameters["value"].ToString();
 
-            FlaNiumKeyboard.SwitchInputLanguage(layoutValue);
+            KeyboardLayout.SwitchInputLanguage(layoutValue);
 
             return this.JsonResponse();
         }

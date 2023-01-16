@@ -6,7 +6,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Auxiliary {
     class GetKeyboardLayoutExecutor : CommandExecutorBase {
 
         protected override string DoImpl() {
-            return this.JsonResponse(ResponseStatus.Success, FlaNiumKeyboard.GetKeyboardLayout());
+            return this.JsonResponse(ResponseStatus.Success, KeyboardLayout.GetKeyboardLayout());
         }
 
     }
