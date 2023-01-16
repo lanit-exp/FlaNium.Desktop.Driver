@@ -9,7 +9,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Spinner {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var spinner = element.FlaUIElement.AsSpinner();
+            var spinner = element.FlaUiElement.AsSpinner();
 
             spinner.Decrement();
 

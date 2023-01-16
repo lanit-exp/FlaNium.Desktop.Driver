@@ -12,7 +12,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Tree {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var treeItem = element.FlaUIElement.AsTreeItem();
+            var treeItem = element.FlaUiElement.AsTreeItem();
 
             var result = treeItem.AddToSelection();
 
@@ -20,7 +20,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Tree {
                 throw new AutomationException("Element cannot be found", ResponseStatus.NoSuchElement);
             }
 
-            var itemRegisteredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUIDriverElement(result));
+            var itemRegisteredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUiDriverElement(result));
 
             var registeredObject = new JsonElementContent(itemRegisteredKey);
 

@@ -12,7 +12,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Calendar {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var calendar = element.FlaUIElement.AsCalendar();
+            var calendar = element.FlaUiElement.AsCalendar();
 
             DateTime date = DateTime.Parse(value);
 

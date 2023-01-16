@@ -10,7 +10,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Slider {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            global::FlaUI.Core.AutomationElements.Slider slider = element.FlaUIElement.AsSlider();
+            global::FlaUI.Core.AutomationElements.Slider slider = element.FlaUiElement.AsSlider();
 
             double value = slider.Value;
 

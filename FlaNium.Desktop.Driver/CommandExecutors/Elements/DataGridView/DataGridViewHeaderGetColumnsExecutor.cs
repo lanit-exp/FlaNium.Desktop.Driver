@@ -13,12 +13,12 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.DataGridView {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            DataGridViewHeader item = (DataGridViewHeader)element.FlaUIElement;
+            DataGridViewHeader item = (DataGridViewHeader)element.FlaUiElement;
 
             var columns = item.Columns;
 
             var flaUiDriverElementList = columns
-                .Select((Func<AutomationElement, FlaUIDriverElement>)(x => new FlaUIDriverElement(x)))
+                .Select((Func<AutomationElement, FlaUiDriverElement>)(x => new FlaUiDriverElement(x)))
                 .ToList();
 
             var registeredKeys = this.Automator.ElementsRegistry.RegisterElements(flaUiDriverElementList);

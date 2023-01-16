@@ -9,7 +9,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Tab {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var tab = element.FlaUIElement.AsTabItem();
+            var tab = element.FlaUiElement.AsTabItem();
 
             tab.AddToSelection();
 

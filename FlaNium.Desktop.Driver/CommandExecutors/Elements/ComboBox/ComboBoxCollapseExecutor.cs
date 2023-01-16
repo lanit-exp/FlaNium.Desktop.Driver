@@ -9,7 +9,7 @@
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            ComboBox comboBox = element.FlaUIElement.AsComboBox();
+            ComboBox comboBox = element.FlaUiElement.AsComboBox();
 
             comboBox.Collapse();
 

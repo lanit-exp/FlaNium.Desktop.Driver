@@ -9,9 +9,9 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.ElementProperty {
         protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
-            FlaUIDriverElement element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
+            FlaUiDriverElement element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            AutomationElement flaUiElement = element.FlaUIElement;
+            AutomationElement flaUiElement = element.FlaUiElement;
 
             var value = flaUiElement.Properties.ControlType.ToString();
 

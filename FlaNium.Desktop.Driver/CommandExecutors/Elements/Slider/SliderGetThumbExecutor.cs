@@ -12,7 +12,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Slider {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            global::FlaUI.Core.AutomationElements.Slider slider = element.FlaUIElement.AsSlider();
+            global::FlaUI.Core.AutomationElements.Slider slider = element.FlaUiElement.AsSlider();
 
             global::FlaUI.Core.AutomationElements.Thumb thumb = slider.Thumb;
 
@@ -20,7 +20,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Slider {
                 throw new AutomationException("Element cannot be found", ResponseStatus.NoSuchElement);
             }
 
-            var itemRegisteredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUIDriverElement(thumb));
+            var itemRegisteredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUiDriverElement(thumb));
 
             var registeredObject = new JsonElementContent(itemRegisteredKey);
 

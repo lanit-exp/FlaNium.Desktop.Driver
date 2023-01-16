@@ -14,7 +14,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ListBox {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var listBox = element.FlaUIElement.AsListBox();
+            var listBox = element.FlaUiElement.AsListBox();
 
             var result = listBox.AddToSelection(text);
 
@@ -22,7 +22,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ListBox {
                 throw new AutomationException("Element cannot be found", ResponseStatus.NoSuchElement);
             }
 
-            var itemRegisteredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUIDriverElement(result));
+            var itemRegisteredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUiDriverElement(result));
 
             var registeredObject = new JsonElementContent(itemRegisteredKey);
 

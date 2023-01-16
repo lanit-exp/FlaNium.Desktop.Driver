@@ -19,13 +19,13 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Grid {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            global::FlaUI.Core.AutomationElements.Grid grid = element.FlaUIElement.AsGrid();
+            global::FlaUI.Core.AutomationElements.Grid grid = element.FlaUiElement.AsGrid();
 
             var result = grid.GetRowsByValue(int.Parse(index), text, int.Parse(count));
 
             var flaUiDriverElementList = result
                 .Select(
-                    (Func<AutomationElement, FlaUIDriverElement>)(x => new FlaUIDriverElement(x)))
+                    (Func<AutomationElement, FlaUiDriverElement>)(x => new FlaUiDriverElement(x)))
                 .ToList();
 
             var registeredKeys = this.Automator.ElementsRegistry.RegisterElements(flaUiDriverElementList);

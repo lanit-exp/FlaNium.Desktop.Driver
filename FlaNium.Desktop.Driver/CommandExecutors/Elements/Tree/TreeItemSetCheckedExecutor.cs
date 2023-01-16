@@ -11,7 +11,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Tree {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var treeItem = element.FlaUIElement.AsTreeItem();
+            var treeItem = element.FlaUiElement.AsTreeItem();
 
             treeItem.IsChecked = bool.Parse(value);
 

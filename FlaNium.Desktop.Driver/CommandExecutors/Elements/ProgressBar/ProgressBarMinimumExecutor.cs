@@ -10,7 +10,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ProgressBar {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var progressBar = element.FlaUIElement.AsProgressBar();
+            var progressBar = element.FlaUiElement.AsProgressBar();
 
             var result = progressBar.Minimum;
 

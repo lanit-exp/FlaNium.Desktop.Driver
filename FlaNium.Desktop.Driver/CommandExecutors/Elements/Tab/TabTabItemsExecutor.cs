@@ -13,13 +13,13 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Tab {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var tab = element.FlaUIElement.AsTab();
+            var tab = element.FlaUiElement.AsTab();
 
             var result = tab.TabItems;
 
             var flaUiDriverElementList = result
                 .Select(
-                    (Func<AutomationElement, FlaUIDriverElement>)(x => new FlaUIDriverElement(x)))
+                    (Func<AutomationElement, FlaUiDriverElement>)(x => new FlaUiDriverElement(x)))
                 .ToList();
 
             var registeredKeys = this.Automator.ElementsRegistry.RegisterElements(flaUiDriverElementList);

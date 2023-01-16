@@ -28,8 +28,7 @@ namespace FlaNium.Desktop.Driver.Common {
             var result = new Dictionary<string, string> { { "error", JsonErrorCodes.Parse(this.Status) } };
 
             string message;
-            var exception = value as Exception;
-            if (exception != null) {
+            if (value is Exception exception) {
                 message = exception.Message;
                 result.Add("stacktrace", exception.StackTrace);
             }

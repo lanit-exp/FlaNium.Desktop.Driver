@@ -12,7 +12,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Grid {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            GridRow gridRow = element.FlaUIElement.AsGridRow();
+            GridRow gridRow = element.FlaUiElement.AsGridRow();
 
             var result = gridRow.Header;
 
@@ -20,7 +20,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Grid {
                 throw new AutomationException("Element cannot be found", ResponseStatus.NoSuchElement);
             }
 
-            var itemRegisteredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUIDriverElement(result));
+            var itemRegisteredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUiDriverElement(result));
 
             var registeredObject = new JsonElementContent(itemRegisteredKey);
 

@@ -10,7 +10,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.CheckBox {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            global::FlaUI.Core.AutomationElements.CheckBox checkBox = element.FlaUIElement.AsCheckBox();
+            global::FlaUI.Core.AutomationElements.CheckBox checkBox = element.FlaUiElement.AsCheckBox();
 
             var toggleState = checkBox.Patterns.Toggle.PatternOrDefault.ToggleState;
 

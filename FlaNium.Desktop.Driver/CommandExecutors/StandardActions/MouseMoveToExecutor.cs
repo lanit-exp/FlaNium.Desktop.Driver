@@ -20,7 +20,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.StandardActions {
             var resultPoint = Mouse.Position;
             if (haveElement) {
                 var registeredKey = this.ExecutedCommand.Parameters["element"].ToString();
-                FlaUIDriverElement element = this.Automator.ElementsRegistry.GetRegisteredElementOrNull(registeredKey);
+                FlaUiDriverElement element = this.Automator.ElementsRegistry.GetRegisteredElementOrNull(registeredKey);
 
                 if (element != null) {
                     var rect = element.Properties.BoundingRectangle;

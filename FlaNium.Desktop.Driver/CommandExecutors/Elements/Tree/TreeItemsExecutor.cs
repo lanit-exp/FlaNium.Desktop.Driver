@@ -13,13 +13,13 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Tree {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var tree = element.FlaUIElement.AsTree();
+            var tree = element.FlaUiElement.AsTree();
 
             var result = tree.Items;
 
             var flaUiDriverElementList = result
                 .Select(
-                    (Func<AutomationElement, FlaUIDriverElement>)(x => new FlaUIDriverElement(x)))
+                    (Func<AutomationElement, FlaUiDriverElement>)(x => new FlaUiDriverElement(x)))
                 .ToList();
 
             var registeredKeys = this.Automator.ElementsRegistry.RegisterElements(flaUiDriverElementList);

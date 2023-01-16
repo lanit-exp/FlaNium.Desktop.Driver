@@ -10,7 +10,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ScrollBar {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            HorizontalScrollBar scroll = element.FlaUIElement.AsHorizontalScrollBar();
+            HorizontalScrollBar scroll = element.FlaUiElement.AsHorizontalScrollBar();
 
             scroll.ScrollRight();
 

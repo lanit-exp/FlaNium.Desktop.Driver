@@ -11,7 +11,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ComboBox {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            global::FlaUI.Core.AutomationElements.ComboBox comboBox = element.FlaUIElement.AsComboBox();
+            global::FlaUI.Core.AutomationElements.ComboBox comboBox = element.FlaUiElement.AsComboBox();
 
             ExpandCollapseState state = comboBox.ExpandCollapseState;
 

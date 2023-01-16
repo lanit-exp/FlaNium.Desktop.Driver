@@ -12,7 +12,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Menu {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var menuItem = element.FlaUIElement.AsMenuItem();
+            var menuItem = element.FlaUiElement.AsMenuItem();
 
             var result = menuItem.Invoke();
 
@@ -20,7 +20,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Menu {
                 throw new AutomationException("Element cannot be found", ResponseStatus.NoSuchElement);
             }
 
-            var itemRegisteredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUIDriverElement(result));
+            var itemRegisteredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUiDriverElement(result));
 
             var registeredObject = new JsonElementContent(itemRegisteredKey);
 

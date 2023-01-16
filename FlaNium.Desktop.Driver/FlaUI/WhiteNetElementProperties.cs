@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Drawing;
 using FlaUI.Core;
 
@@ -19,7 +19,7 @@ namespace FlaNium.Desktop.Driver.FlaUI {
         public string Name => this.properties.Name.ValueOrDefault;
 
         public string RuntimeId =>
-            string.Join<int>("", (IEnumerable<int>)(this.properties.RuntimeId.ValueOrDefault ?? new int[0]));
+            string.Join("", this.properties.RuntimeId.ValueOrDefault ?? Array.Empty<int>());
 
         public string AutomationId => this.properties.AutomationId.ValueOrDefault;
 

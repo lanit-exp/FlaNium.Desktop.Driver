@@ -1,44 +1,27 @@
-﻿namespace FlaNium.Desktop.Driver
-{
-    #region using
+﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading;
+using FlaNium.Desktop.Driver.Common;
+using FlaNium.Desktop.Driver.Exceptions;
+using FlaNium.Desktop.Driver.FlaUI;
 
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    using System.Threading;
-    using FlaNium.Desktop.Driver.FlaUI;
-    using FlaNium.Desktop.Driver.Common;
-    using FlaNium.Desktop.Driver.Exceptions;
+namespace FlaNium.Desktop.Driver {
 
-    #endregion
+    internal class ElementsRegistry {
 
-    internal class ElementsRegistry
-    {
-        #region Static Fields
+        private static int _safeInstanceCount;
 
-        private static int safeInstanceCount;
 
-        #endregion
+        private readonly Dictionary<string, FlaUiDriverElement> registeredElements;
 
-        #region Fields
 
-        private readonly Dictionary<string, FlaUIDriverElement> registeredElements;
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        public ElementsRegistry()
-        {
-            this.registeredElements = new Dictionary<string, FlaUIDriverElement>();
+        public ElementsRegistry() {
+            this.registeredElements = new Dictionary<string, FlaUiDriverElement>();
         }
 
-        #endregion
 
-        #region Public Methods and Operators
-
-        public void Clear()
-        {
+        public void Clear() {
             this.registeredElements.Clear();
         }
 
@@ -48,45 +31,38 @@
         /// <exception cref="AutomationException">
         /// Registered element is not found or element has been garbage collected.
         /// </exception>
-        public FlaUIDriverElement GetRegisteredElement(string registeredKey)
-        {
+        public FlaUiDriverElement GetRegisteredElement(string registeredKey) {
             var element = this.GetRegisteredElementOrNull(registeredKey);
-            if (element != null)
-            {
+            if (element != null) {
                 return element;
             }
 
             throw new AutomationException("Stale element reference", ResponseStatus.StaleElementReference);
         }
 
-        public string RegisterElement(FlaUIDriverElement element)
-        {
-            Interlocked.Increment(ref safeInstanceCount);
+        public string RegisterElement(FlaUiDriverElement element) {
+            Interlocked.Increment(ref _safeInstanceCount);
 
             var registeredKey = element.GetHashCode() + "-"
-                             + safeInstanceCount.ToString(string.Empty, CultureInfo.InvariantCulture);
+                                                      + _safeInstanceCount.ToString(string.Empty,
+                                                          CultureInfo.InvariantCulture);
             this.registeredElements.Add(registeredKey, element);
 
             return registeredKey;
-
         }
 
-        public IEnumerable<string> RegisterElements(IEnumerable<FlaUIDriverElement> elements)
-        {
+        public IEnumerable<string> RegisterElements(IEnumerable<FlaUiDriverElement> elements) {
             return elements.Select(this.RegisterElement);
         }
 
-        #endregion
 
-        #region Methods
-
-        internal FlaUIDriverElement GetRegisteredElementOrNull(string registeredKey)
-        {
-            FlaUIDriverElement element;
+        internal FlaUiDriverElement GetRegisteredElementOrNull(string registeredKey) {
+            FlaUiDriverElement element;
             this.registeredElements.TryGetValue(registeredKey, out element);
+
             return element;
         }
 
-        #endregion
     }
+
 }

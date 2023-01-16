@@ -9,7 +9,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.FindElement {
             var activeWindow = DriverManager.GetActiveWindow();
 
             var itemRegisteredKey =
-                this.Automator.ElementsRegistry.RegisterElement(new FlaUIDriverElement(activeWindow));
+                this.Automator.ElementsRegistry.RegisterElement(new FlaUiDriverElement(activeWindow));
 
             var registeredObject = new JsonElementContent(itemRegisteredKey);
 

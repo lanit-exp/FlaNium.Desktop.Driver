@@ -12,9 +12,9 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.ElementProperty {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
             var propertyName = this.ExecutedCommand.Parameters["NAME"].ToString();
 
-            FlaUIDriverElement element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
+            FlaUiDriverElement element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            AutomationElement flaUiElement = element.FlaUIElement;
+            AutomationElement flaUiElement = element.FlaUiElement;
 
 
             if (propertyName == "ToggleState") {

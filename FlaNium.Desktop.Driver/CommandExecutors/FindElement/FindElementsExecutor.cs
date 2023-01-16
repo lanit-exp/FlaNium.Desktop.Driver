@@ -38,9 +38,9 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.FindElement {
 
 
             var flaUiDriverElementList = elements
-                .Select<AutomationElement, FlaUIDriverElement>(
-                    (Func<AutomationElement, FlaUIDriverElement>)(x => new FlaUIDriverElement(x)))
-                .ToList<FlaUIDriverElement>();
+                .Select<AutomationElement, FlaUiDriverElement>(
+                    (Func<AutomationElement, FlaUiDriverElement>)(x => new FlaUiDriverElement(x)))
+                .ToList<FlaUiDriverElement>();
 
             var registeredKeys = this.Automator.ElementsRegistry.RegisterElements(flaUiDriverElementList);
 

@@ -11,7 +11,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.StandartActions {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            element.FlaUIElement.Focus();
+            element.FlaUiElement.Focus();
 
             Keyboard.Press(VirtualKeyShort.ENTER);
 

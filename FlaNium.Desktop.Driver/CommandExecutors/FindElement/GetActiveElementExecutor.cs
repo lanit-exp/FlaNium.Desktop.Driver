@@ -13,7 +13,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.FindElement {
             if (uiItem == null)
                 throw new AutomationException("Active cannot be found ", ResponseStatus.NoSuchElement);
 
-            var registeredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUIDriverElement(uiItem));
+            var registeredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUiDriverElement(uiItem));
             var registeredObject = new JsonElementContent(registeredKey);
 
             return this.JsonResponse(ResponseStatus.Success, registeredObject);

@@ -13,13 +13,13 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Grid {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            GridHeader gridHeader = element.FlaUIElement.AsGridHeader();
+            GridHeader gridHeader = element.FlaUiElement.AsGridHeader();
 
             var result = gridHeader.Columns;
 
             var flaUiDriverElementList = result
                 .Select(
-                    (Func<AutomationElement, FlaUIDriverElement>)(x => new FlaUIDriverElement(x)))
+                    (Func<AutomationElement, FlaUiDriverElement>)(x => new FlaUiDriverElement(x)))
                 .ToList();
 
             var registeredKeys = this.Automator.ElementsRegistry.RegisterElements(flaUiDriverElementList);

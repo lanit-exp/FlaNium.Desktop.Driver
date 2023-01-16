@@ -11,7 +11,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Thumb {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var thumb = element.FlaUIElement.AsThumb();
+            var thumb = element.FlaUiElement.AsThumb();
 
             thumb.SlideHorizontally(int.Parse(value));
 

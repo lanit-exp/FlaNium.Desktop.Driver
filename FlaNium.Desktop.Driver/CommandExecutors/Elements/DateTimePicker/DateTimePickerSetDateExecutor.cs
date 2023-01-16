@@ -12,7 +12,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.DateTimePicker {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var dateTimePicker = element.FlaUIElement.AsDateTimePicker();
+            var dateTimePicker = element.FlaUiElement.AsDateTimePicker();
 
             DateTime date = DateTime.Parse(value);
 

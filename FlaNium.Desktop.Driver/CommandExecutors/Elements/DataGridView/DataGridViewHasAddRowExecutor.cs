@@ -10,7 +10,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.DataGridView {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            global::FlaUI.Core.AutomationElements.DataGridView item = element.FlaUIElement.AsDataGridView();
+            global::FlaUI.Core.AutomationElements.DataGridView item = element.FlaUiElement.AsDataGridView();
 
             var result = item.HasAddRow;
 

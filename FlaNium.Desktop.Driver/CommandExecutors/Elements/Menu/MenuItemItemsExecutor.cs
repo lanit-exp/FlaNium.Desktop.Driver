@@ -13,13 +13,13 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Menu {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var menuItem = element.FlaUIElement.AsMenuItem();
+            var menuItem = element.FlaUiElement.AsMenuItem();
 
             var result = menuItem.Items;
 
             var flaUiDriverElementList = result
                 .Select(
-                    (Func<AutomationElement, FlaUIDriverElement>)(x => new FlaUIDriverElement(x)))
+                    (Func<AutomationElement, FlaUiDriverElement>)(x => new FlaUiDriverElement(x)))
                 .ToList();
 
             var registeredKeys = this.Automator.ElementsRegistry.RegisterElements(flaUiDriverElementList);

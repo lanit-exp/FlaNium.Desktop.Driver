@@ -10,21 +10,21 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.ElementProperty {
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
 
-            if (element.FlaUIElement.Patterns.Value.IsSupported)
+            if (element.FlaUiElement.Patterns.Value.IsSupported)
                 return this.JsonResponse(ResponseStatus.Success,
-                    element.FlaUIElement.Patterns.Value.Pattern.Value.ToString());
+                    element.FlaUiElement.Patterns.Value.Pattern.Value.ToString());
 
-            if (element.FlaUIElement.Patterns.Text.IsSupported)
+            if (element.FlaUiElement.Patterns.Text.IsSupported)
                 return this.JsonResponse(ResponseStatus.Success,
-                    element.FlaUIElement.Patterns.Text.Pattern.DocumentRange.GetText(int.MaxValue));
+                    element.FlaUiElement.Patterns.Text.Pattern.DocumentRange.GetText(int.MaxValue));
 
-            if (element.FlaUIElement.Patterns.Text2.IsSupported)
+            if (element.FlaUiElement.Patterns.Text2.IsSupported)
                 return this.JsonResponse(ResponseStatus.Success,
-                    element.FlaUIElement.Patterns.Text2.Pattern.DocumentRange.GetText(int.MaxValue));
+                    element.FlaUiElement.Patterns.Text2.Pattern.DocumentRange.GetText(int.MaxValue));
 
-            return element.FlaUIElement.Patterns.LegacyIAccessible.IsSupported
+            return element.FlaUiElement.Patterns.LegacyIAccessible.IsSupported
                 ? this.JsonResponse(ResponseStatus.Success,
-                    element.FlaUIElement.Patterns.LegacyIAccessible.Pattern.Value.ValueOrDefault)
+                    element.FlaUiElement.Patterns.LegacyIAccessible.Pattern.Value.ValueOrDefault)
                 : this.JsonResponse(ResponseStatus.Success, element.Text);
         }
 

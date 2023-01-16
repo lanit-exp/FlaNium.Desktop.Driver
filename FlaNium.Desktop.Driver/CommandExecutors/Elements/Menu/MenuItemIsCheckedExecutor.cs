@@ -10,7 +10,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Menu {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var menuItem = element.FlaUIElement.AsMenuItem();
+            var menuItem = element.FlaUiElement.AsMenuItem();
 
             var result = menuItem.IsChecked;
 

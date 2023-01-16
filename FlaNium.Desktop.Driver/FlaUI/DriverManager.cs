@@ -161,7 +161,7 @@ namespace FlaNium.Desktop.Driver.FlaUI {
                 }
 
                 catch (Exception) {
-                    throw new FileNotFoundException(string.Format("Некорректный путь ({0})", appPath));
+                    throw new FileNotFoundException($"Некорректный путь ({appPath})");
                 }
             }
 
@@ -246,7 +246,7 @@ namespace FlaNium.Desktop.Driver.FlaUI {
             string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory.Replace("\\", "\\\\").TrimEnd('\\', '/'),
                 filename);
             if (!File.Exists(path)) {
-                Logger.Error(string.Format("File does not exist {0}", path));
+                Logger.Error($"File does not exist {path}");
 
                 return null;
             }

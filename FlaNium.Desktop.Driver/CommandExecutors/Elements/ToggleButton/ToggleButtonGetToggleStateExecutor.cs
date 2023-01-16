@@ -10,7 +10,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ToggleButton {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var toggleButton = element.FlaUIElement.AsToggleButton();
+            var toggleButton = element.FlaUiElement.AsToggleButton();
 
             var result = toggleButton.ToggleState;
 

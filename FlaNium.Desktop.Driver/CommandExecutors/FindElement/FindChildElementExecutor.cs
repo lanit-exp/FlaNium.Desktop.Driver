@@ -18,19 +18,19 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.FindElement {
             AutomationElement element;
 
             if (searchStrategy.Equals("xpath")) {
-                element = ByXpath.FindFirstByXPath(searchValue, parent.FlaUIElement);
+                element = ByXpath.FindFirstByXPath(searchValue, parent.FlaUiElement);
             }
             else {
                 var condition = ByHelper.GetStrategy(searchStrategy, searchValue);
 
-                element = parent.FlaUIElement.FindFirstDescendant(condition);
+                element = parent.FlaUiElement.FindFirstDescendant(condition);
             }
 
             if (element == null) {
                 throw new AutomationException("Element cannot be found", ResponseStatus.NoSuchElement);
             }
 
-            var registeredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUIDriverElement(element));
+            var registeredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUiDriverElement(element));
             var registeredObject = new JsonElementContent(registeredKey);
 
             return this.JsonResponse(ResponseStatus.Success, registeredObject);

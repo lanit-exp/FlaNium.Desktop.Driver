@@ -11,7 +11,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.TextBox {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var textBox = element.FlaUIElement.AsTextBox();
+            var textBox = element.FlaUiElement.AsTextBox();
 
             textBox.Text = value;
 

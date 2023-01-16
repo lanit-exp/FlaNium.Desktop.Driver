@@ -11,7 +11,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ListBox {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var listBoxItem = element.FlaUIElement.AsListBoxItem();
+            var listBoxItem = element.FlaUiElement.AsListBoxItem();
 
             listBoxItem.IsChecked = bool.Parse(value);
 

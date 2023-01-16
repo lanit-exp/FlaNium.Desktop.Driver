@@ -89,7 +89,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
             }
         }
 
-        private void ValuePatternSetValue(FlaUIDriverElement element, IEnumerable<JToken> args) {
+        private void ValuePatternSetValue(FlaUiDriverElement element, IEnumerable<JToken> args) {
             var value = args.ElementAtOrDefault(1);
             if (value == null) {
                 var msg = HelpArgumentsErrorMsg;
@@ -97,7 +97,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
                 throw new AutomationException(msg, ResponseStatus.JavaScriptError);
             }
 
-            element.FlaUIElement.Patterns.Value.Pattern.SetValue(value.ToString());
+            element.FlaUiElement.Patterns.Value.Pattern.SetValue(value.ToString());
         }
 
     }

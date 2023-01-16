@@ -13,12 +13,12 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ListBox {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var listBox = element.FlaUIElement.AsListBox();
+            var listBox = element.FlaUiElement.AsListBox();
 
             var result = listBox.SelectedItems;
 
             var flaUiDriverElementList = result
-                .Select((Func<AutomationElement, FlaUIDriverElement>)(x => new FlaUIDriverElement(x)))
+                .Select((Func<AutomationElement, FlaUiDriverElement>)(x => new FlaUiDriverElement(x)))
                 .ToList();
 
             var registeredKeys = this.Automator.ElementsRegistry.RegisterElements(flaUiDriverElementList);

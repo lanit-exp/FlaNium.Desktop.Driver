@@ -9,7 +9,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.ElementProperty {
         protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
-            var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey).FlaUIElement;
+            var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey).FlaUiElement;
 
 
             bool? nullable1 = element.Patterns.SelectionItem.PatternOrDefault?.IsSelected?.Value;

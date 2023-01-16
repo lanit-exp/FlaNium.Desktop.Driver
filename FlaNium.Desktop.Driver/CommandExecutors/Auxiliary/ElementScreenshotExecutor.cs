@@ -14,7 +14,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Auxiliary {
             var imageFormatStr = this.ExecutedCommand.Parameters["format"].ToString();
             var foreground = Boolean.Parse(this.ExecutedCommand.Parameters["foreground"].ToString());
 
-            FlaUIDriverElement element = this.Automator.ElementsRegistry.GetRegisteredElement(elementId);
+            FlaUiDriverElement element = this.Automator.ElementsRegistry.GetRegisteredElement(elementId);
 
             ImageFormat imageFormat = ImFormat.GetImageFormat(imageFormatStr);
 
@@ -22,10 +22,10 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Auxiliary {
             CaptureImage captureImage;
 
             if (foreground) {
-                captureImage = Capture.Element(element.FlaUIElement);
+                captureImage = Capture.Element(element.FlaUiElement);
             }
             else {
-                captureImage = ElementCapture.CaptureImageOfElement(element.FlaUIElement);
+                captureImage = ElementCapture.CaptureImageOfElement(element.FlaUiElement);
             }
 
             captureImage.Bitmap.Save(memoryStream, imageFormat);

@@ -10,31 +10,31 @@ namespace FlaNium.Desktop.Driver.Extensions {
     internal class AutomationElementXPathNavigatorExtended : XPathNavigator {
 
         private const int NoAttributeValue = -1;
-        private readonly AutomationElement _rootElement;
-        private readonly ITreeWalker _treeWalker;
-        private AutomationElement _currentElement;
-        private int _attributeIndex = NoAttributeValue;
+        private readonly AutomationElement rootElement;
+        private readonly ITreeWalker treeWalker;
+        private AutomationElement currentElement;
+        private int attributeIndex = NoAttributeValue;
 
         /// <summary>
         /// Creates a new XPath navigator which uses the given element as the root.
         /// </summary>
         /// <param name="rootElement">The element to use as root element.</param>
         public AutomationElementXPathNavigatorExtended(AutomationElement rootElement) {
-            _treeWalker = rootElement.Automation.TreeWalkerFactory.GetControlViewWalker();
-            _rootElement = rootElement;
-            _currentElement = rootElement;
+            treeWalker = rootElement.Automation.TreeWalkerFactory.GetControlViewWalker();
+            this.rootElement = rootElement;
+            currentElement = rootElement;
         }
 
-        private bool IsInAttribute => _attributeIndex != NoAttributeValue;
+        private bool IsInAttribute => attributeIndex != NoAttributeValue;
 
         /// <inheritdoc />
         public override bool HasAttributes => !IsInAttribute;
 
         /// <inheritdoc />
-        public override string Value => IsInAttribute ? GetAttributeValue(_attributeIndex) : _currentElement.ToString();
+        public override string Value => IsInAttribute ? GetAttributeValue(attributeIndex) : currentElement.ToString();
 
         /// <inheritdoc />
-        public override object UnderlyingObject => _currentElement;
+        public override object UnderlyingObject => currentElement;
 
         /// <inheritdoc />
         public override XPathNodeType NodeType {
@@ -43,7 +43,7 @@ namespace FlaNium.Desktop.Driver.Extensions {
                     return XPathNodeType.Attribute;
                 }
 
-                if (_currentElement.Equals(_rootElement)) {
+                if (currentElement.Equals(rootElement)) {
                     return XPathNodeType.Root;
                 }
 
@@ -55,12 +55,12 @@ namespace FlaNium.Desktop.Driver.Extensions {
         public override string LocalName {
             get {
                 if (IsInAttribute) {
-                    return GetAttributeName(_attributeIndex);
+                    return GetAttributeName(attributeIndex);
                 }
 
                 // Map unknown types to custom so they are at least findable
-                var controlType = _currentElement.Properties.ControlType.IsSupported
-                    ? _currentElement.Properties.ControlType.Value
+                var controlType = currentElement.Properties.ControlType.IsSupported
+                    ? currentElement.Properties.ControlType.Value
                     : ControlType.Custom;
 
                 return controlType.ToString();
@@ -87,9 +87,9 @@ namespace FlaNium.Desktop.Driver.Extensions {
 
         /// <inheritdoc />
         public override XPathNavigator Clone() {
-            var clonedObject = new AutomationElementXPathNavigatorExtended(_rootElement) {
-                _currentElement = _currentElement,
-                _attributeIndex = _attributeIndex
+            var clonedObject = new AutomationElementXPathNavigatorExtended(rootElement) {
+                currentElement = currentElement,
+                attributeIndex = attributeIndex
             };
 
             return clonedObject;
@@ -101,14 +101,14 @@ namespace FlaNium.Desktop.Driver.Extensions {
                 return false;
             }
 
-            _attributeIndex = 0;
+            attributeIndex = 0;
 
             return true;
         }
 
         /// <inheritdoc />
         public override bool MoveToNextAttribute() {
-            if (_attributeIndex >= Enum.GetNames(typeof(ElementAttributes)).Length - 1) {
+            if (attributeIndex >= Enum.GetNames(typeof(ElementAttributes)).Length - 1) {
                 // No more attributes
                 return false;
             }
@@ -117,7 +117,7 @@ namespace FlaNium.Desktop.Driver.Extensions {
                 return false;
             }
 
-            _attributeIndex++;
+            attributeIndex++;
 
             return true;
         }
@@ -144,7 +144,7 @@ namespace FlaNium.Desktop.Driver.Extensions {
 
             var attributeIndex = GetAttributeIndexFromName(localName);
             if (attributeIndex != NoAttributeValue) {
-                _attributeIndex = attributeIndex;
+                this.attributeIndex = attributeIndex;
 
                 return true;
             }
@@ -162,8 +162,8 @@ namespace FlaNium.Desktop.Driver.Extensions {
 
         /// <inheritdoc />
         public override void MoveToRoot() {
-            _attributeIndex = NoAttributeValue;
-            _currentElement = _rootElement;
+            attributeIndex = NoAttributeValue;
+            currentElement = rootElement;
         }
 
         /// <inheritdoc />
@@ -172,12 +172,12 @@ namespace FlaNium.Desktop.Driver.Extensions {
                 return false;
             }
 
-            var nextElement = _treeWalker.GetNextSibling(_currentElement);
+            var nextElement = treeWalker.GetNextSibling(currentElement);
             if (nextElement == null) {
                 return false;
             }
 
-            _currentElement = nextElement;
+            currentElement = nextElement;
 
             return true;
         }
@@ -188,12 +188,12 @@ namespace FlaNium.Desktop.Driver.Extensions {
                 return false;
             }
 
-            var previousElement = _treeWalker.GetPreviousSibling(_currentElement);
+            var previousElement = treeWalker.GetPreviousSibling(currentElement);
             if (previousElement == null) {
                 return false;
             }
 
-            _currentElement = previousElement;
+            currentElement = previousElement;
 
             return true;
         }
@@ -204,12 +204,12 @@ namespace FlaNium.Desktop.Driver.Extensions {
                 return false;
             }
 
-            var childElement = _treeWalker.GetFirstChild(_currentElement);
+            var childElement = treeWalker.GetFirstChild(currentElement);
             if (childElement == null) {
                 return false;
             }
 
-            _currentElement = childElement;
+            currentElement = childElement;
 
             return true;
         }
@@ -217,16 +217,16 @@ namespace FlaNium.Desktop.Driver.Extensions {
         /// <inheritdoc />
         public override bool MoveToParent() {
             if (IsInAttribute) {
-                _attributeIndex = NoAttributeValue;
+                attributeIndex = NoAttributeValue;
 
                 return true;
             }
 
-            if (_currentElement.Equals(_rootElement)) {
+            if (currentElement.Equals(rootElement)) {
                 return false;
             }
 
-            _currentElement = _treeWalker.GetParent(_currentElement);
+            currentElement = treeWalker.GetParent(currentElement);
 
             return true;
         }
@@ -238,12 +238,12 @@ namespace FlaNium.Desktop.Driver.Extensions {
                 return false;
             }
 
-            if (!_rootElement.Equals(specificNavigator._rootElement)) {
+            if (!rootElement.Equals(specificNavigator.rootElement)) {
                 return false;
             }
 
-            _currentElement = specificNavigator._currentElement;
-            _attributeIndex = specificNavigator._attributeIndex;
+            currentElement = specificNavigator.currentElement;
+            attributeIndex = specificNavigator.attributeIndex;
 
             return true;
         }
@@ -260,26 +260,26 @@ namespace FlaNium.Desktop.Driver.Extensions {
                 return false;
             }
 
-            if (!_rootElement.Equals(specificNavigator._rootElement)) {
+            if (!rootElement.Equals(specificNavigator.rootElement)) {
                 return false;
             }
 
-            return _currentElement.Equals(specificNavigator._currentElement)
-                   && _attributeIndex == specificNavigator._attributeIndex;
+            return currentElement.Equals(specificNavigator.currentElement)
+                   && attributeIndex == specificNavigator.attributeIndex;
         }
 
         private string GetAttributeValue(int attributeIndex) {
             switch ((ElementAttributes)attributeIndex) {
                 case ElementAttributes.AutomationId:
-                    return _currentElement.Properties.AutomationId.ValueOrDefault;
+                    return currentElement.Properties.AutomationId.ValueOrDefault;
                 case ElementAttributes.Name:
-                    return _currentElement.Properties.Name.ValueOrDefault;
+                    return currentElement.Properties.Name.ValueOrDefault;
                 case ElementAttributes.ClassName:
-                    return _currentElement.Properties.ClassName.ValueOrDefault;
+                    return currentElement.Properties.ClassName.ValueOrDefault;
                 case ElementAttributes.HelpText:
-                    return _currentElement.Properties.HelpText.ValueOrDefault;
+                    return currentElement.Properties.HelpText.ValueOrDefault;
                 case ElementAttributes.ControlType:
-                    return _currentElement.Properties.ControlType.ToString();
+                    return currentElement.Properties.ControlType.ToString();
                 default:
                     throw new ArgumentOutOfRangeException(nameof(attributeIndex));
             }

@@ -116,8 +116,8 @@ namespace FlaNium.Desktop.Driver.Input
         /// Performs a touch-drag from the start point to the end point.
         /// </summary>
         /// <param name="duration">The duration of the action.</param>
-        /// <param name="startPoint">The starting point of the drag.</param>
-        /// <param name="endPoint">The end point of the drag.</param>
+        /// <param name="startEndPoints">An array of start and end points that are traversed simultaneously.</param>
+        /// <param name="durationHold">Delay at starting points before starting to move.</param>
         public static void Drag(TimeSpan duration, Tuple<Point, Point>[] startEndPoints, TimeSpan durationHold)
         {
             // Simulate the touch-down on the starting points.

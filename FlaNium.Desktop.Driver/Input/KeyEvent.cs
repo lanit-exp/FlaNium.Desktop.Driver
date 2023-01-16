@@ -1,63 +1,44 @@
-﻿namespace FlaNium.Desktop.Driver.Input
-{
-    #region using
+﻿using OpenQA.Selenium;
 
-    using OpenQA.Selenium;
+namespace FlaNium.Desktop.Driver.Input {
 
-    #endregion
-
-    internal class KeyEvent
-    {
-        #region Fields
+    internal class KeyEvent {
 
         private readonly char character;
 
         private readonly string unicodeKey;
 
-        #endregion
 
-        #region Constructors and Destructors
-
-        public KeyEvent(char ch)
-        {
+        public KeyEvent(char ch) {
             this.character = ch;
             this.unicodeKey = KeyboardModifiers.GetKeyFromUnicode(this.character);
         }
 
-        #endregion
 
-        #region Public Methods and Operators
-
-        public char GetCharacter()
-        {
+        public char GetCharacter() {
             return this.character;
         }
 
-        public string GetKey()
-        {
+        public string GetKey() {
             return this.unicodeKey;
         }
 
-        public bool IsModifier()
-        {
+        public bool IsModifier() {
             return KeyboardModifiers.IsModifier(this.unicodeKey);
         }
 
-        public bool IsKey()
-        {
+        public bool IsKey() {
             return KeyboardModifiers.IsKey(this.unicodeKey);
         }
 
-        public bool IsModifierRelease()
-        {
+        public bool IsModifierRelease() {
             return this.GetKey() == Keys.Null;
         }
 
-        public bool IsNewLine()
-        {
+        public bool IsNewLine() {
             return this.GetCharacter() == '\n';
         }
 
-        #endregion
     }
+
 }

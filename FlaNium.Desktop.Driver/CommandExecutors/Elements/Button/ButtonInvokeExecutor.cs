@@ -9,7 +9,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Button {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var button = element.FlaUIElement.AsButton();
+            var button = element.FlaUiElement.AsButton();
 
             button.Invoke();
 

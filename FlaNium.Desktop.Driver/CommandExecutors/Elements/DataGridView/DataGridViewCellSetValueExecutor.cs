@@ -11,7 +11,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.DataGridView {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            DataGridViewCell item = (DataGridViewCell)element.FlaUIElement;
+            DataGridViewCell item = (DataGridViewCell)element.FlaUiElement;
 
             item.Value = value;
 

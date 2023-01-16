@@ -12,7 +12,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.DataGridView {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            global::FlaUI.Core.AutomationElements.DataGridView item = element.FlaUIElement.AsDataGridView();
+            global::FlaUI.Core.AutomationElements.DataGridView item = element.FlaUiElement.AsDataGridView();
 
             DataGridViewHeader header = item.Header;
 
@@ -20,7 +20,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.DataGridView {
                 throw new AutomationException("Element cannot be found", ResponseStatus.NoSuchElement);
             }
 
-            var itemRegisteredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUIDriverElement(header));
+            var itemRegisteredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUiDriverElement(header));
 
             var registeredObject = new JsonElementContent(itemRegisteredKey);
 

@@ -14,7 +14,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Tab {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var tab = element.FlaUIElement.AsTab();
+            var tab = element.FlaUiElement.AsTab();
 
             var result = tab.SelectTabItem(text);
 
@@ -22,7 +22,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Tab {
                 throw new AutomationException("Element cannot be found", ResponseStatus.NoSuchElement);
             }
 
-            var itemRegisteredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUIDriverElement(result));
+            var itemRegisteredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUiDriverElement(result));
 
             var registeredObject = new JsonElementContent(itemRegisteredKey);
 

@@ -10,7 +10,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ScrollBar {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            VerticalScrollBar scroll = element.FlaUIElement.AsVerticalScrollBar();
+            VerticalScrollBar scroll = element.FlaUiElement.AsVerticalScrollBar();
 
             scroll.ScrollUp();
 

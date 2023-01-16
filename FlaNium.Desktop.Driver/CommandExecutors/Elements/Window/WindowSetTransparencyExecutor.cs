@@ -11,7 +11,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Window {
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var window = element.FlaUIElement.AsWindow();
+            var window = element.FlaUiElement.AsWindow();
 
             window.SetTransparency(byte.Parse(alpha));
 

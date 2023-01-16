@@ -7,8 +7,6 @@ namespace FlaNium.Desktop.Driver {
 
     internal class UriDispatchTables {
 
-        #region Fields
-
         private readonly Dictionary<string, CommandInfo> commandDictionary = new Dictionary<string, CommandInfo>();
 
         private UriTemplateTable deleteDispatcherTable;
@@ -17,9 +15,6 @@ namespace FlaNium.Desktop.Driver {
 
         private UriTemplateTable postDispatcherTable;
 
-        #endregion
-
-        #region Constructors and Destructors
 
         public UriDispatchTables(Uri prefix) {
             this.InitializeSeleniumCommandDictionary();
@@ -27,9 +22,6 @@ namespace FlaNium.Desktop.Driver {
             this.ConstructDispatcherTables(prefix);
         }
 
-        #endregion
-
-        #region Public Methods and Operators
 
         public UriTemplateMatch Match(string httpMethod, Uri uriToMatch) {
             var table = this.FindDispatcherTable(httpMethod);
@@ -37,9 +29,6 @@ namespace FlaNium.Desktop.Driver {
             return table != null ? table.MatchSingle(uriToMatch) : null;
         }
 
-        #endregion
-
-        #region Methods
 
         internal UriTemplateTable FindDispatcherTable(string httpMethod) {
             UriTemplateTable tableToReturn = null;
@@ -1083,8 +1072,6 @@ namespace FlaNium.Desktop.Driver {
 
             #endregion
         }
-
-        #endregion
 
     }
 

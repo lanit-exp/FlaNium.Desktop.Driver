@@ -1,44 +1,37 @@
-﻿namespace FlaNium.Desktop.Driver
-{
-    using CommandLine;
-    using System;
+﻿using System;
+using CommandLine;
 
-    internal class Program
-    {
+namespace FlaNium.Desktop.Driver {
+
+    internal class Program {
 
         [STAThread]
-        private static void Main(string[] args)
-        {
-            Logo.printLogo();
+        private static void Main(string[] args) {
+            Logo.PrintLogo();
 
 
             Parser.Default.ParseArguments<CommandLineOptions>(args)
-                .WithParsed<CommandLineOptions>(Run);
+                .WithParsed(Run);
 
             Console.Write("\n\nPress any key...");
             Console.ReadKey();
         }
 
 
-        private static void Run(CommandLineOptions options)
-        {
+        private static void Run(CommandLineOptions options) {
             // Настройка логирования
-            if (!options.LogPath.Equals(""))
-            {
+            if (!options.LogPath.Equals("")) {
                 Logger.TargetFile(options.LogPath, options.Verbose);
             }
-            else if (!options.Silent)
-            {
+            else if (!options.Silent) {
                 Logger.TargetConsole(options.Verbose);
             }
-            else
-            {
+            else {
                 Logger.TargetNull();
             }
 
 
-            try
-            {
+            try {
                 var listener = new Listener(options.Port);
                 Listener.UrnPrefix = options.UrlBase;
 
@@ -46,14 +39,13 @@
 
                 listener.StartListening();
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Logger.Fatal("Failed to start driver: {0}", ex);
+
                 throw;
             }
-
-
         }
 
     }
+
 }
