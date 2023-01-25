@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using FlaNium.Desktop.Driver.Input;
-using FlaUI.Core.Input;
-using FlaUI.Core.WindowsAPI;
+
 
 namespace FlaNium.Desktop.Driver.CommandExecutors.Actions {
 
@@ -33,26 +32,13 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Actions {
             }
         }
 
+
         private static void KeyDown(Action.ActionStep step) {
-            var key = KeyboardModifiers.GetVirtualKeyShort(step.Value);
-            if (key == 0) {
-                short num = User32.VkKeyScan(step.Value[0]);
-                Keyboard.Press((VirtualKeyShort)num);
-            }
-            else {
-                Keyboard.Press(key);
-            }
+            CustomInput.KeyboardKeyDown(KeyboardModifiers.GetVirtualKeyOrChar(step.Value));
         }
 
         private static void KeyUp(Action.ActionStep step) {
-            var key = KeyboardModifiers.GetVirtualKeyShort(step.Value);
-            if (key == 0) {
-                short num = User32.VkKeyScan(step.Value[0]);
-                Keyboard.Release((VirtualKeyShort)num);
-            }
-            else {
-                Keyboard.Release(key);
-            }
+            CustomInput.KeyboardKeyUp(KeyboardModifiers.GetVirtualKeyOrChar(step.Value));
         }
 
         private static void Pause(Action.ActionStep step) {

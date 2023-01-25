@@ -367,6 +367,7 @@
     <Compile Include="Inject\ClientSocket.cs" />
     <Compile Include="Inject\DLLFilesToInject.cs" />
     <Compile Include="Inject\Injector.cs" />
+    <Compile Include="Input\CustomInput.cs" />
     <Compile Include="Input\Interpolation.cs" />
     <Compile Include="Input\KeyboardLayout.cs" />
     <Compile Include="Input\KeyboardModifiers.cs" />

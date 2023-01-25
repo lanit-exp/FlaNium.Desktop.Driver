@@ -96,6 +96,12 @@ namespace FlaNium.Desktop.Driver.Input {
             return default;
         }
 
+        public static char GetVirtualKeyOrChar(string key) {
+            VirtualKeyShort virtualKeyShort = GetVirtualKeyShort(key);
+
+            return virtualKeyShort == 0 ? key[0] : (char)virtualKeyShort;
+        }
+
     }
 
 }
