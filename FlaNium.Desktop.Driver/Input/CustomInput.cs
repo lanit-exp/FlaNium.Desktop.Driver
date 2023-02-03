@@ -1,14 +1,18 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Drawing;
 using System.Runtime.InteropServices;
+using FlaUI.Core.Input;
 using FlaUI.Core.WindowsAPI;
 
 namespace FlaNium.Desktop.Driver.Input {
 
     public static class CustomInput {
 
+        // Keyboard ====================================================================================================
+
         private static void KeyboardSendInput(ushort keyCode, bool isKeyDown, bool isScanCode, bool isExtended,
                                               bool isUnicode) {
-            
             KEYBDINPUT keyboardInput = new KEYBDINPUT() {
                 time = 0,
                 dwExtraInfo = User32.GetMessageExtraInfo()
@@ -35,25 +39,47 @@ namespace FlaNium.Desktop.Driver.Input {
         }
 
 
-        private static void KeyboardKeyPress(char key, bool down) {
-            short num = User32.VkKeyScan(key);
+        private static void KeyboardKeyPress(string key, bool down) {
+            VirtualKeyShort virtualKeyShort = KeyboardModifiers.GetVirtualKeyShort(key);
 
-            if (num > 'þ' || num == -1) {
-                KeyboardSendInput(key, down, false, false, true);
-            }
-            else {
-                byte keyCode = (byte)((uint)num & byte.MaxValue);
+            short num = User32.VkKeyScan(key[0]);
 
-                KeyboardSendInput(keyCode, down, false, false, false);
-            }
+            bool unicode = virtualKeyShort <= 0 && (num > 'þ' || num == -1);
+
+            ushort keyCode = virtualKeyShort > 0 ? (ushort)virtualKeyShort : unicode ? key[0] : (ushort)num;
+
+            KeyboardSendInput(keyCode, down, false, false, unicode);
         }
 
-        public static void KeyboardKeyDown(char key) {
+        public static void KeyboardKeyDown(string key) {
             KeyboardKeyPress(key, true);
         }
 
-        public static void KeyboardKeyUp(char key) {
+        public static void KeyboardKeyUp(string key) {
             KeyboardKeyPress(key, false);
+        }
+
+
+        // Mouse =======================================================================================================
+
+        public static void MouseMove(Point startPoint, int dx, int dy, int duration) {
+            Interpolation.Execute(point => { Mouse.Position = new Point(point.X, point.Y); },
+                startPoint,
+                new Point(startPoint.X + dx, startPoint.Y + dy),
+                TimeSpan.FromMilliseconds(duration),
+                Touch.DefaultInterval,
+                false);
+        }
+
+        public static void MouseMove(int dx, int dy, int duration) {
+            Point startPoint = Mouse.Position;
+
+            Interpolation.Execute(point => { Mouse.Position = new Point(point.X, point.Y); },
+                startPoint,
+                new Point(startPoint.X + dx, startPoint.Y + dy),
+                TimeSpan.FromMilliseconds(duration),
+                Touch.DefaultInterval,
+                true);
         }
 
     }

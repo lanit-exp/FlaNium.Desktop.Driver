@@ -6,9 +6,9 @@ using FlaNium.Desktop.Driver.Input;
 
 namespace FlaNium.Desktop.Driver.CommandExecutors.Actions {
 
-    public static class DefaultKeyboardAction {
+    internal static class DefaultKeyboardAction {
 
-        public static void PerformAction(Action action) {
+        internal static void PerformAction(Action action, Automator.Automator automator) {
             List<Action.ActionStep> steps = action.Actions;
 
             foreach (var step in steps) {
@@ -34,11 +34,11 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Actions {
 
 
         private static void KeyDown(Action.ActionStep step) {
-            CustomInput.KeyboardKeyDown(KeyboardModifiers.GetVirtualKeyOrChar(step.Value));
+            CustomInput.KeyboardKeyDown(step.Value);
         }
 
         private static void KeyUp(Action.ActionStep step) {
-            CustomInput.KeyboardKeyUp(KeyboardModifiers.GetVirtualKeyOrChar(step.Value));
+            CustomInput.KeyboardKeyUp(step.Value);
         }
 
         private static void Pause(Action.ActionStep step) {

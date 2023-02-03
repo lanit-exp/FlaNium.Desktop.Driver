@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using FlaNium.Desktop.Driver.Input;
 using FlaUI.Core.Input;
 
 namespace FlaNium.Desktop.Driver.CommandExecutors.StandardActions {
@@ -89,14 +90,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.StandardActions {
             if (duration > 0) {
                 Mouse.Position = new Point(x, y);
                 Mouse.Down();
-
-                Interpolation.Execute(point => { Mouse.Position = new Point(point.X, point.Y); },
-                    new Point(x, y),
-                    new Point(x + dx, y + dy),
-                    TimeSpan.FromMilliseconds(duration),
-                    Touch.DefaultInterval,
-                    true);
-
+                CustomInput.MouseMove(dx, dy, duration);
                 Mouse.Up();
             }
             else {
@@ -104,7 +98,6 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.StandardActions {
             }
 
             Wait.UntilInputIsProcessed();
-
 
             return this.JsonResponse();
         }

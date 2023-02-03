@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading;
+using FlaNium.Desktop.Driver.Input;
+using FlaUI.Core.Input;
 
 namespace FlaNium.Desktop.Driver.CommandExecutors.Actions {
 
-    public static class DefaultMouseAction {
+    internal static class DefaultMouseAction {
 
-        public static void PerformAction(Action action) {
+        internal static void PerformAction(Action action, Automator.Automator automator) {
             List<Action.ActionStep> steps = action.Actions;
 
             foreach (var step in steps) {
@@ -15,13 +18,12 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Actions {
                         PointerDown(step);
 
                         break;
-
                     case "pointerUp":
                         PointerUp(step);
 
                         break;
                     case "pointerMove":
-                        PointerMove(step);
+                        PointerMove(step, automator);
 
                         break;
                     case "pause":
@@ -35,22 +37,45 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Actions {
             }
         }
 
-        private static void PointerMove(Action.ActionStep step) {
-            throw new NotImplementedException();
+        private static void PointerMove(Action.ActionStep step, Automator.Automator automator) {
+            if (step.Origin.HasValues){
+                var registeredKey = step.Origin["ELEMENT"]?.ToString();
+                
+                var element = automator.ElementsRegistry.GetRegisteredElement(registeredKey);
+                
+                var rect = element.Properties.BoundingRectangle;
+                
+                CustomInput.MouseMove(new Point(rect.X + rect.Width/2, rect.Y + rect.Height/2) ,step.X, step.Y, step.Duration);
+            }
+            else {
+                CustomInput.MouseMove(step.X, step.Y, step.Duration);
+            }
         }
 
         private static void PointerUp(Action.ActionStep step) {
-            throw new NotImplementedException();
+            Mouse.Up(GetMouseButton(step.Button));
         }
 
         private static void PointerDown(Action.ActionStep step) {
-            throw new NotImplementedException();
+            Mouse.Down(GetMouseButton(step.Button));
         }
 
 
         private static void Pause(Action.ActionStep step) {
             if (step.Duration > 0) {
                 Thread.Sleep(step.Duration);
+            }
+        }
+
+
+        private static MouseButton GetMouseButton(int button) {
+            switch (button) {
+                case 0: return MouseButton.Left;
+                case 1: return MouseButton.Middle;
+                case 2: return MouseButton.Right;
+                case 3: return MouseButton.XButton1;
+                case 4: return MouseButton.XButton2;
+                default: throw new NotSupportedException($"Mouse button '{button}' not implemented.");
             }
         }
 
