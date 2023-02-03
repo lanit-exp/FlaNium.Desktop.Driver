@@ -43,6 +43,12 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Actions
             [JsonProperty(Required = Required.Default, PropertyName = "y")]
             public int Y { get; set; }
             
+            [JsonProperty(Required = Required.Default, PropertyName = "deltaX")]
+            public int DeltaX { get; set; }
+            
+            [JsonProperty(Required = Required.Default, PropertyName = "deltaY")]
+            public int DeltaY { get; set; }
+            
             [JsonProperty(Required = Required.Default, PropertyName = "origin")]
             public JToken Origin { get; set; }
         }

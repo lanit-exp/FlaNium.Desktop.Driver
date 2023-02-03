@@ -28,6 +28,9 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Actions
                     case "default mouse":
                         DefaultMouseAction.PerformAction(action, this.Automator);
                         break;
+                    case "default wheel":
+                        DefaultWheelAction.PerformAction(action, this.Automator);
+                        break;
                     default:
                         return this.JsonResponse(ResponseStatus.UnknownCommand, $"Unknown action: {action.Id}");
                 }

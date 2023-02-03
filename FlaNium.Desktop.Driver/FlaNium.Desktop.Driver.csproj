@@ -135,6 +135,7 @@
     <Compile Include="CommandExecutors\Actions\ActionsExecutor.cs" />
     <Compile Include="CommandExecutors\Actions\DefaultKeyboardAction.cs" />
     <Compile Include="CommandExecutors\Actions\DefaultMouseAction.cs" />
+    <Compile Include="CommandExecutors\Actions\DefaultWheelAction.cs" />
     <Compile Include="CommandExecutors\Auxiliary\CustomScreenshotExecutor.cs" />
     <Compile Include="CommandExecutors\Auxiliary\ElementScreenshotExecutor.cs" />
     <Compile Include="CommandExecutors\Auxiliary\GetClipboardTextExecutor.cs" />
