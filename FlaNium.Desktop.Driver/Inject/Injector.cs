@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Threading;
-using FlaNium.Desktop.Driver;
 
-namespace InjectDll {
+namespace FlaNium.Desktop.Driver.Inject {
 
     class Injector {
 
@@ -59,15 +58,15 @@ namespace InjectDll {
                 return false;
             }
 
-            Int32 LenWrite = filePath.Length + 1;
+            Int32 lenWrite = filePath.Length + 1;
 
             // выделение памяти в виртуальном адресном пространстве инжектируемого процесса  
-            IntPtr AllocMem = VirtualAllocEx(hProcess, (IntPtr)null, (uint)LenWrite, 0x1000 | 0x2000, 0x04);
+            IntPtr allocMem = VirtualAllocEx(hProcess, (IntPtr)null, (uint)lenWrite, 0x1000 | 0x2000, 0x04);
 
 
             // запись dll в память инжектируемого процесса
             bool writeProcMem =
-                WriteProcessMemory(hProcess, AllocMem, filePath, (UIntPtr)LenWrite, out IntPtr bytesout);
+                WriteProcessMemory(hProcess, allocMem, filePath, (UIntPtr)lenWrite, out IntPtr bytesOut);
 
             if (!writeProcMem) {
                 Logger.Error("WriteProcessMemory ERROR!");
@@ -77,9 +76,9 @@ namespace InjectDll {
 
 
             // получение адреса
-            UIntPtr Injector = GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
+            UIntPtr injector = GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
 
-            if (Injector == UIntPtr.Zero) {
+            if (injector == UIntPtr.Zero) {
                 Logger.Error("GetProcAddress ERROR!");
 
                 return false;
@@ -87,7 +86,7 @@ namespace InjectDll {
 
 
             // создание треда в инжектируемом процессе 
-            IntPtr hThread = CreateRemoteThread(hProcess, (IntPtr)null, 0, Injector, AllocMem, 0, out IntPtr bytesout2);
+            IntPtr hThread = CreateRemoteThread(hProcess, (IntPtr)null, 0, injector, allocMem, 0, out IntPtr bytesOut2);
 
             // проверка валидности треда
             if (hThread == IntPtr.Zero) {
@@ -97,31 +96,25 @@ namespace InjectDll {
             }
 
             // ожидание завершения инжекта 
-            UInt32 Result = WaitForSingleObject(hThread, 3 * 1000);
-
-            // TODO: реализовать возврат dllMain метода
+            UInt32 result = WaitForSingleObject(hThread, 30 * 1000);
 
             // ловим по таймауту  
-            //if (Result == 0x00000080L || Result == 0x00000102L || Result == 0xFFFFFFFF)
-            //{
-            //    Logger.Error("Injection Result ERROR: {0}", Result);
-            //    if (hThread != null) { CloseHandle(hThread); }
-            //    return false;
-            //}
+            if (result == 0x00000080L || result == 0x00000102L || result == 0xFFFFFFFF) {
+                Logger.Error("Injection Result ERROR: {0}", result);
+                CloseHandle(hThread);
 
-            // секундное прерывание  
-            Thread.Sleep(1000);
+                return false;
+            }
+
+            // Ожидание на запуск всех процессов инжектируемой библиотеки   
+            Thread.Sleep(3000);
 
             // освобождение выделенной памяти  
-            bool virtFreeExStatus = VirtualFreeEx(hProcess, AllocMem, (UIntPtr)0, 0x8000);
+            bool virtFreeExStatus = VirtualFreeEx(hProcess, allocMem, (UIntPtr)0, 0x8000);
 
             if (!virtFreeExStatus) Logger.Error("VirtualFreeEx ERROR!");
 
-
-            // проверка валидности треда предотвращение раннего краша процесса приложения  
-            if (hThread != null) {
-                CloseHandle(hThread);
-            }
+            CloseHandle(hThread);
 
             Logger.Debug("Injection: SUCSESSFUL!");
 

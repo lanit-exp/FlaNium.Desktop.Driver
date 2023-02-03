@@ -4,7 +4,6 @@ using FlaNium.Desktop.Driver.Common;
 using FlaNium.Desktop.Driver.FlaUI;
 using FlaNium.Desktop.Driver.Inject;
 using FlaNium.Desktop.Driver.Input;
-using InjectDll;
 using Newtonsoft.Json;
 
 namespace FlaNium.Desktop.Driver.CommandExecutors {
