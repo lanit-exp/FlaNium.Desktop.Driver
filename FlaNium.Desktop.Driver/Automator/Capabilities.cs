@@ -11,7 +11,6 @@ namespace FlaNium.Desktop.Driver.Automator {
             this.Arguments = string.Empty;
             this.LaunchDelay = 0;
             this.DebugConnectToRunningApp = false;
-            this.InnerPort = 9998;
             this.InjectionActivate = false;
             this.ProcessName = string.Empty;
             this.ResponseTimeout = 300000;
@@ -24,8 +23,6 @@ namespace FlaNium.Desktop.Driver.Automator {
 
         [JsonProperty("debugConnectToRunningApp")]
         public bool DebugConnectToRunningApp { get; set; }
-
-        [JsonProperty("innerPort")] public int InnerPort { get; set; }
 
         [JsonProperty("launchDelay")] public int LaunchDelay { get; set; }
 
