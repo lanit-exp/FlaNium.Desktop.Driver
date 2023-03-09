@@ -10,7 +10,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.StandardActions {
         protected override string DoImpl() {
             var buttonId = Convert.ToInt32(this.ExecutedCommand.Parameters["button"]);
 
-            DriverManager.GetActiveWindow().SetForeground();
+            DriverManager.GetRootElement().SetForeground();
 
             switch ((MouseButton)buttonId) {
                 case MouseButton.Left:

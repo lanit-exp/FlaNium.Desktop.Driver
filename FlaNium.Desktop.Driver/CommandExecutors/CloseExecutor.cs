@@ -6,7 +6,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
 
         protected override string DoImpl() {
             if (!this.Automator.ActualCapabilities.DebugConnectToRunningApp) {
-                DriverManager.CloseDriver(this.Automator.ActualCapabilities.App.StartsWith("#"));
+                DriverManager.CloseAppSession(this.Automator.ActualCapabilities.App.StartsWith("#"));
 
                 this.Automator.ElementsRegistry.Clear();
             }

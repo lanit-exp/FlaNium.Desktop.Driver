@@ -38,8 +38,6 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.StandardActions {
                 resultPoint.Y += Convert.ToInt32(this.ExecutedCommand.Parameters["yoffset"]);
             }
 
-            DriverManager.GetActiveWindow();
-
             Mouse.MoveTo(resultPoint.X, resultPoint.Y);
 
             return this.JsonResponse();

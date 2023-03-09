@@ -46,6 +46,8 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
 
 
         private string DoInOtherThread() {
+            // Работа с буфером обмена может осуществляться только из основного потока выполнения программы,
+            // все остальные Executor выполняются в отдельном потоке с прерыванием по таймауту.
             if (this is GetClipboardTextExecutor || this is SetClipboardTextExecutor) {
                 return DoImpl();
             }

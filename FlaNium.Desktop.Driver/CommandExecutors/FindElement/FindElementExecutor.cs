@@ -13,22 +13,22 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.FindElement {
             var searchStrategy = this.ExecutedCommand.Parameters["using"].ToString();
 
 
-            AutomationElement activeWindow = DriverManager.GetActiveWindow();
+            AutomationElement rootElement = DriverManager.GetRootElement();
 
             AutomationElement element;
 
             if (searchStrategy.Equals("xpath")) {
                 if (searchValue.StartsWith("#")) {
                     searchValue = searchValue.TrimStart('#');
-                    activeWindow = activeWindow.Automation.GetDesktop();
+                    rootElement = rootElement.Automation.GetDesktop();
                 }
 
-                element = ByXpath.FindFirstByXPath(searchValue, activeWindow);
+                element = ByXpath.FindFirstByXPath(searchValue, rootElement);
             }
             else {
                 var condition = ByHelper.GetStrategy(searchStrategy, searchValue);
 
-                element = activeWindow.FindFirstDescendant(condition);
+                element = rootElement.FindFirstDescendant(condition);
             }
 
             if (element == null) {

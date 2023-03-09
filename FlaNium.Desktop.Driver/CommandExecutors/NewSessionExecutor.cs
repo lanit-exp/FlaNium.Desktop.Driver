@@ -21,7 +21,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
             // Имеются проблемы ввода текста при активной русской раскладке. Добавлено переключение на английскую раскладку.
             KeyboardLayout.SwitchInputLanguageToEng();
 
-
+            // todo добавить возможность возобновления сессии в режиме дебага
             if (this.Automator.ActualCapabilities.InjectionActivate) {
                 string appType = this.Automator.ActualCapabilities.AppType;
 
@@ -45,31 +45,25 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
         private void InitializeApplication() {
             var appPath = this.Automator.ActualCapabilities.App;
             var appArguments = this.Automator.ActualCapabilities.Arguments;
-            var debugDoNotDeploy = this.Automator.ActualCapabilities.DebugConnectToRunningApp;
+            var debugConnectToRunningApp = this.Automator.ActualCapabilities.DebugConnectToRunningApp;
             var processName = this.Automator.ActualCapabilities.ProcessName;
             var launchDelay = this.Automator.ActualCapabilities.LaunchDelay;
-
-
-            if (processName.Length == 0) {
-                DriverManager.StartApp(appPath, appArguments, debugDoNotDeploy);
-                Thread.Sleep(launchDelay);
+            var processFindTimeOut = this.Automator.ActualCapabilities.ProcessFindTimeOut;
+            
+            DriverManager.CloseAppSession(!debugConnectToRunningApp);
+            
+            if (!debugConnectToRunningApp) {
+                DriverManager.KillAllProcessByName(appPath);
+                DriverManager.KillAllProcessByName(processName);
             }
-            else {
-                if (!debugDoNotDeploy) {
-                    DriverManager.CloseDriver();
-                    DriverManager.CloseAllApplication(processName);
-                }
 
-                try {
-                    DriverManager.StartApp(appPath, appArguments, debugDoNotDeploy);
-                }
-                catch {
-                    // ignored
-                }
-
-                Thread.Sleep(launchDelay);
-                DriverManager.AttachToProcess(processName);
+            DriverManager.StartApp(appPath, appArguments);
+            Thread.Sleep(launchDelay);
+            
+            if (!string.IsNullOrEmpty(processName)) {
+                DriverManager.AttachToProcess(processName, processFindTimeOut);
             }
+            
         }
 
     }

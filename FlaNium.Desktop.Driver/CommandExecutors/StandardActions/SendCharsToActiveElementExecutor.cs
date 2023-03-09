@@ -8,7 +8,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.StandardActions {
         protected override string DoImpl() {
             var chars = this.ExecutedCommand.Parameters["value"].ToString();
 
-            DriverManager.GetActiveWindow().SetForeground();
+            DriverManager.GetRootElement().SetForeground();
 
             this.Automator.FlaNiumKeyboard.SendKeys(chars.ToArray());
 
