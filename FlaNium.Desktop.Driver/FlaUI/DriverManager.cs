@@ -117,7 +117,7 @@ namespace FlaNium.Desktop.Driver.FlaUI {
                 TimeSpan.FromMilliseconds(processFindTimeOut),
                 TimeSpan.FromMilliseconds(500)).Result;
 
-            if (processes.Length > 0) {
+            if (processes?.Length > 0) {
                 Application = Application.Attach(processes[0]);
                 ResetRootElement();
             }
