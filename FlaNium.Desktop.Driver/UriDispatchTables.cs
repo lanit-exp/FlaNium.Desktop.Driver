@@ -1069,6 +1069,20 @@ namespace FlaNium.Desktop.Driver {
             this.commandDictionary.Add(
                 DriverCommand.TouchActionsRotate,
                 new CommandInfo("POST", "/session/{sessionId}/touchActionsRotate"));
+            
+            
+            this.commandDictionary.Add(
+                DriverCommand.SetRootElement,
+                new CommandInfo("POST", "/session/{sessionId}/setRootElement"));
+            
+            
+            this.commandDictionary.Add(
+                DriverCommand.ChangeProcess,
+                new CommandInfo("POST", "/session/{sessionId}/changeProcess"));
+            
+            this.commandDictionary.Add(
+                DriverCommand.KillProcesses,
+                new CommandInfo("POST", "/session/{sessionId}/killProcesses"));
 
             #endregion
         }

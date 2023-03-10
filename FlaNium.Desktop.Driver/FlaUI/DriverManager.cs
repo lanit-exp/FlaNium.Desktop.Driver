@@ -111,7 +111,7 @@ namespace FlaNium.Desktop.Driver.FlaUI {
             }
         }
 
-        public static void AttachToProcess(string processName, int processFindTimeOut = 30000) {
+        public static void AttachToProcess(string processName, int processFindTimeOut) {
             var processes = Retry.While(() => Process.GetProcessesByName(processName),
                 p => p.Length == 0,
                 TimeSpan.FromMilliseconds(processFindTimeOut),
@@ -119,6 +119,7 @@ namespace FlaNium.Desktop.Driver.FlaUI {
 
             if (processes.Length > 0) {
                 Application = Application.Attach(processes[0]);
+                ResetRootElement();
             }
             else throw new Exception("Unable to find process with name: " + processName);
         }

@@ -773,6 +773,10 @@
         public static readonly string TouchActionsDrag = "TouchActionsDrag";
         public static readonly string TouchActionsRotate = "TouchActionsRotate";
 
+        public static readonly string SetRootElement = "SetRootElement";
+        
+        public static readonly string ChangeProcess = "ChangeProcess";
+        public static readonly string KillProcesses = "KillProcesses";
         #endregion
 
         #endregion

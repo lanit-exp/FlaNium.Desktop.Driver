@@ -143,6 +143,7 @@
     <Compile Include="CommandExecutors\Auxiliary\ScreenshotExecutor.cs" />
     <Compile Include="CommandExecutors\Auxiliary\SetClipboardTextExecutor.cs" />
     <Compile Include="CommandExecutors\Auxiliary\SetKeyboardLayoutExecutor.cs" />
+    <Compile Include="CommandExecutors\ChangeProcessExecutor.cs" />
     <Compile Include="CommandExecutors\ElementProperty\ElementEqualsExecutor.cs" />
     <Compile Include="CommandExecutors\ElementProperty\GetCurrentWindowHandleExecutor.cs" />
     <Compile Include="CommandExecutors\ElementProperty\GetElementAttributeExecutor.cs" />
@@ -313,6 +314,8 @@
     <Compile Include="CommandExecutors\FindElement\FindElementsExecutor.cs" />
     <Compile Include="CommandExecutors\FindElement\GetActiveElementExecutor.cs" />
     <Compile Include="CommandExecutors\FindElement\GetActiveWindowExecutor.cs" />
+    <Compile Include="CommandExecutors\KillProcessesExecutor.cs" />
+    <Compile Include="CommandExecutors\SetRootElementExecutor.cs" />
     <Compile Include="CommandExecutors\StandardActions\ClearElementExecutor.cs" />
     <Compile Include="CommandExecutors\StandardActions\ClickElementExecutor.cs" />
     <Compile Include="CommandExecutors\StandardActions\DragAndDropExecutor.cs" />
