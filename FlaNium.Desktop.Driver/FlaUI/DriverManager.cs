@@ -124,6 +124,18 @@ namespace FlaNium.Desktop.Driver.FlaUI {
             else throw new Exception("Unable to find process with name: " + processName);
         }
 
+        public static bool AttachToProcessIfExist(string processName) {
+            var processes = Process.GetProcessesByName(processName);
+
+            if (processes.Length > 0) {
+                Application = Application.Attach(processes[0]);
+                ResetRootElement();
+
+                return true;
+            }
+
+            return false;
+        }
 
         public static AutomationElement GetRootElement() {
             if (_rootElement == null) {

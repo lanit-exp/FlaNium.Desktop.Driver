@@ -57,6 +57,10 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
                 DriverManager.KillAllProcessByName(processName);
             }
 
+            if (connectToRunningApp && !string.IsNullOrEmpty(processName)) {
+                if (DriverManager.AttachToProcessIfExist(processName)) return;
+            }
+
             DriverManager.StartApp(appPath, appArguments);
             Thread.Sleep(launchDelay);
             
