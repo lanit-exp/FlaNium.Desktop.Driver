@@ -7,11 +7,11 @@ namespace FlaNium.Desktop.Driver.Automator {
 
         internal Capabilities() {
             this.App = string.Empty;
-            this.AppType = string.Empty;
+            this.InjectionDllType = string.Empty;
             this.Arguments = string.Empty;
             this.LaunchDelay = 2000;
             this.ProcessFindTimeOut = 30000;
-            this.DebugConnectToRunningApp = false;
+            this.ConnectToRunningApp = false;
             this.InjectionActivate = false;
             this.ProcessName = string.Empty;
             this.ResponseTimeout = 300000;
@@ -22,7 +22,7 @@ namespace FlaNium.Desktop.Driver.Automator {
 
         [JsonProperty("args")] public string Arguments { get; set; }
 
-        [JsonProperty("debugConnectToRunningApp")] public bool DebugConnectToRunningApp { get; set; }
+        [JsonProperty("connectToRunningApp")] public bool ConnectToRunningApp { get; set; }
 
         [JsonProperty("launchDelay")] public int LaunchDelay { get; set; }
 
@@ -32,7 +32,7 @@ namespace FlaNium.Desktop.Driver.Automator {
 
         [JsonProperty("injectionActivate")] public bool InjectionActivate { get; set; }
 
-        [JsonProperty("appType")] public string AppType { get; set; }
+        [JsonProperty("injectionDllType")] public string InjectionDllType { get; set; }
 
         [JsonProperty("responseTimeout")] public int ResponseTimeout { get; set; }
 

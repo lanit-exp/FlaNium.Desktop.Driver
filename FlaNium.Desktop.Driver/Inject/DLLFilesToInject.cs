@@ -5,16 +5,16 @@ namespace FlaNium.Desktop.Driver.Inject {
 
     public static class DllFilesToInject {
 
-        public static string GetDllFilePath(string appType) {
+        public static string GetDllFilePath(string dllType) {
             string dllFilePath;
 
-            switch (appType) {
+            switch (dllType) {
                 case "DELPHI":
                     dllFilePath = "iLibs/DEDL.dll";
 
                     break;
 
-                default: throw new InvalidDataException($"Incorrect AppType Capabilities: {appType}");
+                default: throw new InvalidDataException($"Incorrect injectDllType Capabilities: {dllType}");
             }
 
             var fullPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), dllFilePath);

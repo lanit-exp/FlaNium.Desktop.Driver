@@ -23,14 +23,14 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
 
             // todo добавить возможность возобновления сессии в режиме дебага
             if (this.Automator.ActualCapabilities.InjectionActivate) {
-                string appType = this.Automator.ActualCapabilities.AppType;
+                string dllType = this.Automator.ActualCapabilities.InjectionDllType;
 
-                if (appType == string.Empty)
+                if (dllType == string.Empty)
                     return this.JsonResponse(ResponseStatus.UnknownCommand,
-                        "AppType Capabilities (DesktopOptions) should NOT be EMPTY! (OR injectionActivate should be false)");
+                        "InjectionDllType Capabilities (DesktopOptions) should NOT be EMPTY! (OR injectionActivate should be false)");
 
 
-                string dllFilePath = DllFilesToInject.GetDllFilePath(appType);
+                string dllFilePath = DllFilesToInject.GetDllFilePath(dllType);
 
                 if (!Injector.InjectDll(DriverManager.Application.ProcessId, dllFilePath)) {
                     return this.JsonResponse(ResponseStatus.SessionNotCreatedException, "Injecting FAILED!");
@@ -45,14 +45,14 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
         private void InitializeApplication() {
             var appPath = this.Automator.ActualCapabilities.App;
             var appArguments = this.Automator.ActualCapabilities.Arguments;
-            var debugConnectToRunningApp = this.Automator.ActualCapabilities.DebugConnectToRunningApp;
+            var connectToRunningApp = this.Automator.ActualCapabilities.ConnectToRunningApp;
             var processName = this.Automator.ActualCapabilities.ProcessName;
             var launchDelay = this.Automator.ActualCapabilities.LaunchDelay;
             var processFindTimeOut = this.Automator.ActualCapabilities.ProcessFindTimeOut;
             
-            DriverManager.CloseAppSession(!debugConnectToRunningApp);
+            DriverManager.CloseAppSession(!connectToRunningApp);
             
-            if (!debugConnectToRunningApp) {
+            if (!connectToRunningApp) {
                 DriverManager.KillAllProcessByName(appPath);
                 DriverManager.KillAllProcessByName(processName);
             }

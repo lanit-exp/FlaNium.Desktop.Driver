@@ -3,7 +3,7 @@
     internal class QuitExecutor : CommandExecutorBase {
 
         protected override string DoImpl() {
-            if (!this.Automator.ActualCapabilities.DebugConnectToRunningApp) {
+            if (!this.Automator.ActualCapabilities.ConnectToRunningApp) {
                 //TODO нужен ли ?
                 this.Automator.ElementsRegistry.Clear();
             }
