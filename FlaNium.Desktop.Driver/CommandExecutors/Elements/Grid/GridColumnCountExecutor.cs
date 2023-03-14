@@ -1,26 +1,22 @@
-﻿
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Grid
-{
-    using global::FlaUI.Core.AutomationElements;
-    using FlaNium.Desktop.Driver.Common;
+﻿using FlaNium.Desktop.Driver.Common;
+using FlaUI.Core.AutomationElements;
 
-    class GridColumnCountExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Grid {
 
-        protected override string DoImpl()
-        {
+    class GridColumnCountExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            Grid grid = element.FlaUIElement.AsGrid();
+            global::FlaUI.Core.AutomationElements.Grid grid = element.FlaUiElement.AsGrid();
 
             var result = grid.ColumnCount;
 
             return this.JsonResponse(ResponseStatus.Success, result);
         }
 
-        #endregion
     }
+
 }

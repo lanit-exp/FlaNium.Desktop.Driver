@@ -1,37 +1,32 @@
-﻿
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Slider
-{
-    using global::FlaUI.Core.AutomationElements;
-    using FlaNium.Desktop.Driver.FlaUI;
-    using FlaNium.Desktop.Driver.Common;
-    using FlaNium.Desktop.Driver.Exceptions;
+﻿using FlaNium.Desktop.Driver.Common;
+using FlaNium.Desktop.Driver.Exceptions;
+using FlaNium.Desktop.Driver.FlaUI;
+using FlaUI.Core.AutomationElements;
 
-    class SliderGetThumbExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Slider {
 
-        protected override string DoImpl()
-        {
+    class SliderGetThumbExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            Slider slider = element.FlaUIElement.AsSlider();
+            global::FlaUI.Core.AutomationElements.Slider slider = element.FlaUiElement.AsSlider();
 
-            Thumb thumb = slider.Thumb;
+            global::FlaUI.Core.AutomationElements.Thumb thumb = slider.Thumb;
 
-            if (thumb == null)
-            {
+            if (thumb == null) {
                 throw new AutomationException("Element cannot be found", ResponseStatus.NoSuchElement);
             }
 
-            var itemRegisteredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUIDriverElement(thumb));
+            var itemRegisteredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUiDriverElement(thumb));
 
             var registeredObject = new JsonElementContent(itemRegisteredKey);
 
             return this.JsonResponse(ResponseStatus.Success, registeredObject);
         }
 
-        #endregion
     }
+
 }

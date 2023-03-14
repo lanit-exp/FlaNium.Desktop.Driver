@@ -1,29 +1,26 @@
-﻿
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.DataGridView
-{
-    using System;
-    using System.Linq;
-    using global::FlaUI.Core.AutomationElements;
-    using FlaNium.Desktop.Driver.FlaUI;
-    using FlaNium.Desktop.Driver.Common;
+﻿using System;
+using System.Linq;
+using FlaNium.Desktop.Driver.Common;
+using FlaNium.Desktop.Driver.FlaUI;
+using FlaUI.Core.AutomationElements;
 
-    class DataGridViewRowGetCellsExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.DataGridView {
 
-        protected override string DoImpl()
-        {
+    class DataGridViewRowGetCellsExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            DataGridViewRow item = (DataGridViewRow)element.FlaUIElement;
+            DataGridViewRow item = (DataGridViewRow)element.FlaUiElement;
 
             var cells = item.Cells;
 
             var flaUiDriverElementList = cells
-                .Select<AutomationElement, FlaUIDriverElement>((Func<AutomationElement, FlaUIDriverElement>)(x => new FlaUIDriverElement(x)))
-                .ToList<FlaUIDriverElement>();
+                .Select(
+                    (Func<AutomationElement, FlaUiDriverElement>)(x => new FlaUiDriverElement(x)))
+                .ToList();
 
             var registeredKeys = Automator.ElementsRegistry.RegisterElements(flaUiDriverElementList);
 
@@ -32,6 +29,6 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.DataGridView
             return this.JsonResponse(ResponseStatus.Success, registeredObjects);
         }
 
-        #endregion
     }
+
 }

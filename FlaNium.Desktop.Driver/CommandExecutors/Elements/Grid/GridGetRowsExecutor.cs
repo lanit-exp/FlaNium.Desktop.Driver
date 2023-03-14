@@ -1,29 +1,26 @@
-﻿
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Grid
-{
-    using System;
-    using System.Linq;
-    using global::FlaUI.Core.AutomationElements;
-    using FlaNium.Desktop.Driver.FlaUI;
-    using FlaNium.Desktop.Driver.Common;
+﻿using System;
+using System.Linq;
+using FlaNium.Desktop.Driver.Common;
+using FlaNium.Desktop.Driver.FlaUI;
+using FlaUI.Core.AutomationElements;
 
-    class GridGetRowsExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Grid {
 
-        protected override string DoImpl()
-        {
+    class GridGetRowsExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            Grid grid = element.FlaUIElement.AsGrid();
+            global::FlaUI.Core.AutomationElements.Grid grid = element.FlaUiElement.AsGrid();
 
             var result = grid.Rows;
 
             var flaUiDriverElementList = result
-                .Select<AutomationElement, FlaUIDriverElement>((Func<AutomationElement, FlaUIDriverElement>)(x => new FlaUIDriverElement(x)))
-                .ToList<FlaUIDriverElement>();
+                .Select<AutomationElement, FlaUiDriverElement>(
+                    (Func<AutomationElement, FlaUiDriverElement>)(x => new FlaUiDriverElement(x)))
+                .ToList<FlaUiDriverElement>();
 
             var registeredKeys = this.Automator.ElementsRegistry.RegisterElements(flaUiDriverElementList);
 
@@ -32,6 +29,6 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Grid
             return this.JsonResponse(ResponseStatus.Success, registeredObjects);
         }
 
-        #endregion
     }
+
 }

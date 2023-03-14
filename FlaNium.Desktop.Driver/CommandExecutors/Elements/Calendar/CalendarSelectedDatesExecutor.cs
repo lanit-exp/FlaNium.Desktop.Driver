@@ -1,22 +1,18 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using FlaUI.Core.AutomationElements;
 using FlaNium.Desktop.Driver.Common;
 
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Calendar
-{
-    class CalendarSelectedDatesExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Calendar {
 
-        protected override string DoImpl()
-        {
+    class CalendarSelectedDatesExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var calendar = element.FlaUIElement.AsCalendar();
+            var calendar = element.FlaUiElement.AsCalendar();
 
             var items = calendar.SelectedDates;
 
@@ -25,6 +21,6 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Calendar
             return this.JsonResponse(ResponseStatus.Success, result);
         }
 
-        #endregion
     }
+
 }

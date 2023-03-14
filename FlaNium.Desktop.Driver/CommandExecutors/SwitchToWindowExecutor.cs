@@ -1,35 +1,15 @@
-﻿namespace FlaNium.Desktop.Driver.CommandExecutors
-{
-    using System;
-    #region using
-        
-    using FlaNium.Desktop.Driver.FlaUI;
-    using FlaNium.Desktop.Driver.Common;
-    
-    #endregion
+﻿using FlaNium.Desktop.Driver.Common;
 
-    internal class SwitchToWindowExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors {
 
-        protected override string DoImpl()
-        {            
+    internal class SwitchToWindowExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             string title = this.ExecutedCommand.Parameters["name"].ToString();
-            try
-            {
-                DriverManager.SwitchWindow(title);
-                return this.JsonResponse(ResponseStatus.Success, (object)DriverManager.GetActiveWindow().Title);
-            }
-            catch (NullReferenceException ex)
-            {
-                return this.JsonResponse(ResponseStatus.NoSuchWindow, (object)ex);
-            }
-            catch (AccessViolationException ex)
-            {
-                return this.JsonResponse(ResponseStatus.ElementIsNotSelectable, (object)ex);
-            }
+
+            return this.JsonResponse(ResponseStatus.UnknownCommand, "SwitchToWindow command not implemented. Use SetRootElement commands.");
         }
 
-        #endregion
     }
+
 }

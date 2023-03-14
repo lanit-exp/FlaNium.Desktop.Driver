@@ -1,32 +1,15 @@
-﻿namespace FlaNium.Desktop.Driver.CommandHelpers
-{
-    #region using
+﻿using System.Reflection;
+using Newtonsoft.Json;
 
-    using System.Reflection;
+namespace FlaNium.Desktop.Driver.CommandHelpers {
 
-    using Newtonsoft.Json;
+    public class BuildInfo {
 
-    #endregion
-
-    public class BuildInfo
-    {
-        #region Static Fields
-
-        private static string version;
-
-        #endregion
-
-        #region Public Properties
+        private static string _version;
 
         [JsonProperty("version")]
-        public string Version
-        {
-            get
-            {
-                return version ?? (version = Assembly.GetExecutingAssembly().GetName().Version.ToString());
-            }
-        }
+        public string Version => _version ?? (_version = Assembly.GetExecutingAssembly().GetName().Version.ToString());
 
-        #endregion
     }
+
 }

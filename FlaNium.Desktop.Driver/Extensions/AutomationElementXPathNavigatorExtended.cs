@@ -5,68 +5,64 @@ using FlaUI.Core;
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Definitions;
 
-namespace FlaNium.Desktop.Driver.Extensions
-{
-    internal class AutomationElementXPathNavigatorExtended : XPathNavigator
-    {
+namespace FlaNium.Desktop.Driver.Extensions {
+
+    internal class AutomationElementXPathNavigatorExtended : XPathNavigator {
+
         private const int NoAttributeValue = -1;
-        private readonly AutomationElement _rootElement;
-        private readonly ITreeWalker _treeWalker;
-        private AutomationElement _currentElement;
-        private int _attributeIndex = NoAttributeValue;
+        private readonly AutomationElement rootElement;
+        private readonly ITreeWalker treeWalker;
+        private AutomationElement currentElement;
+        private int attributeIndex = NoAttributeValue;
 
         /// <summary>
         /// Creates a new XPath navigator which uses the given element as the root.
         /// </summary>
         /// <param name="rootElement">The element to use as root element.</param>
-        public AutomationElementXPathNavigatorExtended(AutomationElement rootElement)
-        {
-            _treeWalker = rootElement.Automation.TreeWalkerFactory.GetControlViewWalker();
-            _rootElement = rootElement;
-            _currentElement = rootElement;
+        public AutomationElementXPathNavigatorExtended(AutomationElement rootElement) {
+            treeWalker = rootElement.Automation.TreeWalkerFactory.GetControlViewWalker();
+            this.rootElement = rootElement;
+            currentElement = rootElement;
         }
 
-        private bool IsInAttribute => _attributeIndex != NoAttributeValue;
+        private bool IsInAttribute => attributeIndex != NoAttributeValue;
 
         /// <inheritdoc />
         public override bool HasAttributes => !IsInAttribute;
 
         /// <inheritdoc />
-        public override string Value => IsInAttribute ? GetAttributeValue(_attributeIndex) : _currentElement.ToString();
+        public override string Value => IsInAttribute ? GetAttributeValue(attributeIndex) : currentElement.ToString();
 
         /// <inheritdoc />
-        public override object UnderlyingObject => _currentElement;
+        public override object UnderlyingObject => currentElement;
 
         /// <inheritdoc />
-        public override XPathNodeType NodeType
-        {
-            get
-            {
-                if (IsInAttribute)
-                {
+        public override XPathNodeType NodeType {
+            get {
+                if (IsInAttribute) {
                     return XPathNodeType.Attribute;
                 }
-                if (_currentElement.Equals(_rootElement))
-                {
+
+                if (currentElement.Equals(rootElement)) {
                     return XPathNodeType.Root;
                 }
+
                 return XPathNodeType.Element;
             }
         }
 
         /// <inheritdoc />
-        public override string LocalName
-        {
-            get
-            {
-                if (IsInAttribute)
-                {
-                    return GetAttributeName(_attributeIndex);
+        public override string LocalName {
+            get {
+                if (IsInAttribute) {
+                    return GetAttributeName(attributeIndex);
                 }
+
                 // Map unknown types to custom so they are at least findable
-                var controlType = _currentElement.Properties.ControlType.IsSupported
-                    ? _currentElement.Properties.ControlType.Value
+                var controlType = currentElement.Properties.ControlType.IsSupported
+                    ? currentElement.Properties.ControlType.Value
                     : ControlType.Custom;
+
                 return controlType.ToString();
             }
         }
@@ -90,212 +86,215 @@ namespace FlaNium.Desktop.Driver.Extensions
         public override bool IsEmptyElement => false;
 
         /// <inheritdoc />
-        public override XPathNavigator Clone()
-        {
-            var clonedObject = new AutomationElementXPathNavigatorExtended(_rootElement)
-            {
-                _currentElement = _currentElement,
-                _attributeIndex = _attributeIndex
+        public override XPathNavigator Clone() {
+            var clonedObject = new AutomationElementXPathNavigatorExtended(rootElement) {
+                currentElement = currentElement,
+                attributeIndex = attributeIndex
             };
+
             return clonedObject;
         }
 
         /// <inheritdoc />
-        public override bool MoveToFirstAttribute()
-        {
-            if (IsInAttribute)
-            {
+        public override bool MoveToFirstAttribute() {
+            if (IsInAttribute) {
                 return false;
             }
-            _attributeIndex = 0;
+
+            attributeIndex = 0;
+
             return true;
         }
 
         /// <inheritdoc />
-        public override bool MoveToNextAttribute()
-        {
-            if (_attributeIndex >= Enum.GetNames(typeof(ElementAttributes)).Length - 1)
-            {
+        public override bool MoveToNextAttribute() {
+            if (attributeIndex >= Enum.GetNames(typeof(ElementAttributes)).Length - 1) {
                 // No more attributes
                 return false;
             }
-            if (!IsInAttribute)
-            {
+
+            if (!IsInAttribute) {
                 return false;
             }
-            _attributeIndex++;
+
+            attributeIndex++;
+
             return true;
         }
 
         /// <inheritdoc />
-        public override string GetAttribute(string localName, string namespaceUri)
-        {
-            if (IsInAttribute)
-            {
+        public override string GetAttribute(string localName, string namespaceUri) {
+            if (IsInAttribute) {
                 return String.Empty;
             }
+
             var attributeIndex = GetAttributeIndexFromName(localName);
-            if (attributeIndex != NoAttributeValue)
-            {
+            if (attributeIndex != NoAttributeValue) {
                 return GetAttributeValue(attributeIndex);
             }
+
             return String.Empty;
         }
 
         /// <inheritdoc />
-        public override bool MoveToAttribute(string localName, string namespaceUri)
-        {
-            if (IsInAttribute)
-            {
+        public override bool MoveToAttribute(string localName, string namespaceUri) {
+            if (IsInAttribute) {
                 return false;
             }
+
             var attributeIndex = GetAttributeIndexFromName(localName);
-            if (attributeIndex != NoAttributeValue)
-            {
-                _attributeIndex = attributeIndex;
+            if (attributeIndex != NoAttributeValue) {
+                this.attributeIndex = attributeIndex;
+
                 return true;
             }
+
             return false;
         }
 
         /// <inheritdoc />
-        public override bool MoveToFirstNamespace(XPathNamespaceScope namespaceScope) => throw new NotImplementedException();
+        public override bool MoveToFirstNamespace(XPathNamespaceScope namespaceScope) =>
+            throw new NotImplementedException();
 
         /// <inheritdoc />
-        public override bool MoveToNextNamespace(XPathNamespaceScope namespaceScope) => throw new NotImplementedException();
+        public override bool MoveToNextNamespace(XPathNamespaceScope namespaceScope) =>
+            throw new NotImplementedException();
 
         /// <inheritdoc />
-        public override void MoveToRoot()
-        {
-            _attributeIndex = NoAttributeValue;
-            _currentElement = _rootElement;
+        public override void MoveToRoot() {
+            attributeIndex = NoAttributeValue;
+            currentElement = rootElement;
         }
 
         /// <inheritdoc />
-        public override bool MoveToNext()
-        {
-            if (IsInAttribute) { return false; }
-            var nextElement = _treeWalker.GetNextSibling(_currentElement);
-            if (nextElement == null)
-            {
+        public override bool MoveToNext() {
+            if (IsInAttribute) {
                 return false;
             }
-            _currentElement = nextElement;
+
+            var nextElement = treeWalker.GetNextSibling(currentElement);
+            if (nextElement == null) {
+                return false;
+            }
+
+            currentElement = nextElement;
+
             return true;
         }
 
         /// <inheritdoc />
-        public override bool MoveToPrevious()
-        {
-            if (IsInAttribute) { return false; }
-            var previousElement = _treeWalker.GetPreviousSibling(_currentElement);
-            if (previousElement == null)
-            {
+        public override bool MoveToPrevious() {
+            if (IsInAttribute) {
                 return false;
             }
-            _currentElement = previousElement;
+
+            var previousElement = treeWalker.GetPreviousSibling(currentElement);
+            if (previousElement == null) {
+                return false;
+            }
+
+            currentElement = previousElement;
+
             return true;
         }
 
         /// <inheritdoc />
-        public override bool MoveToFirstChild()
-        {
-            if (IsInAttribute) { return false; }
-            var childElement = _treeWalker.GetFirstChild(_currentElement);
-            if (childElement == null)
-            {
+        public override bool MoveToFirstChild() {
+            if (IsInAttribute) {
                 return false;
             }
-            _currentElement = childElement;
+
+            var childElement = treeWalker.GetFirstChild(currentElement);
+            if (childElement == null) {
+                return false;
+            }
+
+            currentElement = childElement;
+
             return true;
         }
 
         /// <inheritdoc />
-        public override bool MoveToParent()
-        {
-            if (IsInAttribute)
-            {
-                _attributeIndex = NoAttributeValue;
+        public override bool MoveToParent() {
+            if (IsInAttribute) {
+                attributeIndex = NoAttributeValue;
+
                 return true;
             }
-            if (_currentElement.Equals(_rootElement))
-            {
+
+            if (currentElement.Equals(rootElement)) {
                 return false;
             }
-            _currentElement = _treeWalker.GetParent(_currentElement);
+
+            currentElement = treeWalker.GetParent(currentElement);
+
             return true;
         }
 
         /// <inheritdoc />
-        public override bool MoveTo(XPathNavigator other)
-        {
+        public override bool MoveTo(XPathNavigator other) {
             var specificNavigator = other as AutomationElementXPathNavigatorExtended;
-            if (specificNavigator == null)
-            {
+            if (specificNavigator == null) {
                 return false;
             }
-            if (!_rootElement.Equals(specificNavigator._rootElement))
-            {
+
+            if (!rootElement.Equals(specificNavigator.rootElement)) {
                 return false;
             }
-            _currentElement = specificNavigator._currentElement;
-            _attributeIndex = specificNavigator._attributeIndex;
+
+            currentElement = specificNavigator.currentElement;
+            attributeIndex = specificNavigator.attributeIndex;
+
             return true;
         }
 
         /// <inheritdoc />
-        public override bool MoveToId(string id)
-        {
+        public override bool MoveToId(string id) {
             return false;
         }
 
         /// <inheritdoc />
-        public override bool IsSamePosition(XPathNavigator other)
-        {
+        public override bool IsSamePosition(XPathNavigator other) {
             var specificNavigator = other as AutomationElementXPathNavigatorExtended;
-            if (specificNavigator == null)
-            {
+            if (specificNavigator == null) {
                 return false;
             }
-            if (!_rootElement.Equals(specificNavigator._rootElement))
-            {
+
+            if (!rootElement.Equals(specificNavigator.rootElement)) {
                 return false;
             }
-            return _currentElement.Equals(specificNavigator._currentElement)
-                && _attributeIndex == specificNavigator._attributeIndex;
+
+            return currentElement.Equals(specificNavigator.currentElement)
+                   && attributeIndex == specificNavigator.attributeIndex;
         }
 
-        private string GetAttributeValue(int attributeIndex)
-        {
-            switch ((ElementAttributes)attributeIndex)
-            {
+        private string GetAttributeValue(int attributeIndex) {
+            switch ((ElementAttributes)attributeIndex) {
                 case ElementAttributes.AutomationId:
-                    return _currentElement.Properties.AutomationId.ValueOrDefault;
+                    return currentElement.Properties.AutomationId.ValueOrDefault;
                 case ElementAttributes.Name:
-                    return _currentElement.Properties.Name.ValueOrDefault;
+                    return currentElement.Properties.Name.ValueOrDefault;
                 case ElementAttributes.ClassName:
-                    return _currentElement.Properties.ClassName.ValueOrDefault;
+                    return currentElement.Properties.ClassName.ValueOrDefault;
                 case ElementAttributes.HelpText:
-                    return _currentElement.Properties.HelpText.ValueOrDefault;
+                    return currentElement.Properties.HelpText.ValueOrDefault;
                 case ElementAttributes.ControlType:
-                    return _currentElement.Properties.ControlType.ToString();
+                    return currentElement.Properties.ControlType.ToString();
                 default:
                     throw new ArgumentOutOfRangeException(nameof(attributeIndex));
             }
         }
 
-        private string GetAttributeName(int attributeIndex)
-        {
+        private string GetAttributeName(int attributeIndex) {
             var name = Enum.GetName(typeof(ElementAttributes), attributeIndex);
-            if (name == null)
-            {
+            if (name == null) {
                 throw new ArgumentOutOfRangeException(nameof(attributeIndex));
             }
+
             return name;
         }
 
-        private int GetAttributeIndexFromName(string attributeName)
-        {
+        private int GetAttributeIndexFromName(string attributeName) {
 #if NET35
             if (EnumExtensions.TryParse(attributeName, out ElementAttributes parsedValue))
 #else
@@ -304,16 +303,20 @@ namespace FlaNium.Desktop.Driver.Extensions
             {
                 return (int)parsedValue;
             }
+
             return NoAttributeValue;
         }
 
-        private enum ElementAttributes
-        {
+        private enum ElementAttributes {
+
             AutomationId,
             Name,
             ClassName,
             HelpText,
             ControlType
+
         }
+
     }
+
 }

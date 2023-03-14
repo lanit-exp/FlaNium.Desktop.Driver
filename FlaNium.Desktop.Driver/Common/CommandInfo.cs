@@ -1,9 +1,6 @@
-﻿
-namespace FlaNium.Desktop.Driver.Common
-{
-    public class CommandInfo
-    {
-        #region Constants
+﻿namespace FlaNium.Desktop.Driver.Common {
+
+    public class CommandInfo {
 
         public const string DeleteCommand = "DELETE";
 
@@ -11,24 +8,17 @@ namespace FlaNium.Desktop.Driver.Common
 
         public const string PostCommand = "POST";
 
-        #endregion
 
-        #region Constructors and Destructors
-
-        public CommandInfo(string method, string resourcePath)
-        {
+        public CommandInfo(string method, string resourcePath) {
             this.ResourcePath = resourcePath;
             this.Method = method;
         }
 
-        #endregion
-
-        #region Public Properties
 
         public string Method { get; set; }
 
         public string ResourcePath { get; set; }
 
-        #endregion
     }
+
 }

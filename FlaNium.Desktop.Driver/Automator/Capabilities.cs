@@ -1,78 +1,57 @@
-﻿namespace FlaNium.Desktop.Driver.Automator
-{
-    #region using
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Serialization;
+namespace FlaNium.Desktop.Driver.Automator {
 
+    internal class Capabilities {
 
-    #endregion
-
-    internal class Capabilities
-    {
-        #region Constructors and Destructors
-
-        internal Capabilities()
-        {
+        internal Capabilities() {
             this.App = string.Empty;
+            this.InjectionDllType = string.Empty;
             this.Arguments = string.Empty;
-            this.LaunchDelay = 0;
-            this.DebugConnectToRunningApp = false;
-            this.InnerPort = 9998;
+            this.LaunchDelay = 2000;
+            this.ProcessFindTimeOut = 30000;
+            this.ConnectToRunningApp = false;
+            this.InjectionActivate = false;
             this.ProcessName = string.Empty;
             this.ResponseTimeout = 300000;
         }
 
-        #endregion
 
-        #region Public Properties
+        [JsonProperty("app")] public string App { get; set; }
 
-        [JsonProperty("app")]
-        public string App { get; set; }
+        [JsonProperty("args")] public string Arguments { get; set; }
 
-        [JsonProperty("args")]
-        public string Arguments { get; set; }
+        [JsonProperty("connectToRunningApp")] public bool ConnectToRunningApp { get; set; }
 
-        [JsonProperty("debugConnectToRunningApp")]
-        public bool DebugConnectToRunningApp { get; set; }
+        [JsonProperty("launchDelay")] public int LaunchDelay { get; set; }
 
-        [JsonProperty("innerPort")]
-        public int InnerPort { get; set; }
+        [JsonProperty("processName")] public string ProcessName { get; set; }
         
-        [JsonProperty("launchDelay")]
-        public int LaunchDelay { get; set; }
+        [JsonProperty("processFindTimeOut")] public int ProcessFindTimeOut { get; set; }
 
-        [JsonProperty("processName")]
-        public string ProcessName { get; set; }
+        [JsonProperty("injectionActivate")] public bool InjectionActivate { get; set; }
 
-        [JsonProperty("responseTimeout")]
-        public int ResponseTimeout { get; set; }
+        [JsonProperty("injectionDllType")] public string InjectionDllType { get; set; }
 
-        #endregion
+        [JsonProperty("responseTimeout")] public int ResponseTimeout { get; set; }
 
-        #region Public Methods and Operators
 
-        public static Capabilities CapabilitiesFromJsonString(string jsonString)
-        {
+        public static Capabilities CapabilitiesFromJsonString(string jsonString) {
             var capabilities = JsonConvert.DeserializeObject<Capabilities>(
-                jsonString, 
-                new JsonSerializerSettings
-                    {
-                        Error =
-                            delegate(object sender, ErrorEventArgs args)
-                                {
-                                    args.ErrorContext.Handled = true;
-                                }
-                    });
+                jsonString,
+                new JsonSerializerSettings {
+                    Error =
+                        delegate(object sender, ErrorEventArgs args) { args.ErrorContext.Handled = true; }
+                });
 
             return capabilities;
         }
 
-        public string CapabilitiesToJsonString()
-        {
+        public string CapabilitiesToJsonString() {
             return JsonConvert.SerializeObject(this);
         }
 
-        #endregion
     }
+
 }

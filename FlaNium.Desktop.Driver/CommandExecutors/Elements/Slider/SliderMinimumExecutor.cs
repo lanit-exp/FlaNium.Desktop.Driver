@@ -1,26 +1,22 @@
-﻿
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Slider
-{
-    using global::FlaUI.Core.AutomationElements;
-    using FlaNium.Desktop.Driver.Common;
+﻿using FlaNium.Desktop.Driver.Common;
+using FlaUI.Core.AutomationElements;
 
-    class SliderMinimumExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Slider {
 
-        protected override string DoImpl()
-        {
+    class SliderMinimumExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            Slider slider = element.FlaUIElement.AsSlider();
+            global::FlaUI.Core.AutomationElements.Slider slider = element.FlaUiElement.AsSlider();
 
             double value = slider.Minimum;
 
             return this.JsonResponse(ResponseStatus.Success, value.ToString());
         }
 
-        #endregion
     }
+
 }

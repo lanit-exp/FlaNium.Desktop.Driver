@@ -1,21 +1,18 @@
-﻿
-namespace FlaNium.Desktop.Driver.CommandExecutors.TouchActions
-{
-    using FlaNium.Desktop.Driver.Input;
-    using System;
-    using System.Collections.Generic;
-    using System.Drawing;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using FlaNium.Desktop.Driver.Input;
 
-    internal class TouchActionsTapExecutor : CommandExecutorBase
-    {
-        protected override string DoImpl()
-        {
+namespace FlaNium.Desktop.Driver.CommandExecutors.TouchActions {
+
+    internal class TouchActionsTapExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var points = this.ExecutedCommand.Parameters["points"].ToObject<List<Dictionary<String, Object>>>();
 
             List<Point> pointsList = new List<Point>();
 
-            points.ForEach(p =>
-            {
+            points.ForEach(p => {
                 p.TryGetValue("x", out object x);
                 p.TryGetValue("y", out object y);
 
@@ -26,5 +23,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.TouchActions
 
             return this.JsonResponse();
         }
+
     }
+
 }

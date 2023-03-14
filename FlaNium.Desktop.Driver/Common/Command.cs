@@ -1,51 +1,32 @@
-﻿
-namespace FlaNium.Desktop.Driver.Common
-{
-    #region
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
-    using System.Collections.Generic;
+namespace FlaNium.Desktop.Driver.Common {
 
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
-
-    #endregion
-
-    public class Command
-    {
-        #region Fields
+    public class Command {
 
         private IDictionary<string, JToken> commandParameters = new JObject();
 
-        #endregion
 
-        #region Constructors and Destructors
-
-        public Command(string name, IDictionary<string, JToken> parameters)
-        {
+        public Command(string name, IDictionary<string, JToken> parameters) {
             this.Name = name;
-            if (parameters != null)
-            {
+            if (parameters != null) {
                 this.Parameters = parameters;
             }
         }
 
         public Command(string name, string jsonParameters)
-            : this(name, string.IsNullOrEmpty(jsonParameters) ? null : JObject.Parse(jsonParameters))
-        {
+            : this(name, string.IsNullOrEmpty(jsonParameters) ? null : JObject.Parse(jsonParameters)) {
         }
 
-        public Command(string name)
-        {
+        public Command(string name) {
             this.Name = name;
         }
 
-        public Command()
-        {
+        public Command() {
         }
 
-        #endregion
-
-        #region Public Properties
 
         /// <summary>
         /// Gets the command name
@@ -57,17 +38,10 @@ namespace FlaNium.Desktop.Driver.Common
         /// Gets the parameters of the command
         /// </summary>
         [JsonProperty("parameters")]
-        public IDictionary<string, JToken> Parameters
-        {
-            get
-            {
-                return this.commandParameters;
-            }
+        public IDictionary<string, JToken> Parameters {
+            get { return this.commandParameters; }
 
-            set
-            {
-                this.commandParameters = value;
-            }
+            set { this.commandParameters = value; }
         }
 
         /// <summary>
@@ -76,6 +50,6 @@ namespace FlaNium.Desktop.Driver.Common
         [JsonProperty("sessionId")]
         public string SessionId { get; set; }
 
-        #endregion
     }
+
 }

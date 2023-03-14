@@ -1,21 +1,15 @@
-﻿namespace FlaNium.Desktop.Driver.CommandExecutors
-{
-    #region using
+﻿using System;
 
-    using System;
+namespace FlaNium.Desktop.Driver.CommandExecutors {
 
-    #endregion
+    internal class NotImplementedExecutor : CommandExecutorBase {
 
-    internal class NotImplementedExecutor : CommandExecutorBase
-    {
-        #region Methods
-
-        protected override string DoImpl()
-        {
+        protected override string DoImpl() {
             var msg = string.Format("'{0}' is not valid or implemented command.", this.ExecutedCommand.Name);
+
             throw new NotImplementedException(msg);
         }
 
-        #endregion
     }
+
 }

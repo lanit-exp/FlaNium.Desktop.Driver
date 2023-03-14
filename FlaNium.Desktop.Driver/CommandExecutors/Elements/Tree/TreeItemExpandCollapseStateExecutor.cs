@@ -1,26 +1,22 @@
-﻿
+﻿using FlaNium.Desktop.Driver.Common;
 using FlaUI.Core.AutomationElements;
-using FlaNium.Desktop.Driver.Common;
 
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Tree
-{
-    class TreeItemExpandCollapseStateExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Tree {
 
-        protected override string DoImpl()
-        {
+    class TreeItemExpandCollapseStateExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var treeItem = element.FlaUIElement.AsTreeItem();
+            var treeItem = element.FlaUiElement.AsTreeItem();
 
             var result = treeItem.ExpandCollapseState;
 
             return this.JsonResponse(ResponseStatus.Success, result.ToString());
         }
 
-        #endregion
     }
+
 }

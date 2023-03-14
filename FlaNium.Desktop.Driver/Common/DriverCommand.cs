@@ -1,12 +1,11 @@
-﻿
-namespace FlaNium.Desktop.Driver.Common
-{
+﻿namespace FlaNium.Desktop.Driver.Common {
+
     /// <summary>
     /// Values describing the list of commands understood by a remote server using the JSON wire protocol.
     /// 
     /// </summary>
-    public static class DriverCommand
-    {
+    public static class DriverCommand {
+
         #region Static Fields
 
         #region Selenium
@@ -467,12 +466,17 @@ namespace FlaNium.Desktop.Driver.Common
         /// </summary>
         public static readonly string UploadFile = "uploadFile";
 
+        public static readonly string Actions = "actions";
+
         #endregion
 
 
         #region FlaNium
 
+        public static readonly string ExecuteInApp = "executeInApp";
+
         #region ComboBox
+
         public static readonly string ComboBoxCollapse = "comboBoxCollapse";
         public static readonly string ComboBoxExpand = "comboBoxExpand";
         public static readonly string ComboBoxSelect = "comboBoxSelect";
@@ -486,13 +490,17 @@ namespace FlaNium.Desktop.Driver.Common
         public static readonly string ComboBoxItems = "comboBoxItems";
         public static readonly string ComboBoxExpandCollapseState = "comboBoxExpandCollapseState";
         public static readonly string ComboBoxEditableText = "comboBoxEditableText";
+
         #endregion
 
         #region CheckBox
+
         public static readonly string CheckBoxToggleState = "checkBoxToggleState";
+
         #endregion
 
         #region Slider
+
         public static readonly string SliderMinimum = "sliderMinimum";
         public static readonly string SliderMaximum = "sliderMaximum";
         public static readonly string SliderSmallChange = "sliderSmallChange";
@@ -507,9 +515,11 @@ namespace FlaNium.Desktop.Driver.Common
         public static readonly string SliderSmallDecrement = "sliderSmallDecrement";
         public static readonly string SliderLargeIncrement = "sliderLargeIncrement";
         public static readonly string SliderLargeDecrement = "sliderLargeDecrement";
+
         #endregion
 
         #region DataGridView
+
         public static readonly string DataGridViewHasAddRow = "dataGridViewHasAddRow";
         public static readonly string DataGridViewGetHeader = "dataGridViewGetHeader";
         public static readonly string DataGridViewGetRows = "dataGridViewGetRows";
@@ -520,9 +530,11 @@ namespace FlaNium.Desktop.Driver.Common
 
         public static readonly string DataGridViewCellGetValue = "dataGridViewCellGetValue";
         public static readonly string DataGridViewCellSetValue = "dataGridViewCellSetValue";
+
         #endregion
 
         #region Grid
+
         public static readonly string GridRowCount = "gridRowCount";
         public static readonly string GridColumnCount = "gridColumnCount";
         public static readonly string GridColumnHeaders = "gridColumnHeaders";
@@ -551,9 +563,11 @@ namespace FlaNium.Desktop.Driver.Common
         public static readonly string GridRowHeader = "gridRowHeader";
         public static readonly string GridRowFindCellByText = "gridRowFindCellByText";
         public static readonly string GridRowScrollIntoView = "gridRowScrollIntoView";
+
         #endregion
 
         #region ScrollBar
+
         public static readonly string ScrollBarBaseValue = "scrollBarBaseValue";
         public static readonly string ScrollBarBaseMinimumValue = "scrollBarBaseMinimumValue";
         public static readonly string ScrollBarBaseMaximumValue = "scrollBarBaseMaximumValue";
@@ -570,15 +584,19 @@ namespace FlaNium.Desktop.Driver.Common
         public static readonly string VerticalScrollBarScrollDown = "verticalScrollBarScrollDown";
         public static readonly string VerticalScrollBarScrollUpLarge = "verticalScrollBarScrollUpLarge";
         public static readonly string VerticalScrollBarScrollDownLarge = "verticalScrollBarScrollDownLarge";
+
         #endregion
 
         #region ProgressBar
+
         public static readonly string ProgressBarMinimum = "progressBarMinimum";
         public static readonly string ProgressBarMaximum = "progressBarMaximum";
         public static readonly string ProgressBarValue = "progressBarValue";
+
         #endregion
 
         #region ListBox
+
         public static readonly string ListBoxItems = "listBoxItems";
         public static readonly string ListBoxSelectedItems = "listBoxSelectedItems";
         public static readonly string ListBoxSelectedItem = "listBoxSelectedItem";
@@ -592,25 +610,33 @@ namespace FlaNium.Desktop.Driver.Common
         public static readonly string ListBoxItemScrollIntoView = "listBoxItemScrollIntoView";
         public static readonly string ListBoxItemIsChecked = "listBoxItemIsChecked";
         public static readonly string ListBoxItemSetChecked = "listBoxItemSetChecked";
+
         #endregion
 
         #region Menu
+
         public static readonly string MenuItems = "menuItems";
+
         #endregion
 
         #region MenuItem
+
         public static readonly string MenuItemItems = "menuItemItems";
         public static readonly string MenuItemInvoke = "menuItemInvoke";
         public static readonly string MenuItemExpand = "menuItemExpand";
         public static readonly string MenuItemCollapse = "menuItemCollapse";
         public static readonly string MenuItemIsChecked = "menuItemIsChecked";
+
         #endregion
 
         #region Button
+
         public static readonly string ButtonInvoke = "buttonInvoke";
+
         #endregion
 
         #region Spinner
+
         public static readonly string SpinnerMinimum = "spinnerMinimum";
         public static readonly string SpinnerMaximum = "spinnerMaximum";
         public static readonly string SpinnerSmallChange = "spinnerSmallChange";
@@ -619,53 +645,69 @@ namespace FlaNium.Desktop.Driver.Common
         public static readonly string SpinnerSetValue = "spinnerSetValue";
         public static readonly string SpinnerIncrement = "spinnerIncrement";
         public static readonly string SpinnerDecrement = "spinnerDecrement";
+
         #endregion
 
         #region Tab
+
         public static readonly string TabSelectedTabItem = "tabSelectedTabItem";
         public static readonly string TabSelectedTabItemIndex = "tabSelectedTabItemIndex";
         public static readonly string TabTabItems = "tabTabItems";
         public static readonly string TabSelectTabItemIndex = "tabSelectTabItemIndex";
         public static readonly string TabSelectTabItemText = "tabSelectTabItemText";
+
         #endregion
 
         #region TabItem
+
         public static readonly string TabItemSelect = "tabItemSelect";
         public static readonly string TabItemAddToSelection = "tabItemAddToSelection";
         public static readonly string TabItemRemoveFromSelection = "tabItemRemoveFromSelection";
+
         #endregion
 
         #region TextBox
+
         public static readonly string TextBoxGetText = "textBoxGetText";
         public static readonly string TextBoxSetText = "textBoxSetText";
         public static readonly string TextBoxIsReadOnly = "textBoxIsReadOnly";
         public static readonly string TextBoxEnter = "textBoxEnter";
+
         #endregion
 
         #region Thumb
+
         public static readonly string ThumbSlideHorizontally = "thumbSlideHorizontally";
         public static readonly string ThumbSlideVertically = "thumbSlideVertically";
+
         #endregion
 
         #region TitleBar
+
         public static readonly string TitleBarMinimizeButton = "titleBarMinimizeButton";
         public static readonly string TitleBarMaximizeButton = "titleBarMaximizeButton";
         public static readonly string TitleBarRestoreButton = "titleBarRestoreButton";
         public static readonly string TitleBarCloseButton = "titleBarCloseButton";
+
         #endregion
 
         #region ToggleButton
+
         public static readonly string ToggleButtonToggle = "toggleButtonToggle";
         public static readonly string ToggleButtonGetToggleState = "toggleButtonGetToggleState";
         public static readonly string ToggleButtonSetToggleState = "toggleButtonSetToggleState";
+
         #endregion
 
         #region Tree
+
         public static readonly string TreeSelectedTreeItem = "treeSelectedTreeItem";
         public static readonly string TreeItems = "treeItems";
+
         #endregion
 
         #region TreeItem
+
         public static readonly string TreeItemItems = "treeItemItems";
         public static readonly string TreeItemGetText = "treeItemGetText";
         public static readonly string TreeItemExpandCollapseState = "treeItemExpandCollapseState";
@@ -676,9 +718,11 @@ namespace FlaNium.Desktop.Driver.Common
         public static readonly string TreeItemRemoveFromSelection = "treeItemRemoveFromSelection";
         public static readonly string TreeItemIsChecked = "treeItemIsChecked";
         public static readonly string TreeItemSetChecked = "treeItemSetChecked";
+
         #endregion
 
         #region Window
+
         public static readonly string WindowTitle = "windowTitle";
         public static readonly string WindowIsModal = "windowIsModal";
         public static readonly string WindowTitleBar = "windowTitleBar";
@@ -689,20 +733,26 @@ namespace FlaNium.Desktop.Driver.Common
         public static readonly string WindowMove = "windowMove";
         public static readonly string WindowSetTransparency = "windowSetTransparency";
         public static readonly string WindowGetActiveWindow = "windowGetActiveWindow";
+
         #endregion
 
         #region Calendar
+
         public static readonly string CalendarSelectedDates = "calendarSelectedDates";
         public static readonly string CalendarSelectDate = "calendarSelectDate";
         public static readonly string CalendarAddToSelection = "calendarAddToSelection";
+
         #endregion
 
         #region DateTimePicker
+
         public static readonly string DateTimePickerGetDate = "dateTimePickerGetDate";
         public static readonly string DateTimePickerSetDate = "dateTimePickerSetDate";
+
         #endregion
 
         #region Other
+
         public static readonly string CustomScreenshot = "customScreenshot";
         public static readonly string ElementScreenshot = "elementScreenshot";
         public static readonly string DragAndDrop = "DragAndDrop";
@@ -722,11 +772,17 @@ namespace FlaNium.Desktop.Driver.Common
         public static readonly string TouchActionsTransition = "TouchActionsTransition";
         public static readonly string TouchActionsDrag = "TouchActionsDrag";
         public static readonly string TouchActionsRotate = "TouchActionsRotate";
+
+        public static readonly string SetRootElement = "SetRootElement";
+        
+        public static readonly string ChangeProcess = "ChangeProcess";
+        public static readonly string KillProcesses = "KillProcesses";
         #endregion
 
-
         #endregion
 
         #endregion
+
     }
+
 }

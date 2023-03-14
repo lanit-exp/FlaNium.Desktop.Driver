@@ -6,7 +6,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Spinner
 {
     class SpinnerMinimumExecutor : CommandExecutorBase
     {
-        #region Methods
+       
 
         protected override string DoImpl()
         {
@@ -14,13 +14,13 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Spinner
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var spinner = element.FlaUIElement.AsSpinner();
+            var spinner = element.FlaUiElement.AsSpinner();
 
             double value = spinner.Minimum;
 
-            return this.JsonResponse(ResponseStatus.Success, value.ToString());
+            return this.JsonResponse(ResponseStatus.Success, value);
         }
 
-        #endregion
+     
     }
 }

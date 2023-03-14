@@ -33,7 +33,7 @@
                 case TIFF: return ImageFormat.Tiff;
                 case EXIF: return ImageFormat.Exif;
 
-                default: throw new System.FormatException(string.Format("{0} - is not image format.", imageFormat));
+                default: throw new System.FormatException($"{imageFormat} - is not image format.");
             }
         }
     }

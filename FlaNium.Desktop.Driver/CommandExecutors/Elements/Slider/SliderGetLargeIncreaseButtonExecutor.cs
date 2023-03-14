@@ -1,37 +1,32 @@
-﻿
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Slider
-{
-    using global::FlaUI.Core.AutomationElements;
-    using FlaNium.Desktop.Driver.FlaUI;
-    using FlaNium.Desktop.Driver.Common;
-    using FlaNium.Desktop.Driver.Exceptions;
+﻿using FlaNium.Desktop.Driver.Common;
+using FlaNium.Desktop.Driver.Exceptions;
+using FlaNium.Desktop.Driver.FlaUI;
+using FlaUI.Core.AutomationElements;
 
-    class SliderGetLargeIncreaseButtonExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Slider {
 
-        protected override string DoImpl()
-        {
+    class SliderGetLargeIncreaseButtonExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            Slider slider = element.FlaUIElement.AsSlider();
+            global::FlaUI.Core.AutomationElements.Slider slider = element.FlaUiElement.AsSlider();
 
-            Button button = slider.LargeIncreaseButton;
+            global::FlaUI.Core.AutomationElements.Button button = slider.LargeIncreaseButton;
 
-            if (button == null)
-            {
+            if (button == null) {
                 throw new AutomationException("Element cannot be found", ResponseStatus.NoSuchElement);
             }
 
-            var itemRegisteredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUIDriverElement(button));
+            var itemRegisteredKey = this.Automator.ElementsRegistry.RegisterElement(new FlaUiDriverElement(button));
 
             var registeredObject = new JsonElementContent(itemRegisteredKey);
 
             return this.JsonResponse(ResponseStatus.Success, registeredObject);
         }
 
-        #endregion
     }
+
 }

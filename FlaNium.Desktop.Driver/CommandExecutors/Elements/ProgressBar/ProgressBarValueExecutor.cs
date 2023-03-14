@@ -1,26 +1,22 @@
-﻿
+﻿using FlaNium.Desktop.Driver.Common;
 using FlaUI.Core.AutomationElements;
-using FlaNium.Desktop.Driver.Common;
 
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ProgressBar
-{
-    class ProgressBarValueExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ProgressBar {
 
-        protected override string DoImpl()
-        {
+    class ProgressBarValueExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var progressBar = element.FlaUIElement.AsProgressBar();
+            var progressBar = element.FlaUiElement.AsProgressBar();
 
             var result = progressBar.Value;
 
             return this.JsonResponse(ResponseStatus.Success, result.ToString());
         }
 
-        #endregion
     }
+
 }

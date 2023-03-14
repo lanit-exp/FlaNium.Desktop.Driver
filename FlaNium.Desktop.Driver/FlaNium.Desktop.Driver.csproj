@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FlaNium.Desktop.Driver</RootNamespace>
     <AssemblyName>FlaNium.Driver</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
@@ -60,44 +60,67 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
-    <Reference Include="CommandLine, Version=2.8.0.0, Culture=neutral, PublicKeyToken=5a870481e358d379, processorArchitecture=MSIL">
-      <HintPath>..\packages\CommandLineParser.2.8.0\lib\net461\CommandLine.dll</HintPath>
+    <Reference Include="CommandLine, Version=2.9.1.0, Culture=neutral, PublicKeyToken=5a870481e358d379, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommandLineParser.2.9.1\lib\net461\CommandLine.dll</HintPath>
     </Reference>
-    <Reference Include="FlaUI.Core, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FlaUI.Core.3.2.0\lib\net45\FlaUI.Core.dll</HintPath>
+    <Reference Include="FlaUI.Core, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FlaUI.Core.4.0.0\lib\netstandard2.0\FlaUI.Core.dll</HintPath>
     </Reference>
-    <Reference Include="FlaUI.UIA3, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FlaUI.UIA3.3.2.0\lib\net45\FlaUI.UIA3.dll</HintPath>
+    <Reference Include="FlaUI.UIA3, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FlaUI.UIA3.4.0.0\lib\netstandard2.0\FlaUI.UIA3.dll</HintPath>
     </Reference>
     <Reference Include="Interop.UIAutomationClient, Version=10.0.19041.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Interop.UIAutomationClient.10.19041.0\lib\net45\Interop.UIAutomationClient.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Microsoft.Win32.Registry, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Registry.5.0.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
     </Reference>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.7.5\lib\net45\NLog.dll</HintPath>
+    <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.5.1.1\lib\net46\NLog.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.CodeDom, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.CodeDom.7.0.0\lib\net462\System.CodeDom.dll</HintPath>
+    </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Common, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.7.0.0\lib\net462\System.Drawing.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.6.0.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.7.0.0\lib\net462\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="UIAutomationClient" />
     <Reference Include="UIAutomationTypes" />
-    <Reference Include="WebDriver, Version=3.141.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selenium.WebDriver.3.141.0\lib\net45\WebDriver.dll</HintPath>
+    <Reference Include="WebDriver, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.WebDriver.4.8.0\lib\net48\WebDriver.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsInput, Version=1.0.4.0, Culture=neutral, PublicKeyToken=9b287f7dc5073cad, processorArchitecture=MSIL">
@@ -108,11 +131,30 @@
   <ItemGroup>
     <Compile Include="Automator\Automator.cs" />
     <Compile Include="Automator\Capabilities.cs" />
-    <Compile Include="CommandExecutors\CustomScreenshotExecutor.cs" />
-    <Compile Include="CommandExecutors\DragAndDropExecutor.cs" />
-    <Compile Include="CommandExecutors\ElementDragAndDropExecutor.cs" />
-    <Compile Include="CommandExecutors\ElementMouseActionExecutor.cs" />
-    <Compile Include="CommandExecutors\ElementScreenshotExecutor.cs" />
+    <Compile Include="CommandExecutors\Actions\Action.cs" />
+    <Compile Include="CommandExecutors\Actions\ActionsExecutor.cs" />
+    <Compile Include="CommandExecutors\Actions\DefaultKeyboardAction.cs" />
+    <Compile Include="CommandExecutors\Actions\DefaultMouseAction.cs" />
+    <Compile Include="CommandExecutors\Actions\DefaultWheelAction.cs" />
+    <Compile Include="CommandExecutors\Auxiliary\CustomScreenshotExecutor.cs" />
+    <Compile Include="CommandExecutors\Auxiliary\ElementScreenshotExecutor.cs" />
+    <Compile Include="CommandExecutors\Auxiliary\GetClipboardTextExecutor.cs" />
+    <Compile Include="CommandExecutors\Auxiliary\GetKeyboardLayoutExecutor.cs" />
+    <Compile Include="CommandExecutors\Auxiliary\ScreenshotExecutor.cs" />
+    <Compile Include="CommandExecutors\Auxiliary\SetClipboardTextExecutor.cs" />
+    <Compile Include="CommandExecutors\Auxiliary\SetKeyboardLayoutExecutor.cs" />
+    <Compile Include="CommandExecutors\ChangeProcessExecutor.cs" />
+    <Compile Include="CommandExecutors\ElementProperty\ElementEqualsExecutor.cs" />
+    <Compile Include="CommandExecutors\ElementProperty\GetCurrentWindowHandleExecutor.cs" />
+    <Compile Include="CommandExecutors\ElementProperty\GetElementAttributeExecutor.cs" />
+    <Compile Include="CommandExecutors\ElementProperty\GetElementSizeExecutor.cs" />
+    <Compile Include="CommandExecutors\ElementProperty\GetElementTagNameExecutor.cs" />
+    <Compile Include="CommandExecutors\ElementProperty\GetElementTextExecutor.cs" />
+    <Compile Include="CommandExecutors\ElementProperty\GetOrientationExecutor.cs" />
+    <Compile Include="CommandExecutors\ElementProperty\GetWindowHandlesExecutor.cs" />
+    <Compile Include="CommandExecutors\ElementProperty\IsElementDisplayedExecutor.cs" />
+    <Compile Include="CommandExecutors\ElementProperty\IsElementEnabledExecutor.cs" />
+    <Compile Include="CommandExecutors\ElementProperty\IsElementSelectedExecutor.cs" />
     <Compile Include="CommandExecutors\Elements\Button\ButtonInvokeExecutor.cs" />
     <Compile Include="CommandExecutors\Elements\Calendar\CalendarAddToSelectionExecutor.cs" />
     <Compile Include="CommandExecutors\Elements\Calendar\CalendarSelectDateExecutor.cs" />
@@ -265,49 +307,40 @@
     <Compile Include="CommandExecutors\Elements\Window\WindowSetTransparencyExecutor.cs" />
     <Compile Include="CommandExecutors\Elements\Window\WindowTitleBarExecutor.cs" />
     <Compile Include="CommandExecutors\Elements\Window\WindowTitleExecutor.cs" />
-    <Compile Include="CommandExecutors\GetActiveWindowExecutor.cs" />
-    <Compile Include="CommandExecutors\GetElementTagNameExecutor.cs" />
-    <Compile Include="CommandExecutors\GetKeyboardLayoutExecutor.cs" />
-    <Compile Include="CommandExecutors\GetOrientationExecutor.cs" />
-    <Compile Include="CommandExecutors\GetWindowHandlesExecutor.cs" />
-    <Compile Include="CommandExecutors\GetCurrentWindowHandleExecutor.cs" />
-    <Compile Include="CommandExecutors\GetClipboardTextExecutor.cs" />
-    <Compile Include="CommandExecutors\KeyCombinationExecutor.cs" />
-    <Compile Include="CommandExecutors\SendCharsToActiveElementExecutor.cs" />
-    <Compile Include="CommandExecutors\SetClipboardTextExecutor.cs" />
-    <Compile Include="CommandExecutors\SetKeyboardLayoutExecutor.cs" />
-    <Compile Include="CommandExecutors\SetOrientationExecutor.cs" />
+    <Compile Include="CommandExecutors\ExecuteInAppExecutor.cs" />
+    <Compile Include="CommandExecutors\FindElement\FindChildElementExecutor.cs" />
+    <Compile Include="CommandExecutors\FindElement\FindChildElementsExecutor.cs" />
+    <Compile Include="CommandExecutors\FindElement\FindElementExecutor.cs" />
+    <Compile Include="CommandExecutors\FindElement\FindElementsExecutor.cs" />
+    <Compile Include="CommandExecutors\FindElement\GetActiveElementExecutor.cs" />
+    <Compile Include="CommandExecutors\FindElement\GetActiveWindowExecutor.cs" />
+    <Compile Include="CommandExecutors\KillProcessesExecutor.cs" />
+    <Compile Include="CommandExecutors\SetRootElementExecutor.cs" />
+    <Compile Include="CommandExecutors\StandardActions\ClearElementExecutor.cs" />
+    <Compile Include="CommandExecutors\StandardActions\ClickElementExecutor.cs" />
+    <Compile Include="CommandExecutors\StandardActions\DragAndDropExecutor.cs" />
+    <Compile Include="CommandExecutors\StandardActions\ElementDragAndDropExecutor.cs" />
+    <Compile Include="CommandExecutors\StandardActions\ElementMouseActionExecutor.cs" />
+    <Compile Include="CommandExecutors\StandardActions\KeyCombinationExecutor.cs" />
+    <Compile Include="CommandExecutors\StandardActions\MaximizeWindowExecutor.cs" />
+    <Compile Include="CommandExecutors\StandardActions\MouseClickExecutor.cs" />
+    <Compile Include="CommandExecutors\StandardActions\MouseDoubleClickExecutor.cs" />
+    <Compile Include="CommandExecutors\StandardActions\MouseMoveToExecutor.cs" />
+    <Compile Include="CommandExecutors\StandardActions\SendCharsToActiveElementExecutor.cs" />
+    <Compile Include="CommandExecutors\StandardActions\SendKeysToActiveElementExecutor.cs" />
+    <Compile Include="CommandExecutors\StandardActions\SendKeysToElementExecutor.cs" />
+    <Compile Include="CommandExecutors\StandardActions\SetOrientationExecutor.cs" />
+    <Compile Include="CommandExecutors\StandardActions\SubmitElementExecutor.cs" />
     <Compile Include="CommandExecutors\StatusExecutor.cs" />
-    <Compile Include="CommandExecutors\SubmitElementExecutor.cs" />
     <Compile Include="CommandExecutors\ExecuteScriptExecutor.cs" />
-    <Compile Include="CommandExecutors\ElementEqualsExecutor.cs" />
-    <Compile Include="CommandExecutors\GetActiveElementExecutor.cs" />
-    <Compile Include="CommandExecutors\MouseDoubleClickExecutor.cs" />
-    <Compile Include="CommandExecutors\MouseClickExecutor.cs" />
     <Compile Include="CommandExecutors\QuitExecutor.cs" />
     <Compile Include="CommandExecutorDispatchTable.cs" />
-    <Compile Include="CommandExecutors\ScreenshotExecutor.cs" />
-    <Compile Include="CommandExecutors\FindChildElementsExecutor.cs" />
-    <Compile Include="CommandExecutors\FindElementsExecutor.cs" />
-    <Compile Include="CommandExecutors\GetElementAttributeExecutor.cs" />
-    <Compile Include="CommandExecutors\IsElementEnabledExecutor.cs" />
-    <Compile Include="CommandExecutors\IsElementDisplayedExecutor.cs" />
     <Compile Include="CommandExecutors\ImplicitlyWaitExecutor.cs" />
-    <Compile Include="CommandExecutors\GetElementSizeExecutor.cs" />
-    <Compile Include="CommandExecutors\GetElementTextExecutor.cs" />
-    <Compile Include="CommandExecutors\ClearElementExecutor.cs" />
-    <Compile Include="CommandExecutors\MouseMoveToExecutor.cs" />
-    <Compile Include="CommandExecutors\SendKeysToActiveElementExecutor.cs" />
-    <Compile Include="CommandExecutors\SendKeysToElementExecutor.cs" />
-    <Compile Include="CommandExecutors\ClickElementExecutor.cs" />
     <Compile Include="CommandExecutors\CloseExecutor.cs" />
     <Compile Include="CommandExecutors\CommandExecutorBase.cs" />
-    <Compile Include="CommandExecutors\FindChildElementExecutor.cs" />
-    <Compile Include="CommandExecutors\FindElementExecutor.cs" />
     <Compile Include="CommandExecutors\NewSessionExecutor.cs" />
     <Compile Include="CommandExecutors\NotImplementedExecutor.cs" />
     <Compile Include="CommandExecutors\SwitchToWindowExecutor.cs" />
-    <Compile Include="CommandExecutors\MaximizeWindowExecutor.cs" />
     <Compile Include="CommandExecutors\TouchActions\TouchActionsDragExecutor.cs" />
     <Compile Include="CommandExecutors\TouchActions\TouchActionsHoldExecutor.cs" />
     <Compile Include="CommandExecutors\TouchActions\TouchActionsPinchExecutor.cs" />
@@ -335,8 +368,12 @@
     <Compile Include="FlaUI\FlaUIDriverElement.cs" />
     <Compile Include="FlaUI\WhiteNetElementProperties.cs" />
     <Compile Include="HttpRequest.cs" />
-    <Compile Include="CommandExecutors\IsElementSelectedExecutor.cs" />
+    <Compile Include="Inject\ClientSocket.cs" />
+    <Compile Include="Inject\DLLFilesToInject.cs" />
+    <Compile Include="Inject\Injector.cs" />
+    <Compile Include="Input\CustomInput.cs" />
     <Compile Include="Input\Interpolation.cs" />
+    <Compile Include="Input\KeyboardLayout.cs" />
     <Compile Include="Input\KeyboardModifiers.cs" />
     <Compile Include="Input\KeyEvent.cs" />
     <Compile Include="Input\FlaNiumKeyboard.cs" />
@@ -358,9 +395,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 и x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 и x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -372,7 +409,6 @@
   <ItemGroup>
     <Content Include="flanium.ico" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -381,6 +417,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
     <Error Condition="!Exists('..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets'))" />
+    <Error Condition="!Exists('..\packages\Selenium.WebDriver.4.8.0\build\Selenium.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.WebDriver.4.8.0\build\Selenium.WebDriver.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -391,4 +428,5 @@
     <MakeDir Directories="$(OutDir)Merge" />
   </Target>
   <Import Project="..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets" Condition="Exists('..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets')" />
+  <Import Project="..\packages\Selenium.WebDriver.4.8.0\build\Selenium.WebDriver.targets" Condition="Exists('..\packages\Selenium.WebDriver.4.8.0\build\Selenium.WebDriver.targets')" />
 </Project>

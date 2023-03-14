@@ -1,65 +1,75 @@
-﻿namespace FlaNium.Desktop.Driver.CommandExecutors
-{
-    using System.Threading;
-    using Newtonsoft.Json;
-    using FlaNium.Desktop.Driver.Automator;
-    using FlaNium.Desktop.Driver.Common;
-    using FlaNium.Desktop.Driver.FlaUI;
-    using FlaNium.Desktop.Driver.Input;
+﻿using System.Threading;
+using FlaNium.Desktop.Driver.Automator;
+using FlaNium.Desktop.Driver.Common;
+using FlaNium.Desktop.Driver.FlaUI;
+using FlaNium.Desktop.Driver.Inject;
+using FlaNium.Desktop.Driver.Input;
+using Newtonsoft.Json;
 
+namespace FlaNium.Desktop.Driver.CommandExecutors {
 
-    internal class NewSessionExecutor : CommandExecutorBase
-    {
+    internal class NewSessionExecutor : CommandExecutorBase {
 
-        protected override string DoImpl()
-        {            
-            var serializedCapability = JsonConvert.SerializeObject(this.ExecutedCommand.Parameters["desiredCapabilities"]);
+        protected override string DoImpl() {
+            var serializedCapability =
+                JsonConvert.SerializeObject(this.ExecutedCommand.Parameters["desiredCapabilities"]);
 
             this.Automator.ActualCapabilities = Capabilities.CapabilitiesFromJsonString(serializedCapability);
 
             this.InitializeApplication();
 
-            FlaNiumKeyboard.SwitchInputLanguageToEng(); // Имеются проблемы ввода текста при активной русской раскладке. Добавлено переключение на английскую раскладку.
+            // Имеются проблемы ввода текста при активной русской раскладке. Добавлено переключение на английскую раскладку.
+            KeyboardLayout.SwitchInputLanguageToEng();
+
+            // todo добавить возможность возобновления сессии в режиме дебага
+            if (this.Automator.ActualCapabilities.InjectionActivate) {
+                string dllType = this.Automator.ActualCapabilities.InjectionDllType;
+
+                if (dllType == string.Empty)
+                    return this.JsonResponse(ResponseStatus.UnknownCommand,
+                        "InjectionDllType Capabilities (DesktopOptions) should NOT be EMPTY! (OR injectionActivate should be false)");
+
+
+                string dllFilePath = DllFilesToInject.GetDllFilePath(dllType);
+
+                if (!Injector.InjectDll(DriverManager.Application.ProcessId, dllFilePath)) {
+                    return this.JsonResponse(ResponseStatus.SessionNotCreatedException, "Injecting FAILED!");
+                }
+
+                DriverManager.ClientSocket = new ClientSocket();
+            }
 
             return this.JsonResponse(ResponseStatus.Success, this.Automator.ActualCapabilities);
         }
 
-        private void InitializeApplication()
-        {
+        private void InitializeApplication() {
             var appPath = this.Automator.ActualCapabilities.App;
             var appArguments = this.Automator.ActualCapabilities.Arguments;
-            var debugDoNotDeploy = this.Automator.ActualCapabilities.DebugConnectToRunningApp;
+            var connectToRunningApp = this.Automator.ActualCapabilities.ConnectToRunningApp;
             var processName = this.Automator.ActualCapabilities.ProcessName;
             var launchDelay = this.Automator.ActualCapabilities.LaunchDelay;
+            var processFindTimeOut = this.Automator.ActualCapabilities.ProcessFindTimeOut;
             
-
-            if (processName.Length == 0)
-            {
-                DriverManager.StartApp(appPath, appArguments, debugDoNotDeploy);
-                Thread.Sleep(launchDelay);
+            DriverManager.CloseAppSession(!connectToRunningApp);
+            
+            if (!connectToRunningApp) {
+                DriverManager.KillAllProcessByName(appPath);
+                DriverManager.KillAllProcessByName(processName);
             }
-            else
-            {
-                if (!debugDoNotDeploy)
-                {
-                    DriverManager.CloseDriver();
-                    DriverManager.CloseAllApplication(processName);
-                }
 
-                try
-                {
-                    DriverManager.StartApp(appPath, appArguments, debugDoNotDeploy);
-                }
-                catch
-                {
-                    
-                }
+            if (connectToRunningApp && !string.IsNullOrEmpty(processName)) {
+                if (DriverManager.AttachToProcessIfExist(processName)) return;
+            }
 
-                Thread.Sleep(launchDelay);
-                DriverManager.AttachToProcess(processName);
-                       
-            }               
+            DriverManager.StartApp(appPath, appArguments);
+            Thread.Sleep(launchDelay);
+            
+            if (!string.IsNullOrEmpty(processName)) {
+                DriverManager.AttachToProcess(processName, processFindTimeOut);
+            }
+            
         }
 
     }
+
 }

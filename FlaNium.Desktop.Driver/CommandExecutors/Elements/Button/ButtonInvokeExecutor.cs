@@ -1,25 +1,21 @@
-﻿
-using FlaUI.Core.AutomationElements;
+﻿using FlaUI.Core.AutomationElements;
 
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Button
-{
-    class ButtonInvokeExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Button {
 
-        protected override string DoImpl()
-        {
+    class ButtonInvokeExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            var button = element.FlaUIElement.AsButton();
+            var button = element.FlaUiElement.AsButton();
 
             button.Invoke();
 
             return this.JsonResponse();
         }
 
-        #endregion
     }
+
 }

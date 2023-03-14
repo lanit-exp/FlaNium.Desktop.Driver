@@ -1,26 +1,22 @@
-﻿
-namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ScrollBar
-{
-    using global::FlaUI.Core.AutomationElements;
-    using global::FlaUI.Core.AutomationElements.Scrolling;
+﻿using FlaUI.Core.AutomationElements;
+using FlaUI.Core.AutomationElements.Scrolling;
 
-    class HorizontalScrollBarScrollRightExecutor : CommandExecutorBase
-    {
-        #region Methods
+namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ScrollBar {
 
-        protected override string DoImpl()
-        {
+    class HorizontalScrollBarScrollRightExecutor : CommandExecutorBase {
+
+        protected override string DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            HorizontalScrollBar scroll = element.FlaUIElement.AsHorizontalScrollBar();
+            HorizontalScrollBar scroll = element.FlaUiElement.AsHorizontalScrollBar();
 
             scroll.ScrollRight();
 
             return this.JsonResponse();
         }
 
-        #endregion
     }
+
 }

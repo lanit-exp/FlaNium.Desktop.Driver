@@ -1,79 +1,53 @@
-﻿
-namespace FlaNium.Desktop.Driver.Common
-{
-    #region
+﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
-    using System;
-    using System.Collections.Generic;
+namespace FlaNium.Desktop.Driver.Common {
 
-    using Newtonsoft.Json;
+    public class JsonElementContent {
 
-    #endregion
-
-    public class JsonElementContent
-    {
-        #region Constructors and Destructors
-
-        public JsonElementContent(string element)
-        {
+        public JsonElementContent(string element) {
             this.Element = element;
         }
 
-        #endregion
 
-        #region Public Properties
+        [JsonProperty("ELEMENT")] public string Element { get; set; }
 
-        [JsonProperty("ELEMENT")]
-        public string Element { get; set; }
-
-        #endregion
     }
 
-    public class JsonResponse
-    {
-        #region Constructors and Destructors
+    public class JsonResponse {
 
-        public JsonResponse(string sessionId, ResponseStatus responseCode, object value)
-        {
+        public JsonResponse(string sessionId, ResponseStatus responseCode, object value) {
             this.SessionId = sessionId;
             this.Status = responseCode;
 
             this.Value = responseCode == ResponseStatus.Success ? value : this.PrepareErrorResponse(value);
         }
 
-        private object PrepareErrorResponse(object value)
-        {
+        private object PrepareErrorResponse(object value) {
             var result = new Dictionary<string, string> { { "error", JsonErrorCodes.Parse(this.Status) } };
 
             string message;
-            var exception = value as Exception;
-            if (exception != null)
-            {
+            if (value is Exception exception) {
                 message = exception.Message;
                 result.Add("stacktrace", exception.StackTrace);
             }
-            else
-            {
+            else {
                 message = value.ToString();
             }
 
             result.Add("message", message);
+
             return result;
         }
 
-        #endregion
 
-        #region Public Properties
+        [JsonProperty("sessionId")] public string SessionId { get; set; }
 
-        [JsonProperty("sessionId")]
-        public string SessionId { get; set; }
+        [JsonProperty("status")] public ResponseStatus Status { get; set; }
 
-        [JsonProperty("status")]
-        public ResponseStatus Status { get; set; }
+        [JsonProperty("value")] public object Value { get; set; }
 
-        [JsonProperty("value")]
-        public object Value { get; set; }
-
-        #endregion
     }
+
 }

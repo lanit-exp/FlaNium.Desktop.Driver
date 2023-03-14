@@ -1,24 +1,16 @@
-﻿namespace FlaNium.Desktop.Driver.CommandExecutors
-{
-    internal class QuitExecutor : CommandExecutorBase
-    {
-        #region Methods
+﻿namespace FlaNium.Desktop.Driver.CommandExecutors {
 
-        protected override string DoImpl()
-        {
-            if (!this.Automator.ActualCapabilities.DebugConnectToRunningApp)
-            {
-                if (!this.Automator.Application.Close())
-                {
-                    this.Automator.Application.Kill();
-                }
+    internal class QuitExecutor : CommandExecutorBase {
 
+        protected override string DoImpl() {
+            if (!this.Automator.ActualCapabilities.ConnectToRunningApp) {
+                //TODO нужен ли ?
                 this.Automator.ElementsRegistry.Clear();
             }
 
             return this.JsonResponse();
         }
 
-        #endregion
     }
+
 }
