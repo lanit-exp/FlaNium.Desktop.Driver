@@ -1,22 +1,27 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using FlaNium.Desktop.Driver.Automator;
 using FlaNium.Desktop.Driver.Common;
 using FlaNium.Desktop.Driver.FlaUI;
 using FlaNium.Desktop.Driver.Inject;
 using FlaNium.Desktop.Driver.Input;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace FlaNium.Desktop.Driver.CommandExecutors {
 
     internal class NewSessionExecutor : CommandExecutorBase {
 
         protected override string DoImpl() {
-            var serializedCapability =
-                JsonConvert.SerializeObject(this.ExecutedCommand.Parameters["desiredCapabilities"]);
 
-            this.Automator.ActualCapabilities = Capabilities.CapabilitiesFromJsonString(serializedCapability);
+            JToken flCapabilities = JObject.FromObject(this.ExecutedCommand.Parameters["capabilities"])
+                .SelectToken("$..flanium:capabilities");
 
-            this.InitializeApplication();
+            if (flCapabilities == null) return this.JsonResponse(ResponseStatus.UnknownCommand, "'flanium:capabilities' needed");
+
+            this.Automator.ActualCapabilities = Capabilities.CapabilitiesFromJsonString(JsonConvert.SerializeObject(flCapabilities));
+
+            InitializeApplication();
 
             // Имеются проблемы ввода текста при активной русской раскладке. Добавлено переключение на английскую раскладку.
             KeyboardLayout.SwitchInputLanguageToEng();
@@ -39,7 +44,11 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
                 DriverManager.ClientSocket = new ClientSocket();
             }
 
-            return this.JsonResponse(ResponseStatus.Success, this.Automator.ActualCapabilities);
+            Dictionary<string, object> startSessionResponse = new Dictionary<string, object>();
+            startSessionResponse.Add("sessionId", this.Automator.Session);
+            startSessionResponse.Add("capabilities", this.Automator.ActualCapabilities);
+
+            return this.JsonResponse(ResponseStatus.Success, startSessionResponse);
         }
 
         private void InitializeApplication() {

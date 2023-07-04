@@ -20,23 +20,25 @@ Command Line Options:
 
 Capabilities:
 
-    app - Путь до тестируемого приложения.
-
-    args - Аргументы командной строки используемые при запуске приложения.
-
-    connectToRunningApp - Подключение к ранее запущенному процессу приложения.
-
-    launchDelay - Статическое ожидание на запуск приложения.
-
-    processName - Имя процесса к которому следует подключиться после запуска приложения.
-        
-    processFindTimeOut - Таймаут поиска процесса из параметра processName.
-
-    injectionActivate - Использование инжекта.
-
-    injectionDllType - Выбор библиотеки для инжекта.
-
-    responseTimeout - Тайм-аут ответа драйвера.
+    {
+        "capabilities": {
+            "firstMatch": [
+                {
+                    "flanium:capabilities": {
+                        "app": "src/main/resources/apps/Application.exe", // - Путь до тестируемого приложения.
+                        "args": "src/main/resources/apps/Application.exe", // - Аргументы командной строки используемые при запуске приложения.
+                        "connectToRunningApp": true, // - Подключение к ранее запущенному процессу приложения.
+                        "launchDelay": 2000, // - Статическое ожидание на запуск приложения.
+                        "processFindTimeOut": 2000, // - Таймаут поиска процесса из параметра processName.
+                        "processName": "Application", // - Имя процесса к которому следует подключиться после запуска приложения.
+                        "injectionActivate": true, // - Использование инжекта.
+                        "injectionDllType": "DELPHI", // - Выбор библиотеки для инжекта.
+                        "responseTimeout": 30000 // - Тайм-аут ответа драйвера.
+                    }
+                }
+            ]
+        }
+    }
 
 ___
 ___
