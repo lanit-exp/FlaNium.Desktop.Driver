@@ -84,9 +84,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
         }
 
         protected string JsonResponse(ResponseStatus status, object value) {
-            return JsonConvert.SerializeObject(
-                new JsonResponse(this.Automator.Session, status, value),
-                Formatting.Indented);
+            return JsonConvert.SerializeObject(new JsonResponse(status, value), Formatting.Indented);
         }
 
     }

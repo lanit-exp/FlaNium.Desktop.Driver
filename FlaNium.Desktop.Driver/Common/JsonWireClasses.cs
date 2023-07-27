@@ -1,52 +1,62 @@
 ﻿using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace FlaNium.Desktop.Driver.Common {
 
     public class JsonElementContent {
 
+        [JsonProperty("element-6066-11e4-a52e-4f735466cecf")] 
+        public string Element { get; set; }
+
+        
         public JsonElementContent(string element) {
             this.Element = element;
         }
-
-
-        [JsonProperty("ELEMENT")] public string Element { get; set; }
 
     }
 
     public class JsonResponse {
 
-        public JsonResponse(string sessionId, ResponseStatus responseCode, object value) {
-            this.SessionId = sessionId;
-            this.Status = responseCode;
+        private const string ERROR_MES_PREFIX = "[FlaNium ERROR]: ";
 
-            this.Value = responseCode == ResponseStatus.Success ? value : this.PrepareErrorResponse(value);
+        
+        [JsonProperty("value")] 
+        public Object Value { get; set; }
+
+        
+        
+        public JsonResponse(ResponseStatus responseCode, object value) {
+            this.Value = responseCode == ResponseStatus.Success ? value : PrepareErrorResponse(responseCode, value);
         }
 
-        private object PrepareErrorResponse(object value) {
-            var result = new Dictionary<string, string> { { "error", JsonErrorCodes.Parse(this.Status) } };
+        private static object PrepareErrorResponse(ResponseStatus responseCode, object value) {
+            ResponseValueError responseValueError = new ResponseValueError();
 
-            string message;
+            responseValueError.Error = JsonErrorCodes.Parse(responseCode);
+            
             if (value is Exception exception) {
-                message = exception.Message;
-                result.Add("stacktrace", exception.StackTrace);
-            }
-            else {
-                message = value.ToString();
+                responseValueError.Message = ERROR_MES_PREFIX + exception.Message;
+                responseValueError.Stacktrace = exception.StackTrace;
+            } else {
+                responseValueError.Message = ERROR_MES_PREFIX + value;
             }
 
-            result.Add("message", message);
-
-            return result;
+            return responseValueError;
         }
 
 
-        [JsonProperty("sessionId")] public string SessionId { get; set; }
-
-        [JsonProperty("status")] public ResponseStatus Status { get; set; }
-
-        [JsonProperty("value")] public object Value { get; set; }
+        public class ResponseValueError {
+            
+            [JsonProperty("message")] 
+            public string Message { get; set; }
+            
+            [JsonProperty("error")] 
+            public string Error { get; set; }
+            
+            [JsonProperty("stacktrace")] 
+            public string Stacktrace { get; set; }
+           
+        }
 
     }
 

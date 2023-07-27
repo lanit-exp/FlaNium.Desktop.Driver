@@ -4,7 +4,6 @@
 
         protected override string DoImpl() {
             if (!this.Automator.ActualCapabilities.ConnectToRunningApp) {
-                //TODO нужен ли ?
                 this.Automator.ElementsRegistry.Clear();
             }
 
