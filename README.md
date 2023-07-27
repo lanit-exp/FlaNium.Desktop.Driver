@@ -26,7 +26,7 @@ Capabilities:
                 {
                     "flanium:capabilities": {
                         "app": "src/main/resources/apps/Application.exe", // - Путь до тестируемого приложения.
-                        "args": "src/main/resources/apps/Application.exe", // - Аргументы командной строки используемые при запуске приложения.
+                        "args": "", // - Аргументы командной строки используемые при запуске приложения.
                         "connectToRunningApp": true, // - Подключение к ранее запущенному процессу приложения.
                         "launchDelay": 2000, // - Статическое ожидание на запуск приложения.
                         "processFindTimeOut": 2000, // - Таймаут поиска процесса из параметра processName.
