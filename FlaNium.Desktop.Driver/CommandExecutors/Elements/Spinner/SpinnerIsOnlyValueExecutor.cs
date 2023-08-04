@@ -5,7 +5,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Spinner {
 
     class SpinnerIsOnlyValueExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);

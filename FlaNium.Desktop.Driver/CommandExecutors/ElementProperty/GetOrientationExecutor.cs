@@ -7,7 +7,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.ElementProperty {
 
     internal class GetOrientationExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             FlaUiDriverElement element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);

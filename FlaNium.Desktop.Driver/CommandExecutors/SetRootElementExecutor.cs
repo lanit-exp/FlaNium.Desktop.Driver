@@ -5,7 +5,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
 
     internal class SetRootElementExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             string type = this.ExecutedCommand.Parameters["type"].ToString();
 
             switch (type) {

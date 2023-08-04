@@ -10,7 +10,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
 
     internal class StatusExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse DoImpl() {
             var response = new Dictionary<string, object> { { "build", new BuildInfo() }, { "os", new OSInfo() } };
 
             return this.JsonResponse(ResponseStatus.Success, response);

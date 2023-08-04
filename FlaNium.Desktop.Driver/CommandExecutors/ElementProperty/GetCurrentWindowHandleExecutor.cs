@@ -6,7 +6,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.ElementProperty {
 
     internal class GetCurrentWindowHandleExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var node = AutomationElement.FocusedElement;
             var rootElement = AutomationElement.RootElement;
             var treeWalker = TreeWalker.ControlViewWalker;

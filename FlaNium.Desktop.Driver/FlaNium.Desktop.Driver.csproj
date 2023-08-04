@@ -354,6 +354,7 @@
     <Compile Include="Common\DriverCommand.cs" />
     <Compile Include="Common\ElementCapture.cs" />
     <Compile Include="Common\HttpResponseHelper.cs" />
+    <Compile Include="Common\HttpResponseStatusMap.cs" />
     <Compile Include="Common\ImFormat.cs" />
     <Compile Include="Common\JsonErrorCodes.cs" />
     <Compile Include="Common\JsonWireClasses.cs" />

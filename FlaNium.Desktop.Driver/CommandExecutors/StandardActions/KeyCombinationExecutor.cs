@@ -1,11 +1,12 @@
-﻿using FlaUI.Core.Input;
+﻿using FlaNium.Desktop.Driver.Common;
+using FlaUI.Core.Input;
 using FlaUI.Core.WindowsAPI;
 
 namespace FlaNium.Desktop.Driver.CommandExecutors.StandardActions {
 
     class KeyCombinationExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var keyCombination = this.ExecutedCommand.Parameters["value"].ToString();
 
 

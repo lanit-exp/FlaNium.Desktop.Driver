@@ -1,10 +1,11 @@
-﻿using FlaNium.Desktop.Driver.Input;
+﻿using FlaNium.Desktop.Driver.Common;
+using FlaNium.Desktop.Driver.Input;
 
 namespace FlaNium.Desktop.Driver.CommandExecutors.Auxiliary {
 
     class SetKeyboardLayoutExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var layoutValue = this.ExecutedCommand.Parameters["value"].ToString();
 
             KeyboardLayout.SwitchInputLanguage(layoutValue);

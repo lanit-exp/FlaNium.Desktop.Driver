@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Newtonsoft.Json;
 
 namespace FlaNium.Desktop.Driver.Common {
 
@@ -8,9 +9,12 @@ namespace FlaNium.Desktop.Driver.Common {
 
         public HttpStatusCode HttpStatusCode { get; set; }
 
-
-        public static CommandResponse Create(HttpStatusCode code, string content) {
-            return new CommandResponse { HttpStatusCode = code, Content = content };
+        
+        public static CommandResponse Create(JsonResponse jsonResponse) {
+            return new CommandResponse { 
+                HttpStatusCode = HttpResponseStatusMap.GetStatusCode(jsonResponse.Status), 
+                Content = JsonConvert.SerializeObject(jsonResponse, Formatting.Indented) 
+            };
         }
 
         public override string ToString() {

@@ -1,4 +1,5 @@
-﻿using FlaUI.Core.Input;
+﻿using FlaNium.Desktop.Driver.Common;
+using FlaUI.Core.Input;
 using FlaUI.Core.WindowsAPI;
 
 // ReSharper disable once CheckNamespace
@@ -6,7 +7,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.StandartActions {
 
     internal class SubmitElementExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);

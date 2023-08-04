@@ -9,7 +9,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.FindElement {
 
     internal class FindChildElementsExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var parentKey = this.ExecutedCommand.Parameters["ID"].ToString();
             var searchValue = this.ExecutedCommand.Parameters["value"].ToString();
             var searchStrategy = this.ExecutedCommand.Parameters["using"].ToString();

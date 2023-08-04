@@ -7,7 +7,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Actions
 {
     class ActionsExecutor : CommandExecutorBase
     {
-        protected override string DoImpl()
+        protected override JsonResponse  DoImpl()
         {
             List<Action> actions =
                 JsonConvert.DeserializeObject<List<Action>>(this.ExecutedCommand.Parameters["actions"]

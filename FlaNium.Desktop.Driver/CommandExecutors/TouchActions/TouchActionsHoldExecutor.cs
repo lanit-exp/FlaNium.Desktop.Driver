@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using FlaNium.Desktop.Driver.Common;
 using FlaNium.Desktop.Driver.Input;
 
 namespace FlaNium.Desktop.Driver.CommandExecutors.TouchActions {
 
     internal class TouchActionsHoldExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var points = this.ExecutedCommand.Parameters["points"].ToObject<List<Dictionary<String, Object>>>();
             var duration = Convert.ToInt32(this.ExecutedCommand.Parameters["duration"]);
 

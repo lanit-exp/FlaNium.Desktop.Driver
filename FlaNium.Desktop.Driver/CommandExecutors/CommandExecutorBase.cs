@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 using FlaNium.Desktop.Driver.CommandExecutors.Auxiliary;
 using FlaNium.Desktop.Driver.Common;
 using FlaNium.Desktop.Driver.Exceptions;
-using Newtonsoft.Json;
 
 namespace FlaNium.Desktop.Driver.CommandExecutors {
 
@@ -25,34 +23,31 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
                 var session = this.ExecutedCommand.SessionId;
                 this.Automator = Driver.Automator.Automator.InstanceForSession(session);
 
-                return CommandResponse.Create(HttpStatusCode.OK, this.DoInOtherThread());
+                return CommandResponse.Create(DoInOtherThread());
             }
             catch (AutomationException exception) {
-                return CommandResponse.Create(HttpStatusCode.OK, this.JsonResponse(exception.Status, exception));
+                return CommandResponse.Create(JsonResponse(exception.Status, exception));
             }
             catch (NotImplementedException exception) {
-                return CommandResponse.Create(HttpStatusCode.NotImplemented,
-                    this.JsonResponse(ResponseStatus.UnknownCommand, exception));
+                return CommandResponse.Create(JsonResponse(ResponseStatus.UnknownCommand, exception));
             }
             catch (TimeoutException exception) {
-                return CommandResponse.Create(HttpStatusCode.NotImplemented,
-                    this.JsonResponse(ResponseStatus.Timeout, exception));
+                return CommandResponse.Create(JsonResponse(ResponseStatus.Timeout, exception));
             }
             catch (Exception exception) {
-                return CommandResponse.Create(HttpStatusCode.OK,
-                    this.JsonResponse(ResponseStatus.UnknownError, exception));
+                return CommandResponse.Create(JsonResponse(ResponseStatus.UnknownError, exception));
             }
         }
 
 
-        private string DoInOtherThread() {
+        private JsonResponse DoInOtherThread() {
             // Работа с буфером обмена может осуществляться только из основного потока выполнения программы,
             // все остальные Executor выполняются в отдельном потоке с прерыванием по таймауту.
             if (this is GetClipboardTextExecutor || this is SetClipboardTextExecutor) {
                 return DoImpl();
             }
 
-            string result = null;
+            JsonResponse result = JsonResponse(ResponseStatus.UnknownError, "UnknownError in DoInOtherThread method!");
 
             Task task = Task.Factory.StartNew(() => { result = DoImpl(); });
 
@@ -74,19 +69,12 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
             return result;
         }
 
-        protected abstract string DoImpl();
+        protected abstract JsonResponse DoImpl();
 
-        /// <summary>
-        /// The JsonResponse with SUCCESS status and NULL value.
-        /// </summary>
-        protected string JsonResponse() {
-            return this.JsonResponse(ResponseStatus.Success, null);
+        protected JsonResponse JsonResponse(ResponseStatus status = ResponseStatus.Success, object value = null) {
+            return new JsonResponse(status, value);
         }
-
-        protected string JsonResponse(ResponseStatus status, object value) {
-            return JsonConvert.SerializeObject(new JsonResponse(status, value), Formatting.Indented);
-        }
-
+        
     }
 
 }

@@ -7,7 +7,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.FindElement {
 
     internal class GetActiveElementExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             AutomationElement uiItem = DriverManager.GetRootElement().Automation.FocusedElement();
 
             if (uiItem == null)

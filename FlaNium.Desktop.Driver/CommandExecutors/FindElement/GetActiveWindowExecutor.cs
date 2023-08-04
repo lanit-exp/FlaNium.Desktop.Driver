@@ -5,7 +5,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.FindElement {
 
     class GetActiveWindowExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var rootElement = DriverManager.GetRootElement();
 
             var itemRegisteredKey =

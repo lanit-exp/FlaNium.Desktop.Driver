@@ -7,7 +7,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.StandardActions {
 
     internal class MouseMoveToExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var haveElement = this.ExecutedCommand.Parameters.ContainsKey("element");
             var haveOffset = this.ExecutedCommand.Parameters.ContainsKey("xoffset")
                              && this.ExecutedCommand.Parameters.ContainsKey("yoffset");

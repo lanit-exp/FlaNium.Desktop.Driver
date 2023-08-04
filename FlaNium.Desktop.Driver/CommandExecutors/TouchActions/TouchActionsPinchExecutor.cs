@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using FlaNium.Desktop.Driver.Common;
 using FlaNium.Desktop.Driver.Input;
 
 namespace FlaNium.Desktop.Driver.CommandExecutors.TouchActions {
 
     internal class TouchActionsPinchExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var center = this.ExecutedCommand.Parameters["center"].ToObject<Dictionary<String, Object>>();
             var startRadius = Convert.ToDouble(this.ExecutedCommand.Parameters["startRadius"]);
             var endRadius = Convert.ToDouble(this.ExecutedCommand.Parameters["endRadius"]);

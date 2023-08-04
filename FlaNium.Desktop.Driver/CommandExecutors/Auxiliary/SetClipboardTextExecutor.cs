@@ -1,10 +1,11 @@
 ﻿using System.Windows;
+using FlaNium.Desktop.Driver.Common;
 
 namespace FlaNium.Desktop.Driver.CommandExecutors.Auxiliary {
 
     class SetClipboardTextExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var text = this.ExecutedCommand.Parameters["value"].ToString();
 
             Clipboard.SetText(text);

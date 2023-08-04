@@ -7,7 +7,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Tab {
 
     class TabSelectTabItemTextExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var text = this.ExecutedCommand.Parameters["value"].ToString();

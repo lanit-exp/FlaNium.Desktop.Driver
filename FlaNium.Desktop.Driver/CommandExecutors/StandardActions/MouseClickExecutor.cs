@@ -7,7 +7,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.StandardActions {
 
     internal class MouseClickExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var buttonId = Convert.ToInt32(this.ExecutedCommand.Parameters["button"]);
 
             DriverManager.GetRootElement().SetForeground();

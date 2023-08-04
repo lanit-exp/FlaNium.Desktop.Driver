@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using FlaNium.Desktop.Driver.Common;
 using FlaUI.Core.Input;
 using FlaUI.Core.WindowsAPI;
 
@@ -6,7 +7,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.StandardActions {
 
     internal class MouseDoubleClickExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             Mouse.Down(MouseButton.Left);
             Mouse.Up(MouseButton.Left);
 

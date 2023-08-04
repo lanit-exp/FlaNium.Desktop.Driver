@@ -12,7 +12,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
 
     internal class NewSessionExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
 
             JToken flCapabilities = JObject.FromObject(this.ExecutedCommand.Parameters["capabilities"])
                 .SelectToken("$..flanium:capabilities");
