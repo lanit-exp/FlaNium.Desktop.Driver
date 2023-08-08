@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using FlaNium.Desktop.Driver.Common;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace FlaNium.Desktop.Driver.Automator {
@@ -45,6 +46,8 @@ namespace FlaNium.Desktop.Driver.Automator {
                         delegate(object sender, ErrorEventArgs args) { args.ErrorContext.Handled = true; }
                 });
 
+            capabilities.App = Utils.ReplaceSystemVarsIfPresent(capabilities.App);
+            
             return capabilities;
         }
 

@@ -359,6 +359,7 @@
     <Compile Include="Common\JsonErrorCodes.cs" />
     <Compile Include="Common\JsonWireClasses.cs" />
     <Compile Include="Common\ResponseStatus.cs" />
+    <Compile Include="Common\Utils.cs" />
     <Compile Include="ElementsRegistry.cs" />
     <Compile Include="Exceptions\AutomationException.cs" />
     <Compile Include="Exceptions\InnerDriverRequestException.cs" />
