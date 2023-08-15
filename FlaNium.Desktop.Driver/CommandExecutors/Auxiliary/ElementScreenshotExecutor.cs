@@ -11,8 +11,8 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Auxiliary {
 
         protected override JsonResponse  DoImpl() {
             var elementId = this.ExecutedCommand.Parameters["ID"].ToString();
-            var imageFormatStr = this.ExecutedCommand.Parameters["format"].ToString();
-            var foreground = Boolean.Parse(this.ExecutedCommand.Parameters["foreground"].ToString());
+            var imageFormatStr = this.ExecutedCommand.Parameters["format"]?.ToString() ?? "PNG";
+            var foreground = Boolean.Parse(this.ExecutedCommand.Parameters["foreground"]?.ToString() ?? "true");
 
             FlaUiDriverElement element = this.Automator.ElementsRegistry.GetRegisteredElement(elementId);
 

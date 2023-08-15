@@ -21,7 +21,12 @@ namespace FlaNium.Desktop.Driver.FlaUI {
 
         public void Click() {
             if (this.FlaUiElement.Properties.ControlType.ValueOrDefault != ControlType.Menu) {
-                DriverManager.Application.WaitWhileBusy(DriverManager.ImplicitTimeout);
+                try {
+                    DriverManager.Application.WaitWhileBusy(DriverManager.ImplicitTimeout);
+                }
+                catch {
+                    // ignored
+                }
             }
             else {
                 Thread.Sleep(500);

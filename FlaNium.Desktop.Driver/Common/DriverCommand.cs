@@ -777,6 +777,9 @@
         
         public static readonly string ChangeProcess = "ChangeProcess";
         public static readonly string KillProcesses = "KillProcesses";
+        
+        public static readonly string FileOrDirectoryExists = "FileOrDirectoryExists";
+        public static readonly string DeleteFileOrDirectory = "DeleteFileOrDirectory";
         #endregion
 
         #endregion
