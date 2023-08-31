@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using FlaNium.Desktop.Driver.Common;
 using FlaNium.Desktop.Driver.Input;
 
 namespace FlaNium.Desktop.Driver.CommandExecutors.TouchActions {
 
     internal class TouchActionsDragExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var startEndPoints = this.ExecutedCommand.Parameters["startEndPoints"]
                 .ToObject<List<Dictionary<String, Object>>>();
 

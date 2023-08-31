@@ -8,7 +8,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Auxiliary {
 
     internal class ScreenshotExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             CaptureImage captureImage = Capture.Screen();
             MemoryStream memoryStream = new MemoryStream();
 

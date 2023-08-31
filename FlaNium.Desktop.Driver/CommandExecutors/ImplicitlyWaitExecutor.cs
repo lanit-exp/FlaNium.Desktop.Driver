@@ -1,11 +1,12 @@
 ﻿using System;
+using FlaNium.Desktop.Driver.Common;
 using FlaNium.Desktop.Driver.FlaUI;
 
 namespace FlaNium.Desktop.Driver.CommandExecutors {
 
     internal class ImplicitlyWaitExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             if (this.ExecutedCommand.Parameters.ContainsKey("ms")) {
                 int parameter = (int)this.ExecutedCommand.Parameters["ms"];
                 if (parameter > 5000)

@@ -15,7 +15,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
         internal const string HelpUnknownScriptMsg = "Unknown script command '{0} {1}'.";
 
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var script = this.ExecutedCommand.Parameters["script"].ToString();
 
             var prefix = string.Empty;

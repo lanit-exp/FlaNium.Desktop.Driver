@@ -8,7 +8,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.ElementProperty {
 
     internal class GetElementAttributeExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
             var propertyName = this.ExecutedCommand.Parameters["NAME"].ToString();
 

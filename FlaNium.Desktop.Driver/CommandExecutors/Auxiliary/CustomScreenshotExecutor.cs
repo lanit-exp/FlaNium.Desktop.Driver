@@ -8,7 +8,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Auxiliary {
 
     class CustomScreenshotExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var imageFormatStr = this.ExecutedCommand.Parameters["format"].ToString();
 
 

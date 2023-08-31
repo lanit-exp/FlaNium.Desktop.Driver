@@ -23,10 +23,12 @@ namespace FlaNium.Desktop.Driver.Common {
         [JsonProperty("value")] 
         public Object Value { get; set; }
 
-        
-        
-        public JsonResponse(ResponseStatus responseCode, object value) {
-            this.Value = responseCode == ResponseStatus.Success ? value : PrepareErrorResponse(responseCode, value);
+        [JsonProperty("status")]
+        public ResponseStatus Status { get; set; }
+
+        public JsonResponse(ResponseStatus responseStatus, object value) {
+            this.Status = responseStatus;
+            this.Value = responseStatus == ResponseStatus.Success ? value : PrepareErrorResponse(responseStatus, value);
         }
 
         private static object PrepareErrorResponse(ResponseStatus responseCode, object value) {

@@ -85,7 +85,7 @@ namespace FlaNium.Desktop.Driver {
 
                     client.Close();
 
-                    Logger.Debug("Client closed\n");
+                    Logger.Debug("Client closed\n\n\n");
                 }
             }
             catch (SocketException ex) {
@@ -141,8 +141,13 @@ namespace FlaNium.Desktop.Driver {
             var respnose = executor.Do();
 
             // Имеется значительная задержка при выводе объемных логов (таких как скриншоты) в консоль
-            if (command.Name.ToLower().Contains("screenshot")) {
-                Logger.Debug("RESPONSE:\r\n Content length: {0}", respnose.Content.Length);
+            if (command.Name.ToLower().Contains("screenshot") && respnose.HttpStatusCode == HttpStatusCode.OK) {
+                Logger.Debug("RESPONSE:\r\n" +
+                             "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n" +
+                             "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n" +
+                             " Content length: {0}\n" +
+                             "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n" +
+                             "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n", respnose.Content.Length);
             }
             else {
                 Logger.Debug("RESPONSE:\r\n{0}", respnose);

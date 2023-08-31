@@ -8,7 +8,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Spinner
     {
        
 
-        protected override string DoImpl()
+        protected override JsonResponse  DoImpl()
         {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 

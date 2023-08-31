@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using FlaNium.Desktop.Driver.Common;
 using FlaNium.Desktop.Driver.Input;
 using FlaUI.Core.Input;
 
@@ -7,7 +8,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.StandardActions {
 
     class ElementDragAndDropExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var elementId = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var x = Convert.ToInt32(this.ExecutedCommand.Parameters["x"]);

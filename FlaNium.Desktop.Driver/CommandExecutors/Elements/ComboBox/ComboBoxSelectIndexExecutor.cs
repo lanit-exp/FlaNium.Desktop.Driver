@@ -8,7 +8,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.ComboBox {
 
     class ComboBoxSelectIndexExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var value = this.ExecutedCommand.Parameters["value"].ToString();

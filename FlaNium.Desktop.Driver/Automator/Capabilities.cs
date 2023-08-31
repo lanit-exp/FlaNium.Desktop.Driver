@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using FlaNium.Desktop.Driver.Common;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace FlaNium.Desktop.Driver.Automator {
@@ -14,7 +15,7 @@ namespace FlaNium.Desktop.Driver.Automator {
             this.ConnectToRunningApp = false;
             this.InjectionActivate = false;
             this.ProcessName = string.Empty;
-            this.ResponseTimeout = 300000;
+            this.ResponseTimeout = 120000;
         }
 
 
@@ -45,6 +46,8 @@ namespace FlaNium.Desktop.Driver.Automator {
                         delegate(object sender, ErrorEventArgs args) { args.ErrorContext.Handled = true; }
                 });
 
+            capabilities.App = Utils.ReplaceSystemVarsIfPresent(capabilities.App);
+            
             return capabilities;
         }
 

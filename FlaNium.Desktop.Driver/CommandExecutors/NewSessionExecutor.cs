@@ -12,37 +12,43 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
 
     internal class NewSessionExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
-
+        protected override JsonResponse DoImpl() {
             JToken flCapabilities = JObject.FromObject(this.ExecutedCommand.Parameters["capabilities"])
                 .SelectToken("$..flanium:capabilities");
 
-            if (flCapabilities == null) return this.JsonResponse(ResponseStatus.UnknownCommand, "'flanium:capabilities' needed");
+            if (flCapabilities == null)
+                return this.JsonResponse(ResponseStatus.UnknownCommand, "'flanium:capabilities' needed");
 
-            this.Automator.ActualCapabilities = Capabilities.CapabilitiesFromJsonString(JsonConvert.SerializeObject(flCapabilities));
+            this.Automator.ActualCapabilities =
+                Capabilities.CapabilitiesFromJsonString(JsonConvert.SerializeObject(flCapabilities));
 
-            InitializeApplication();
+            if (!string.IsNullOrWhiteSpace(Automator.ActualCapabilities.App)) {
+                InitializeApplication();
+
+                // todo добавить возможность возобновления сессии в режиме дебага
+                if (this.Automator.ActualCapabilities.InjectionActivate) {
+                    string dllType = this.Automator.ActualCapabilities.InjectionDllType;
+
+                    if (dllType == string.Empty)
+                        return this.JsonResponse(ResponseStatus.UnknownCommand,
+                            "InjectionDllType Capabilities (DesktopOptions) should NOT be EMPTY! (OR injectionActivate should be false)");
+
+
+                    string dllFilePath = DllFilesToInject.GetDllFilePath(dllType);
+
+                    if (!Injector.InjectDll(DriverManager.Application.ProcessId, dllFilePath)) {
+                        return this.JsonResponse(ResponseStatus.SessionNotCreatedException, "Injecting FAILED!");
+                    }
+
+                    DriverManager.ClientSocket = new ClientSocket();
+                }
+            }
+            else {
+                DriverManager.SetDesktopAsRootElement();
+            }
 
             // Имеются проблемы ввода текста при активной русской раскладке. Добавлено переключение на английскую раскладку.
             KeyboardLayout.SwitchInputLanguageToEng();
-
-            // todo добавить возможность возобновления сессии в режиме дебага
-            if (this.Automator.ActualCapabilities.InjectionActivate) {
-                string dllType = this.Automator.ActualCapabilities.InjectionDllType;
-
-                if (dllType == string.Empty)
-                    return this.JsonResponse(ResponseStatus.UnknownCommand,
-                        "InjectionDllType Capabilities (DesktopOptions) should NOT be EMPTY! (OR injectionActivate should be false)");
-
-
-                string dllFilePath = DllFilesToInject.GetDllFilePath(dllType);
-
-                if (!Injector.InjectDll(DriverManager.Application.ProcessId, dllFilePath)) {
-                    return this.JsonResponse(ResponseStatus.SessionNotCreatedException, "Injecting FAILED!");
-                }
-
-                DriverManager.ClientSocket = new ClientSocket();
-            }
 
             Dictionary<string, object> startSessionResponse = new Dictionary<string, object>();
             startSessionResponse.Add("sessionId", this.Automator.Session);
@@ -58,9 +64,9 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
             var processName = this.Automator.ActualCapabilities.ProcessName;
             var launchDelay = this.Automator.ActualCapabilities.LaunchDelay;
             var processFindTimeOut = this.Automator.ActualCapabilities.ProcessFindTimeOut;
-            
+
             DriverManager.CloseAppSession(!connectToRunningApp);
-            
+
             if (!connectToRunningApp) {
                 DriverManager.KillAllProcessByName(appPath);
                 DriverManager.KillAllProcessByName(processName);
@@ -72,11 +78,10 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
 
             DriverManager.StartApp(appPath, appArguments);
             Thread.Sleep(launchDelay);
-            
+
             if (!string.IsNullOrEmpty(processName)) {
                 DriverManager.AttachToProcess(processName, processFindTimeOut);
             }
-            
         }
 
     }

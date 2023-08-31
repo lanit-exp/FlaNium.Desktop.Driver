@@ -137,7 +137,9 @@
     <Compile Include="CommandExecutors\Actions\DefaultMouseAction.cs" />
     <Compile Include="CommandExecutors\Actions\DefaultWheelAction.cs" />
     <Compile Include="CommandExecutors\Auxiliary\CustomScreenshotExecutor.cs" />
+    <Compile Include="CommandExecutors\Auxiliary\DeleteFileOrDirectoryExecutor.cs" />
     <Compile Include="CommandExecutors\Auxiliary\ElementScreenshotExecutor.cs" />
+    <Compile Include="CommandExecutors\Auxiliary\FileOrDirectoryExistsExecutor.cs" />
     <Compile Include="CommandExecutors\Auxiliary\GetClipboardTextExecutor.cs" />
     <Compile Include="CommandExecutors\Auxiliary\GetKeyboardLayoutExecutor.cs" />
     <Compile Include="CommandExecutors\Auxiliary\ScreenshotExecutor.cs" />
@@ -331,6 +333,7 @@
     <Compile Include="CommandExecutors\StandardActions\SendKeysToElementExecutor.cs" />
     <Compile Include="CommandExecutors\StandardActions\SetOrientationExecutor.cs" />
     <Compile Include="CommandExecutors\StandardActions\SubmitElementExecutor.cs" />
+    <Compile Include="CommandExecutors\StartAppExecutor.cs" />
     <Compile Include="CommandExecutors\StatusExecutor.cs" />
     <Compile Include="CommandExecutors\ExecuteScriptExecutor.cs" />
     <Compile Include="CommandExecutors\QuitExecutor.cs" />
@@ -354,10 +357,12 @@
     <Compile Include="Common\DriverCommand.cs" />
     <Compile Include="Common\ElementCapture.cs" />
     <Compile Include="Common\HttpResponseHelper.cs" />
+    <Compile Include="Common\HttpResponseStatusMap.cs" />
     <Compile Include="Common\ImFormat.cs" />
     <Compile Include="Common\JsonErrorCodes.cs" />
     <Compile Include="Common\JsonWireClasses.cs" />
     <Compile Include="Common\ResponseStatus.cs" />
+    <Compile Include="Common\Utils.cs" />
     <Compile Include="ElementsRegistry.cs" />
     <Compile Include="Exceptions\AutomationException.cs" />
     <Compile Include="Exceptions\InnerDriverRequestException.cs" />

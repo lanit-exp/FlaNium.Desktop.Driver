@@ -7,7 +7,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
 
     internal class ExecuteInAppExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             IDictionary<string, JToken> map = this.ExecutedCommand.Parameters;
 
             if (!this.Automator.ActualCapabilities.InjectionActivate) {

@@ -8,7 +8,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Grid {
 
     class GridGetRowsByValueExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var index = this.ExecutedCommand.Parameters["index"].ToString();

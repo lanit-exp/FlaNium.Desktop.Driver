@@ -5,7 +5,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Auxiliary {
 
     class GetClipboardTextExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             string clipboardString = "";
 
             if (Clipboard.ContainsText()) {

@@ -1,8 +1,10 @@
-﻿namespace FlaNium.Desktop.Driver.CommandExecutors.StandardActions {
+﻿using FlaNium.Desktop.Driver.Common;
+
+namespace FlaNium.Desktop.Driver.CommandExecutors.StandardActions {
 
     internal class SendKeysToElementExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var text = string.Join(string.Empty, this.ExecutedCommand.Parameters["value"]);

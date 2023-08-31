@@ -1,10 +1,11 @@
-﻿using FlaUI.Core.AutomationElements;
+﻿using FlaNium.Desktop.Driver.Common;
+using FlaUI.Core.AutomationElements;
 
 namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.Slider {
 
     class SliderLargeDecrementExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);

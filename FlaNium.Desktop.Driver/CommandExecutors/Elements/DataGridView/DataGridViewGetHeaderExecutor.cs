@@ -7,7 +7,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Elements.DataGridView {
 
     class DataGridViewGetHeaderExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);

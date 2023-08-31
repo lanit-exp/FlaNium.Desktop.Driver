@@ -8,7 +8,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.FindElement {
 
     internal class FindElementExecutor : CommandExecutorBase {
 
-        protected override string DoImpl() {
+        protected override JsonResponse  DoImpl() {
             var searchValue = this.ExecutedCommand.Parameters["value"].ToString();
             var searchStrategy = this.ExecutedCommand.Parameters["using"].ToString();
 
