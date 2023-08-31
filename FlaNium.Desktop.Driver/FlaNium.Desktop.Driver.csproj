@@ -333,6 +333,7 @@
     <Compile Include="CommandExecutors\StandardActions\SendKeysToElementExecutor.cs" />
     <Compile Include="CommandExecutors\StandardActions\SetOrientationExecutor.cs" />
     <Compile Include="CommandExecutors\StandardActions\SubmitElementExecutor.cs" />
+    <Compile Include="CommandExecutors\StartAppExecutor.cs" />
     <Compile Include="CommandExecutors\StatusExecutor.cs" />
     <Compile Include="CommandExecutors\ExecuteScriptExecutor.cs" />
     <Compile Include="CommandExecutors\QuitExecutor.cs" />

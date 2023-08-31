@@ -15,7 +15,7 @@ namespace FlaNium.Desktop.Driver.Automator {
             this.ConnectToRunningApp = false;
             this.InjectionActivate = false;
             this.ProcessName = string.Empty;
-            this.ResponseTimeout = 300000;
+            this.ResponseTimeout = 120000;
         }
 
 
