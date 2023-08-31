@@ -23,11 +23,8 @@ namespace FlaNium.Desktop.Driver.Common {
         [JsonProperty("value")] 
         public Object Value { get; set; }
 
-        [JsonIgnore]
-        public ResponseStatus Status { get; set; }
-
         [JsonProperty("status")]
-        public string StatusName => Status.ToString();
+        public ResponseStatus Status { get; set; }
 
         public JsonResponse(ResponseStatus responseStatus, object value) {
             this.Status = responseStatus;
