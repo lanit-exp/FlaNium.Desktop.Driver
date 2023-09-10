@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FlaNium.Desktop.Driver.Input;
 
 namespace FlaNium.Desktop.Driver.Automator {
@@ -35,7 +36,7 @@ namespace FlaNium.Desktop.Driver.Automator {
                 lock (LockObject) {
                     if (_instance == null) {
                         if (sessionId == null) {
-                            sessionId = "AwesomeSession";
+                            sessionId = Guid.NewGuid().ToString();
                         }
 
                         _instance = new Automator(sessionId);
