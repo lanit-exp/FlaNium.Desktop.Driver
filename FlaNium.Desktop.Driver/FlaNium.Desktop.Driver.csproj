@@ -149,6 +149,7 @@
     <Compile Include="CommandExecutors\ElementProperty\ElementEqualsExecutor.cs" />
     <Compile Include="CommandExecutors\ElementProperty\GetCurrentWindowHandleExecutor.cs" />
     <Compile Include="CommandExecutors\ElementProperty\GetElementAttributeExecutor.cs" />
+    <Compile Include="CommandExecutors\ElementProperty\GetElementRectExecutor.cs" />
     <Compile Include="CommandExecutors\ElementProperty\GetElementSizeExecutor.cs" />
     <Compile Include="CommandExecutors\ElementProperty\GetElementTagNameExecutor.cs" />
     <Compile Include="CommandExecutors\ElementProperty\GetElementTextExecutor.cs" />

@@ -173,6 +173,12 @@
         public static readonly string GetElementSize = "getElementSize";
 
         /// <summary>
+        /// Represents GetElementRect command
+        /// 
+        /// </summary>
+        public static readonly string GetElementRect = "getElementRect";
+
+        /// <summary>
         /// Represents GetElementTagName command
         /// 
         /// </summary>

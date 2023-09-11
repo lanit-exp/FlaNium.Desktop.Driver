@@ -179,6 +179,9 @@ namespace FlaNium.Desktop.Driver {
                 DriverCommand.GetElementSize,
                 new CommandInfo("GET", "/session/{sessionId}/element/{id}/size"));
             this.commandDictionary.Add(
+                DriverCommand.GetElementRect,
+                new CommandInfo("GET", "/session/{sessionId}/element/{id}/rect"));
+            this.commandDictionary.Add(
                 DriverCommand.GetElementValueOfCssProperty,
                 new CommandInfo("GET", "/session/{sessionId}/element/{id}/css/{propertyName}"));
             this.commandDictionary.Add(
