@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using FlaNium.Desktop.Driver.Inject;
 using FlaUI.Core;
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Input;
@@ -32,9 +31,6 @@ namespace FlaNium.Desktop.Driver.FlaUI {
 
         private static AutomationElement _rootElement;
 
-        // Используется для обмена данными с инжектируемой dll
-        public static ClientSocket ClientSocket { get; set; }
-
 
         public static void CloseAppSession(bool closeApp) {
             try {
@@ -43,7 +39,6 @@ namespace FlaNium.Desktop.Driver.FlaUI {
                 }
 
                 Application?.Dispose();
-                ClientSocket?.FreeSocket();
             }
             catch {
                 // ignored
@@ -51,7 +46,6 @@ namespace FlaNium.Desktop.Driver.FlaUI {
 
             Application = null;
             _rootElement = null;
-            ClientSocket = null;
 
             GC.Collect();
         }

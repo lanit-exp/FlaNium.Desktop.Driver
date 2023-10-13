@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using FlaNium.Desktop.Driver.Common;
-using FlaNium.Desktop.Driver.FlaUI;
+using FlaNium.Desktop.Driver.Inject;
 using Newtonsoft.Json.Linq;
 
 namespace FlaNium.Desktop.Driver.CommandExecutors {
 
     internal class ExecuteInAppExecutor : CommandExecutorBase {
 
-        protected override JsonResponse  DoImpl() {
+        protected override JsonResponse DoImpl() {
             IDictionary<string, JToken> map = this.ExecutedCommand.Parameters;
 
             if (!this.Automator.ActualCapabilities.InjectionActivate) {
@@ -17,9 +17,18 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
 
             if (map.ContainsKey("SESSIONID")) map.Remove("SESSIONID");
 
-            var response = DriverManager.ClientSocket.DataExchange(map);
+            ClientSocket clientSocket = null;
 
-            return this.JsonResponse(ResponseStatus.Success, response);
+            try {
+                clientSocket = new ClientSocket();
+
+                var response = clientSocket.DataExchange(map);
+
+                return this.JsonResponse(ResponseStatus.Success, response);
+            }
+            finally {
+                clientSocket?.FreeSocket();
+            }
         }
 
     }

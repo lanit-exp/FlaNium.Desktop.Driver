@@ -27,20 +27,19 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
 
                 // todo добавить возможность возобновления сессии в режиме дебага
                 if (this.Automator.ActualCapabilities.InjectionActivate) {
-                    string dllType = this.Automator.ActualCapabilities.InjectionDllType;
+                    string dllName = this.Automator.ActualCapabilities.InjectionDllType;
 
-                    if (dllType == string.Empty)
+                    if (dllName == string.Empty)
                         return this.JsonResponse(ResponseStatus.UnknownCommand,
                             "InjectionDllType Capabilities (DesktopOptions) should NOT be EMPTY! (OR injectionActivate should be false)");
 
 
-                    string dllFilePath = DllFilesToInject.GetDllFilePath(dllType);
+                    string dllFilePath = DllFilesToInject.GetDllFilePath(dllName);
 
                     if (!Injector.InjectDll(DriverManager.Application.ProcessId, dllFilePath)) {
                         return this.JsonResponse(ResponseStatus.SessionNotCreatedException, "Injecting FAILED!");
                     }
 
-                    DriverManager.ClientSocket = new ClientSocket();
                 }
             }
             else {
