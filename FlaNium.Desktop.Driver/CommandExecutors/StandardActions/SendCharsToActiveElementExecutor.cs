@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using FlaNium.Desktop.Driver.Common;
+﻿using FlaNium.Desktop.Driver.Common;
 using FlaNium.Desktop.Driver.FlaUI;
 
 namespace FlaNium.Desktop.Driver.CommandExecutors.StandardActions {
@@ -11,8 +10,8 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.StandardActions {
 
             DriverManager.GetRootElement().SetForeground();
 
-            this.Automator.FlaNiumKeyboard.SendKeys(chars.ToArray());
-
+            this.Automator.InputSimulator.Keyboard.TextEntry(chars);
+            
             return this.JsonResponse();
         }
 

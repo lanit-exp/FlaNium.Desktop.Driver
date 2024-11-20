@@ -341,12 +341,6 @@
         public static readonly string Screenshot = "screenshot";
 
         /// <summary>
-        /// Represents the SendKeysToActiveElement command.
-        /// 
-        /// </summary>
-        public static readonly string SendKeysToActiveElement = "sendKeysToActiveElement";
-
-        /// <summary>
         /// Represents SendKeysToElements command
         /// 
         /// </summary>

@@ -1,77 +1,56 @@
 ﻿using FlaNium.Desktop.Driver.Common;
-using FlaUI.Core.Input;
-using FlaUI.Core.WindowsAPI;
+using WindowsInput.Native;
 
 namespace FlaNium.Desktop.Driver.CommandExecutors.StandardActions {
 
     class KeyCombinationExecutor : CommandExecutorBase {
 
-        protected override JsonResponse  DoImpl() {
+        protected override JsonResponse DoImpl() {
             var keyCombination = this.ExecutedCommand.Parameters["value"].ToString();
 
 
             switch (keyCombination) {
                 case "CTRL_A": {
-                    Keyboard.Press(VirtualKeyShort.LCONTROL);
-                    Keyboard.Press(VirtualKeyShort.KEY_A);
-                    Keyboard.Release(VirtualKeyShort.KEY_A);
-                    Keyboard.Release(VirtualKeyShort.LCONTROL);
+                    this.Automator.InputSimulator.Keyboard.ModifiedKeyStroke(VirtualKeyCode.LCONTROL, VirtualKeyCode.VK_A);
                 }
 
                     break;
 
                 case "CTRL_C": {
-                    Keyboard.Press(VirtualKeyShort.LCONTROL);
-                    Keyboard.Press(VirtualKeyShort.KEY_C);
-                    Keyboard.Release(VirtualKeyShort.KEY_C);
-                    Keyboard.Release(VirtualKeyShort.LCONTROL);
+                    this.Automator.InputSimulator.Keyboard.ModifiedKeyStroke(VirtualKeyCode.LCONTROL, VirtualKeyCode.VK_C);
                 }
 
                     break;
 
                 case "CTRL_V": {
-                    Keyboard.Press(VirtualKeyShort.LCONTROL);
-                    Keyboard.Press(VirtualKeyShort.KEY_V);
-                    Keyboard.Release(VirtualKeyShort.KEY_V);
-                    Keyboard.Release(VirtualKeyShort.LCONTROL);
+                    this.Automator.InputSimulator.Keyboard.ModifiedKeyStroke(VirtualKeyCode.LCONTROL, VirtualKeyCode.VK_V);
                 }
 
                     break;
 
                 case "CTRL_X": {
-                    Keyboard.Press(VirtualKeyShort.LCONTROL);
-                    Keyboard.Press(VirtualKeyShort.KEY_X);
-                    Keyboard.Release(VirtualKeyShort.KEY_X);
-                    Keyboard.Release(VirtualKeyShort.LCONTROL);
+                    this.Automator.InputSimulator.Keyboard.ModifiedKeyStroke(VirtualKeyCode.LCONTROL, VirtualKeyCode.VK_X);
                 }
 
                     break;
 
                 case "CTRL_A_DELETE": {
-                    Keyboard.Press(VirtualKeyShort.LCONTROL);
-                    Keyboard.Press(VirtualKeyShort.KEY_A);
-                    Keyboard.Release(VirtualKeyShort.KEY_A);
-                    Keyboard.Release(VirtualKeyShort.LCONTROL);
-                    Keyboard.Press(VirtualKeyShort.DELETE);
-                    Keyboard.Release(VirtualKeyShort.DELETE);
+                    this.Automator.InputSimulator.Keyboard.ModifiedKeyStroke(VirtualKeyCode.LCONTROL, VirtualKeyCode.VK_A);
+                    this.Automator.InputSimulator.Keyboard.KeyPress(VirtualKeyCode.DELETE);
                 }
 
                     break;
 
                 case "CTRL_A_BACKSPACE": {
-                    Keyboard.Press(VirtualKeyShort.LCONTROL);
-                    Keyboard.Press(VirtualKeyShort.KEY_A);
-                    Keyboard.Release(VirtualKeyShort.KEY_A);
-                    Keyboard.Release(VirtualKeyShort.LCONTROL);
-                    Keyboard.Press(VirtualKeyShort.BACK);
-                    Keyboard.Release(VirtualKeyShort.BACK);
+                    this.Automator.InputSimulator.Keyboard.ModifiedKeyStroke(VirtualKeyCode.LCONTROL, VirtualKeyCode.VK_A);
+                    this.Automator.InputSimulator.Keyboard.KeyPress(VirtualKeyCode.BACK);
                 }
 
                     break;
 
                 default:
                     return this.JsonResponse(Common.ResponseStatus.UnknownCommand,
-                        "Uknown key combination: " + keyCombination);
+                        "Unknown key combination: " + keyCombination);
             }
 
 
