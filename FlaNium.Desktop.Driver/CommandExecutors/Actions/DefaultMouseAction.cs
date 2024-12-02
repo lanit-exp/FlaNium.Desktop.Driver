@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Threading;
 using FlaNium.Desktop.Driver.Input;
 using FlaUI.Core.Input;
+using Newtonsoft.Json.Linq;
 
 namespace FlaNium.Desktop.Driver.CommandExecutors.Actions {
 
@@ -38,17 +39,48 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Actions {
         }
 
         private static void PointerMove(Action.ActionStep step, Automator.Automator automator) {
-            if (step.Origin.HasValues){
-                var registeredKey = step.Origin["ELEMENT"]?.ToString();
-                
-                var element = automator.ElementsRegistry.GetRegisteredElement(registeredKey);
-                
-                var rect = element.Properties.BoundingRectangle;
-                
-                CustomInput.MouseMove(new Point(rect.X + rect.Width/2, rect.Y + rect.Height/2) ,step.X, step.Y, step.Duration);
-            }
-            else {
-                CustomInput.MouseMove(step.X, step.Y, step.Duration);
+            var origin = step.Origin ??
+                         throw new NotSupportedException($"Action command need contains parameter 'Origin'.");
+
+            switch (origin.Type) {
+                case JTokenType.Object: {
+                    var registeredKey = step.Origin["element-6066-11e4-a52e-4f735466cecf"]?.ToString();
+
+                    var element = automator.ElementsRegistry.GetRegisteredElement(registeredKey);
+
+                    var rect = element.Properties.BoundingRectangle;
+
+                    CustomInput.MouseMove(
+                        new Point(rect.X + (rect.Width / 2) + step.X, rect.Y + (rect.Height / 2) + step.Y), step.Duration);
+                }
+
+                    break;
+
+                case JTokenType.String: {
+                    switch (origin.ToString()) {
+                        case "viewport": {
+                            CustomInput.MouseMove(new Point(step.X, step.Y), step.Duration);
+                        }
+
+                            break;
+
+                        case "pointer": {
+                            CustomInput.MouseMove(step.X, step.Y, step.Duration);
+                        }
+
+                            break;
+
+                        default:
+                            throw new NotSupportedException(
+                                $"Action parameter 'Origin': '{origin}' not implemented.");
+                    }
+                }
+
+                    break;
+
+                default:
+                    throw new NotSupportedException(
+                        $"Action parameter 'Origin' not supported type: '{step.Type}'.");
             }
         }
 
