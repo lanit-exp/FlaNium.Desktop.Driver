@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.Threading;
 using FlaNium.Desktop.Driver.Input;
+using WindowsInput;
+using WindowsInput.Native;
 
 
 namespace FlaNium.Desktop.Driver.CommandExecutors.Actions {
 
     internal static class DefaultKeyboardAction {
 
+        private static InputSimulator InputSimulator = new InputSimulator();
+        
         internal static void PerformAction(Action action, Automator.Automator automator) {
             List<Action.ActionStep> steps = action.Actions;
 
@@ -34,11 +38,11 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Actions {
 
 
         private static void KeyDown(Action.ActionStep step) {
-            CustomInput.KeyboardKeyDown(step.Value);
+            InputSimulator.Keyboard.KeyDown((VirtualKeyCode)KeyCodeMapping.GetVirtualKeyUshort(step.Value));
         }
 
         private static void KeyUp(Action.ActionStep step) {
-            CustomInput.KeyboardKeyUp(step.Value);
+            InputSimulator.Keyboard.KeyUp((VirtualKeyCode)KeyCodeMapping.GetVirtualKeyUshort(step.Value));
         }
 
         private static void Pause(Action.ActionStep step) {

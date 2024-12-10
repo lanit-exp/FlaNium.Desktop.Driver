@@ -245,9 +245,6 @@ namespace FlaNium.Desktop.Driver {
                 DriverCommand.MouseMoveTo,
                 new CommandInfo("POST", "/session/{sessionId}/moveto"));
             this.commandDictionary.Add(
-                DriverCommand.SendKeysToActiveElement,
-                new CommandInfo("POST", "/session/{sessionId}/keys"));
-            this.commandDictionary.Add(
                 DriverCommand.TouchSingleTap,
                 new CommandInfo("POST", "/session/{sessionId}/touch/click"));
             this.commandDictionary.Add(

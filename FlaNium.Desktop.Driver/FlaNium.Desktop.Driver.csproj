@@ -123,9 +123,8 @@
       <HintPath>..\packages\Selenium.WebDriver.4.10.0\lib\net48\WebDriver.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
-    <Reference Include="WindowsInput, Version=1.0.4.0, Culture=neutral, PublicKeyToken=9b287f7dc5073cad, processorArchitecture=MSIL">
-      <HintPath>..\packages\InputSimulator.1.0.4.0\lib\net20\WindowsInput.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="WindowsInput, Version=1.0.6.0, Culture=neutral, PublicKeyToken=de2685b4776e9c2e, processorArchitecture=MSIL">
+      <HintPath>..\packages\InputSimulatorPlus.1.0.7\lib\net20\WindowsInput.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -330,7 +329,6 @@
     <Compile Include="CommandExecutors\StandardActions\MouseDoubleClickExecutor.cs" />
     <Compile Include="CommandExecutors\StandardActions\MouseMoveToExecutor.cs" />
     <Compile Include="CommandExecutors\StandardActions\SendCharsToActiveElementExecutor.cs" />
-    <Compile Include="CommandExecutors\StandardActions\SendKeysToActiveElementExecutor.cs" />
     <Compile Include="CommandExecutors\StandardActions\SendKeysToElementExecutor.cs" />
     <Compile Include="CommandExecutors\StandardActions\SetOrientationExecutor.cs" />
     <Compile Include="CommandExecutors\StandardActions\SubmitElementExecutor.cs" />
@@ -380,9 +378,7 @@
     <Compile Include="Input\CustomInput.cs" />
     <Compile Include="Input\Interpolation.cs" />
     <Compile Include="Input\KeyboardLayout.cs" />
-    <Compile Include="Input\KeyboardModifiers.cs" />
-    <Compile Include="Input\KeyEvent.cs" />
-    <Compile Include="Input\FlaNiumKeyboard.cs" />
+    <Compile Include="Input\KeyCodeMapping.cs" />
     <Compile Include="Input\Touch.cs" />
     <Compile Include="Listener.cs" />
     <Compile Include="Logger.cs" />

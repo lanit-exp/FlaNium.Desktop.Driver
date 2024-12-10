@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using FlaNium.Desktop.Driver.Input;
+using WindowsInput;
 
 namespace FlaNium.Desktop.Driver.Automator {
 
@@ -14,14 +14,14 @@ namespace FlaNium.Desktop.Driver.Automator {
         public Automator(string session) {
             this.Session = session;
             this.ElementsRegistry = new ElementsRegistry();
-            this.FlaNiumKeyboard = new FlaNiumKeyboard();
+            this.InputSimulator = new InputSimulator();
         }
 
 
         public Capabilities ActualCapabilities { get; set; }
         public ElementsRegistry ElementsRegistry { get; }
         public string Session { get; }
-        public FlaNiumKeyboard FlaNiumKeyboard { get; }
+        public InputSimulator InputSimulator { get; }
 
 
         public static T GetValue<T>(IReadOnlyDictionary<string, object> parameters, string key) where T : class {

@@ -18,7 +18,7 @@
         [Option("url-base", Required = false, Default = "", HelpText = "base URL path prefix for commands, e.g. wd/url")]
         public string UrlBase { get; set; }
 
-        [Option('v', "verbose", Required = false, Default = false, HelpText = "log verbosely")]
+        [Option('v', "verbose", Required = false, Default = true, HelpText = "log verbosely")]
         public bool Verbose { get; set; }
 
 
