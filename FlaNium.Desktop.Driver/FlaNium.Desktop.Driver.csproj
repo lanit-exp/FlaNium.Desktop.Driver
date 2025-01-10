@@ -317,6 +317,7 @@
     <Compile Include="CommandExecutors\FindElement\GetActiveElementExecutor.cs" />
     <Compile Include="CommandExecutors\FindElement\GetActiveWindowExecutor.cs" />
     <Compile Include="CommandExecutors\KillProcessesExecutor.cs" />
+    <Compile Include="CommandExecutors\SetElementFocusExecutor.cs" />
     <Compile Include="CommandExecutors\SetRootElementExecutor.cs" />
     <Compile Include="CommandExecutors\StandardActions\ClearElementExecutor.cs" />
     <Compile Include="CommandExecutors\StandardActions\ClickElementExecutor.cs" />

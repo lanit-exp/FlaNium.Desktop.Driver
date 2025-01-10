@@ -1097,6 +1097,10 @@ namespace FlaNium.Desktop.Driver {
             this.commandDictionary.Add(
                 DriverCommand.StartApp,
                 new CommandInfo("POST", "/session/{sessionId}/startApp"));
+            
+            this.commandDictionary.Add(
+                DriverCommand.SetElementFocus,
+                new CommandInfo("POST", "/session/{sessionId}/setElementFocus"));
 
             #endregion
         }
