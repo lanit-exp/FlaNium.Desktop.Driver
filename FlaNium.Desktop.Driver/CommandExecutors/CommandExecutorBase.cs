@@ -53,9 +53,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
 
 
             try {
-                if (!task.Wait(this.Automator.ActualCapabilities == null
-                        ? 120000
-                        : this.Automator.ActualCapabilities.ResponseTimeout)) {
+                if (!task.Wait(this.Automator.ActualCapabilities?.ResponseTimeout ?? 120000)) {
                     throw new TimeoutException("Response timed out!!!");
                 }
             }

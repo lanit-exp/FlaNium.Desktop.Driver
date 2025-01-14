@@ -317,6 +317,7 @@
     <Compile Include="CommandExecutors\FindElement\GetActiveElementExecutor.cs" />
     <Compile Include="CommandExecutors\FindElement\GetActiveWindowExecutor.cs" />
     <Compile Include="CommandExecutors\KillProcessesExecutor.cs" />
+    <Compile Include="CommandExecutors\SetElementFocusExecutor.cs" />
     <Compile Include="CommandExecutors\SetRootElementExecutor.cs" />
     <Compile Include="CommandExecutors\StandardActions\ClearElementExecutor.cs" />
     <Compile Include="CommandExecutors\StandardActions\ClickElementExecutor.cs" />
@@ -362,6 +363,7 @@
     <Compile Include="Common\JsonWireClasses.cs" />
     <Compile Include="Common\ResponseStatus.cs" />
     <Compile Include="Common\Utils.cs" />
+    <Compile Include="Common\WindowsAPIHelpers.cs" />
     <Compile Include="ElementsRegistry.cs" />
     <Compile Include="Exceptions\AutomationException.cs" />
     <Compile Include="Exceptions\InnerDriverRequestException.cs" />

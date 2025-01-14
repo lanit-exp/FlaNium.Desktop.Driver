@@ -782,6 +782,8 @@
         public static readonly string DeleteFileOrDirectory = "DeleteFileOrDirectory";
         
         public static readonly string StartApp = "StartApp";
+        
+        public static readonly string SetElementFocus = "SetElementFocus";
         #endregion
 
         #endregion

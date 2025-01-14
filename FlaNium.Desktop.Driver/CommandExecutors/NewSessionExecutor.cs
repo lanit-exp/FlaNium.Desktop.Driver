@@ -13,6 +13,10 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
     internal class NewSessionExecutor : CommandExecutorBase {
 
         protected override JsonResponse DoImpl() {
+            
+            // Для того чтобы запускаемое приложение запускалось не на заднем плане, необходимо чтобы окно драйвера было активным.
+            WindowsAPIHelpers.SetConsoleWindowsForeground();
+            
             JToken flCapabilities = JObject.FromObject(this.ExecutedCommand.Parameters["capabilities"])
                 .SelectToken("$..flanium:capabilities");
 

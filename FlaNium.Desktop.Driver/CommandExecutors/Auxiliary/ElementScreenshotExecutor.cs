@@ -20,7 +20,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Auxiliary {
 
             MemoryStream memoryStream = new MemoryStream();
             CaptureImage captureImage;
-
+            
             if (foreground) {
                 captureImage = Capture.Element(element.FlaUiElement);
             }

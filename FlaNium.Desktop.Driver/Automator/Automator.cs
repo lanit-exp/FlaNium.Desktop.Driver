@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using WindowsInput;
 
 namespace FlaNium.Desktop.Driver.Automator {
@@ -23,14 +22,7 @@ namespace FlaNium.Desktop.Driver.Automator {
         public string Session { get; }
         public InputSimulator InputSimulator { get; }
 
-
-        public static T GetValue<T>(IReadOnlyDictionary<string, object> parameters, string key) where T : class {
-            object valueObject;
-            parameters.TryGetValue(key, out valueObject);
-
-            return valueObject as T;
-        }
-
+        
         public static Automator InstanceForSession(string sessionId) {
             if (_instance == null) {
                 lock (LockObject) {
