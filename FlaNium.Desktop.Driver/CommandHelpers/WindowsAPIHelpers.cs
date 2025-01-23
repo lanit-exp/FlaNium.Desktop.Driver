@@ -2,22 +2,25 @@
 using System.Runtime.InteropServices;
 using FlaUI.Core.WindowsAPI;
 
-namespace FlaNium.Desktop.Driver.Common {
+namespace FlaNium.Desktop.Driver.CommandHelpers {
 
     public class WindowsAPIHelpers {
 
         [DllImport("kernel32.dll")]
         private static extern IntPtr GetConsoleWindow();
-        
+
         [DllImport("user32.dll")]
         private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
         [DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
-        
+
+        [DllImport("user32.dll")]
+        private static extern uint GetDpiForWindow(IntPtr hWnd);
+
 
         //--------------------------------------------------------------------------------------------------------------
-        
+
         public static void SetConsoleWindowsForeground() {
             IntPtr consoleWindow = GetConsoleWindow();
 
@@ -25,6 +28,12 @@ namespace FlaNium.Desktop.Driver.Common {
             SetForegroundWindow(consoleWindow);
         }
 
+        public static double GetScale(IntPtr hWnd) {
+            var dpi = GetDpiForWindow(hWnd);
+
+            return dpi == 0 ? 1.0 : dpi / 96.0;
+        }
+        
 
         //--------------------------------------------------------------------------------------------------------------
         public static void WindowOnTop(IntPtr hWnd) {

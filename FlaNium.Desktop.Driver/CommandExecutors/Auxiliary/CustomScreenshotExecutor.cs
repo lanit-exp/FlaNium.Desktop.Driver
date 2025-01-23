@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing.Imaging;
 using System.IO;
+using FlaNium.Desktop.Driver.CommandHelpers;
 using FlaNium.Desktop.Driver.Common;
 using FlaUI.Core.Capturing;
 
@@ -14,7 +15,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Auxiliary {
 
             ImageFormat imageFormat = ImFormat.GetImageFormat(imageFormatStr);
 
-            CaptureImage captureImage = Capture.Screen();
+            CaptureImage captureImage = CaptureActions.Screen();
             MemoryStream memoryStream = new MemoryStream();
 
             captureImage.Bitmap.Save(memoryStream, imageFormat);

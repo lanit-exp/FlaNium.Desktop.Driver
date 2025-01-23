@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing.Imaging;
 using System.IO;
+using FlaNium.Desktop.Driver.CommandHelpers;
 using FlaNium.Desktop.Driver.Common;
 using FlaNium.Desktop.Driver.FlaUI;
 using FlaUI.Core.Capturing;
@@ -22,10 +23,10 @@ namespace FlaNium.Desktop.Driver.CommandExecutors.Auxiliary {
             CaptureImage captureImage;
             
             if (foreground) {
-                captureImage = Capture.Element(element.FlaUiElement);
+                captureImage = CaptureActions.Element(element.FlaUiElement, WindowsAPIHelpers.GetScale(element.FlaUiElement.Properties.NativeWindowHandle));
             }
             else {
-                captureImage = ElementCapture.CaptureImageOfElement(element.FlaUiElement);
+                captureImage = CaptureActions.CaptureImageOfElement(element.FlaUiElement);
             }
 
             captureImage.Bitmap.Save(memoryStream, imageFormat);
