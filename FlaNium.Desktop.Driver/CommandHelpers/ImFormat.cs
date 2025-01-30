@@ -1,4 +1,4 @@
-﻿namespace FlaNium.Desktop.Driver.Common
+﻿namespace FlaNium.Desktop.Driver.CommandHelpers
 {
     using System.Drawing.Imaging;
 
