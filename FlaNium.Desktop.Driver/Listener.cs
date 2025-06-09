@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Globalization;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -9,82 +9,62 @@ namespace FlaNium.Desktop.Driver {
 
     public class Listener {
 
-        private static string _urnPrefix;
-
-
         private UriDispatchTables dispatcher;
 
         private CommandExecutorDispatchTable executorDispatcher;
 
         private TcpListener listener;
 
+        private int Port { get; }
+        private HashSet<IPAddress> allowedIps { get; }
 
-        public Listener(int listenerPort) {
+
+        public Listener(int listenerPort, string allowedIps) {
             this.Port = listenerPort;
+            this.allowedIps = GetSetOfIP(allowedIps);
+
+            this.dispatcher = new UriDispatchTables();
+            this.executorDispatcher = new CommandExecutorDispatchTable();
         }
 
+        private static HashSet<IPAddress> GetSetOfIP(string allowedIps) {
+            HashSet<IPAddress> ipSet = new HashSet<IPAddress>();
+            ipSet.Add(IPAddress.Parse("127.0.0.1"));
 
-        public static string UrnPrefix {
-            get => _urnPrefix;
+            var ipArray = allowedIps.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-            set {
-                if (!string.IsNullOrEmpty(value)) {
-                    // Normalize prefix
-                    _urnPrefix = "/" + value.Trim('/');
+            foreach (var ip in ipArray) {
+                var trimmedIp = ip.Trim();
+                if (IPAddress.TryParse(trimmedIp, out var ipAddress)) {
+                    ipSet.Add(ipAddress);
+                }
+                else {
+                    Console.WriteLine($"    [ERROR] Invalid IP address: {trimmedIp}\n");
                 }
             }
+
+            return ipSet;
         }
-
-        public int Port { get; private set; }
-
-        public Uri Prefix { get; private set; }
 
 
         public void StartListening() {
+            string ipList = string.Join(", ", allowedIps);
+
+            Console.WriteLine($"    Starting Windows Desktop Driver on port '{Port}'\n");
+            Console.WriteLine($"    Allowed IP addresses: {ipList}\n");
+
             try {
-                this.listener = new TcpListener(IPAddress.Any, this.Port);
+                listener = new TcpListener(IPAddress.Any, Port);
 
-                this.Prefix = new Uri(string.Format(CultureInfo.InvariantCulture, "http://localhost:{0}", this.Port));
-                this.dispatcher = new UriDispatchTables(new Uri(this.Prefix, UrnPrefix));
-                this.executorDispatcher = new CommandExecutorDispatchTable();
+                listener.Start();
 
-                // Start listening for client requests.
-                this.listener.Start();
-
-                // Enter the listening loop
                 while (true) {
                     Logger.Debug("Waiting for a connection...");
 
-                    // Perform a blocking call to accept requests. 
-                    var client = this.listener.AcceptTcpClient();
+                    var client = listener.AcceptTcpClient();
 
-                    // Get a stream object for reading and writing
-                    using (var stream = client.GetStream()) {
-                        var acceptedRequest = HttpRequest.ReadFromStreamWithoutClosing(stream);
-
-                        if (string.IsNullOrWhiteSpace(acceptedRequest.StartingLine)) {
-                            Logger.Warn("ACCEPTED EMPTY REQUEST");
-                        }
-                        else {
-                            Logger.Debug("ACCEPTED REQUEST {0}", acceptedRequest.StartingLine);
-
-                            var response = this.HandleRequest(acceptedRequest);
-                            using (var writer = new StreamWriter(stream)) {
-                                try {
-                                    writer.Write(response);
-                                    writer.Flush();
-                                }
-                                catch (IOException ex) {
-                                    Logger.Error("Error occured while writing response: {0}", ex);
-                                }
-                            }
-                        }
-
-                        // Shutdown and end connection
-                    }
-
+                    HandleClient(client);
                     client.Close();
-
                     Logger.Debug("Client closed\n\n\n");
                 }
             }
@@ -99,23 +79,58 @@ namespace FlaNium.Desktop.Driver {
                 throw;
             }
             finally {
-                // Stop listening for new clients.
-                this.listener.Stop();
+                listener?.Stop();
             }
         }
 
-        public void StopListening() {
-            this.listener.Stop();
-        }
 
+        private void HandleClient(TcpClient client) {
+            using (NetworkStream stream = client.GetStream()) {
+                HttpRequest acceptedRequest = HttpRequest.ReadFromStreamWithoutClosing(stream);
+
+                IPAddress remoteAddress = (client.Client.RemoteEndPoint as IPEndPoint)?.Address;
+
+                if (string.IsNullOrWhiteSpace(acceptedRequest.StartingLine)) {
+                    Logger.Warn("ACCEPTED EMPTY REQUEST");
+                }
+                else {
+                    Logger.Debug("ACCEPTED REQUEST {0}", acceptedRequest.StartingLine);
+
+                    string response;
+
+                    if (allowedIps.Contains(remoteAddress)) {
+                        response = HandleRequest(acceptedRequest);
+                    }
+                    else {
+                        string mes =
+                            $"Access from IP '{remoteAddress}' is denied. " +
+                            $"It is necessary to add IP address to the white list when starting the driver (parameter: --allowed-ips).";
+
+                        CommandResponse commandResponse = CommandResponse.Create(new JsonResponse(ResponseStatus.UnknownError, mes));
+                        response = HttpResponseHelper.ResponseString(commandResponse.HttpStatusCode,
+                            commandResponse.Content);
+                        Logger.Error(mes);
+                    }
+
+                    using (StreamWriter writer = new StreamWriter(stream)) {
+                        try {
+                            writer.Write(response);
+                            writer.Flush();
+                        }
+                        catch (IOException ex) {
+                            Logger.Error("Error occured while writing response: {0}", ex);
+                        }
+                    }
+                }
+            }
+        }
 
         private string HandleRequest(HttpRequest acceptedRequest) {
             var firstHeaderTokens = acceptedRequest.StartingLine.Split(' ');
             var method = firstHeaderTokens[0];
-            var resourcePath = firstHeaderTokens[1];
+            var uriToMatch = firstHeaderTokens[1];
 
-            var uriToMatch = new Uri(this.Prefix, resourcePath);
-            var matched = this.dispatcher.Match(method, uriToMatch);
+            var matched = dispatcher.Match(method, uriToMatch);
 
             if (matched == null) {
                 Logger.Warn("Unknown command recived: {0}", uriToMatch);
@@ -125,18 +140,20 @@ namespace FlaNium.Desktop.Driver {
 
             var commandName = matched.Data.ToString();
             var commandToExecute = new Command(commandName, acceptedRequest.MessageBody);
+
             foreach (string variableName in matched.BoundVariables.Keys) {
                 commandToExecute.Parameters[variableName] = matched.BoundVariables[variableName];
             }
 
-            var commandResponse = this.ProcessCommand(commandToExecute);
+            var commandResponse = ProcessCommand(commandToExecute);
 
             return HttpResponseHelper.ResponseString(commandResponse.HttpStatusCode, commandResponse.Content);
         }
 
         private CommandResponse ProcessCommand(Command command) {
             Logger.Info("COMMAND {0}\r\n{1}", command.Name, command.Parameters.ToString());
-            var executor = this.executorDispatcher.GetExecutor(command.Name);
+
+            var executor = executorDispatcher.GetExecutor(command.Name);
             executor.ExecutedCommand = command;
             var respnose = executor.Do();
 

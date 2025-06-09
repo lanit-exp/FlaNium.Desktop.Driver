@@ -15,18 +15,20 @@ namespace FlaNium.Desktop.Driver {
 
         private UriTemplateTable postDispatcherTable;
 
+        private static Uri prefix = new Uri("http://localhost");
 
-        public UriDispatchTables(Uri prefix) {
+
+        public UriDispatchTables() {
             this.InitializeSeleniumCommandDictionary();
             this.InitializeFlaNiumCommandDictionary();
             this.ConstructDispatcherTables(prefix);
         }
 
 
-        public UriTemplateMatch Match(string httpMethod, Uri uriToMatch) {
+        public UriTemplateMatch Match(string httpMethod, string uriToMatch) {
             var table = this.FindDispatcherTable(httpMethod);
 
-            return table != null ? table.MatchSingle(uriToMatch) : null;
+            return table != null ? table.MatchSingle(new Uri(prefix, uriToMatch)) : null;
         }
 
 

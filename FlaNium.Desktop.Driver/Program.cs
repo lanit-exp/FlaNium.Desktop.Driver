@@ -32,16 +32,11 @@ namespace FlaNium.Desktop.Driver {
 
 
             try {
-                var listener = new Listener(options.Port);
-                Listener.UrnPrefix = options.UrlBase;
-
-                Console.WriteLine("Starting Windows Desktop Driver on port {0}\n", options.Port);
-
+                var listener = new Listener(options.Port, options.AllowedIps);
                 listener.StartListening();
             }
             catch (Exception ex) {
                 Logger.Fatal("Failed to start driver: {0}", ex);
-
                 throw;
             }
         }

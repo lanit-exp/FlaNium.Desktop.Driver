@@ -15,10 +15,11 @@
         public int Port { get; set; }
 
 
-        [Option("url-base", Required = false, Default = "", HelpText = "base URL path prefix for commands, e.g. wd/url")]
-        public string UrlBase { get; set; }
+        [Option("allowed-ips", Required = false, Default = "", HelpText = "List of IP addresses from which connections are allowed. Local addresses are available by default. (address separator - ',' )")]
+        public string AllowedIps { get; set; }
 
-        [Option('v', "verbose", Required = false, Default = true, HelpText = "log verbosely")]
+        
+        [Option('v', "verbose", Required = false, Default = false, HelpText = "log verbosely")]
         public bool Verbose { get; set; }
 
 
