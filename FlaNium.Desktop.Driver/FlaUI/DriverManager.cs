@@ -92,7 +92,9 @@ namespace FlaNium.Desktop.Driver.FlaUI {
             }
             else {
                 ProcessStartInfo processStartInfo = new ProcessStartInfo() {
-                    FileName = appPath
+                    FileName = appPath,
+                    WorkingDirectory = Path.GetDirectoryName(appPath)
+                    
                 };
 
                 if (!string.IsNullOrEmpty(arguments)) {
