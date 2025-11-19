@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using FlaNium.Desktop.Driver.Common;
@@ -151,26 +152,31 @@ namespace FlaNium.Desktop.Driver {
         }
 
         private CommandResponse ProcessCommand(Command command) {
-            Logger.Info("COMMAND {0}\r\n{1}", command.Name, command.Parameters.ToString());
+            Logger.Info("COMMAND {0}\r\n{1}", command.Name, command.GetParametersAsString());
 
             var executor = executorDispatcher.GetExecutor(command.Name);
             executor.ExecutedCommand = command;
-            var respnose = executor.Do();
+            var response = executor.Do();
 
-            // Имеется значительная задержка при выводе объемных логов (таких как скриншоты) в консоль
-            if (command.Name.ToLower().Contains("screenshot") && respnose.HttpStatusCode == HttpStatusCode.OK) {
-                Logger.Debug("RESPONSE:\r\n" +
-                             "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n" +
-                             "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n" +
-                             " Content length: {0}\n" +
-                             "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n" +
-                             "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n", respnose.Content.Length);
-            }
-            else {
-                Logger.Debug("RESPONSE:\r\n{0}", respnose);
+            Logger.Debug("RESPONSE:\r\n{0}", GetResponseLog(command.Name, response));
+
+            return response;
+        }
+
+        private string GetResponseLog(string commandName, CommandResponse response) {
+            string[] ignoreCommands = { "screenshot", "filedownload" };
+
+            if (ignoreCommands.Any(s => commandName.ToLower().Contains(s)) &&
+                response.HttpStatusCode == HttpStatusCode.OK) {
+                return
+                    "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n" +
+                    "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n" +
+                    $" Content length: {response.Content.Length}\n" +
+                    "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n" +
+                    "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n";
             }
 
-            return respnose;
+            return response.ToString();
         }
 
     }

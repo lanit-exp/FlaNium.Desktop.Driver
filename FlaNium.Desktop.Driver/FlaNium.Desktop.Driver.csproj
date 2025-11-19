@@ -137,6 +137,7 @@
     <Compile Include="CommandExecutors\Actions\DefaultWheelAction.cs" />
     <Compile Include="CommandExecutors\Auxiliary\CustomScreenshotExecutor.cs" />
     <Compile Include="CommandExecutors\Auxiliary\DeleteFileOrDirectoryExecutor.cs" />
+    <Compile Include="CommandExecutors\Auxiliary\FileDownloadExecutor.cs" />
     <Compile Include="CommandExecutors\Auxiliary\ElementScreenshotExecutor.cs" />
     <Compile Include="CommandExecutors\Auxiliary\FileOrDirectoryExistsExecutor.cs" />
     <Compile Include="CommandExecutors\Auxiliary\GetClipboardTextExecutor.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="CommandExecutors\Auxiliary\ScreenshotExecutor.cs" />
     <Compile Include="CommandExecutors\Auxiliary\SetClipboardTextExecutor.cs" />
     <Compile Include="CommandExecutors\Auxiliary\SetKeyboardLayoutExecutor.cs" />
+    <Compile Include="CommandExecutors\Auxiliary\FileUploadExecutor.cs" />
     <Compile Include="CommandExecutors\ChangeProcessExecutor.cs" />
     <Compile Include="CommandExecutors\ElementProperty\ElementEqualsExecutor.cs" />
     <Compile Include="CommandExecutors\ElementProperty\GetCurrentWindowHandleExecutor.cs" />
