@@ -1095,6 +1095,14 @@ namespace FlaNium.Desktop.Driver {
                 DriverCommand.DeleteFileOrDirectory,
                 new CommandInfo("POST", "/session/{sessionId}/deleteFileOrDirectory"));
             
+            this.commandDictionary.Add(
+                DriverCommand.FileDownload,
+                new CommandInfo("POST", "/session/{sessionId}/fileDownload"));
+            
+            this.commandDictionary.Add(
+                DriverCommand.FileUpload,
+                new CommandInfo("POST", "/session/{sessionId}/fileUpload"));
+            
             
             this.commandDictionary.Add(
                 DriverCommand.StartApp,

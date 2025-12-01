@@ -780,6 +780,8 @@
         
         public static readonly string FileOrDirectoryExists = "FileOrDirectoryExists";
         public static readonly string DeleteFileOrDirectory = "DeleteFileOrDirectory";
+        public static readonly string FileDownload = "FileDownload";
+        public static readonly string FileUpload = "FileUpload";
         
         public static readonly string StartApp = "StartApp";
         

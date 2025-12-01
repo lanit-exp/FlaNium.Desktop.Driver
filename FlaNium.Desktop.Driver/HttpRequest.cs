@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
+using System.Text;
 
 namespace FlaNium.Desktop.Driver {
 
@@ -40,12 +40,24 @@ namespace FlaNium.Desktop.Driver {
             return contentLength;
         }
 
-        // reads the content of a request depending on its length
+        
         private static string ReadContent(TextReader textReader, int contentLength) {
-            var readBuffer = new char[contentLength];
-            textReader.Read(readBuffer, 0, readBuffer.Length);
-
-            return readBuffer.Aggregate(string.Empty, (current, ch) => current + ch);
+            var sb = new StringBuilder(contentLength);
+            var buffer = new char[4096];
+            int totalBytesRead = 0;
+    
+            while (totalBytesRead < contentLength)
+            {
+                int bytesToRead = Math.Min(buffer.Length, contentLength - totalBytesRead);
+                int bytesRead = textReader.Read(buffer, 0, bytesToRead);
+        
+                if (bytesRead == 0) break;
+        
+                sb.Append(buffer, 0, bytesRead);
+                totalBytesRead += bytesRead;
+            }
+    
+            return sb.ToString();
         }
 
         private static Dictionary<string, string> ReadHeaders(TextReader textReader) {
