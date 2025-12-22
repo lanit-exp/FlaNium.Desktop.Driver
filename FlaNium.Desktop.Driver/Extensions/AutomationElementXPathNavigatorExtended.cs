@@ -280,6 +280,12 @@ namespace FlaNium.Desktop.Driver.Extensions {
                     return currentElement.Properties.HelpText.ValueOrDefault;
                 case ElementAttributes.ControlType:
                     return currentElement.Properties.ControlType.ToString();
+                case ElementAttributes.IsEnabled:
+                    return currentElement.Properties.IsEnabled.ValueOrDefault.ToString().ToLower();
+                case ElementAttributes.IsOffscreen:
+                    return currentElement.Properties.IsOffscreen.ValueOrDefault.ToString().ToLower();
+                case ElementAttributes.ProcessId:
+                    return currentElement.Properties.ProcessId.ValueOrDefault.ToString();
                 default:
                     throw new ArgumentOutOfRangeException(nameof(attributeIndex));
             }
@@ -313,7 +319,10 @@ namespace FlaNium.Desktop.Driver.Extensions {
             Name,
             ClassName,
             HelpText,
-            ControlType
+            ControlType,
+            IsEnabled,
+            IsOffscreen,
+            ProcessId
 
         }
 

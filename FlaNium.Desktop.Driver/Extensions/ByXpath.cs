@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.XPath;
 using FlaUI.Core.AutomationElements;
 
 namespace FlaNium.Desktop.Driver.Extensions {
 
-    public class ByXpath {
+    public static class ByXpath {
 
         public static AutomationElement[] FindAllByXPath(string xPath, AutomationElement element) {
-            var xPathNavigator = new AutomationElementXPathNavigatorExtended(element);
-            var itemNodeIterator = xPathNavigator.Select(xPath);
-            var itemList = new List<AutomationElement>();
+            XPathNodeIterator itemNodeIterator = GetXpathIterator(xPath, element);
+
+            List<AutomationElement> itemList = new List<AutomationElement>();
 
             while (true) {
                 try {
                     if (itemNodeIterator.MoveNext()) {
-                        var automationItem = (AutomationElement)itemNodeIterator.Current.UnderlyingObject;
+                        AutomationElement automationItem = (AutomationElement)itemNodeIterator.Current.UnderlyingObject;
                         itemList.Add(automationItem);
                     }
                     else break;
@@ -27,19 +28,31 @@ namespace FlaNium.Desktop.Driver.Extensions {
         }
 
         public static AutomationElement FindFirstByXPath(string xPath, AutomationElement element) {
-            try {
-                var xPathNavigator = new AutomationElementXPathNavigatorExtended(element);
+            XPathNodeIterator itemNodeIterator = GetXpathIterator(xPath, element);
 
-                var nodeItem = xPathNavigator.SelectSingleNode(xPath);
+            while (true) {
+                try {
+                    if (itemNodeIterator.MoveNext()) {
+                        AutomationElement automationItem = (AutomationElement)itemNodeIterator.Current.UnderlyingObject;
 
-                return (AutomationElement)nodeItem?.UnderlyingObject;
+                        return automationItem;
+                    }
+
+                    return null;
+                }
+                catch (NullReferenceException) {
+                }
             }
-            catch (NullReferenceException) {
-                var list = FindAllByXPath(xPath, element);
+        }
 
-                if (list.Length > 0) return list[0];
-                else return null;
+        private static XPathNodeIterator GetXpathIterator(string xPath, AutomationElement element) {
+
+            if (xPath.StartsWith("$")) {
+                xPath = xPath.TrimStart('$');
+                return new CachedElementXPathNavigator(element).Select(xPath);
             }
+
+            return new AutomationElementXPathNavigatorExtended(element).Select(xPath);
         }
 
     }
