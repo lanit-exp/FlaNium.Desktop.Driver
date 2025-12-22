@@ -31,7 +31,7 @@ namespace FlaNium.Desktop.Driver {
                 Logger.TargetNull();
             }
 
-            ByXpath.CashedStrategy = options.CachedStrategyDefault;
+            ByXpath.CachedStrategy = options.CachedStrategyDefault;
 
             try {
                 var listener = new Listener(options.Port, options.AllowedIps);

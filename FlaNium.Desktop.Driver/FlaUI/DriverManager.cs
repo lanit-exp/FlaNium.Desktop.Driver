@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using FlaUI.Core;
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Input;
@@ -50,7 +51,9 @@ namespace FlaNium.Desktop.Driver.FlaUI {
             GC.Collect();
         }
 
-        public static void KillAllProcessByName(string name) {
+        public static int KillAllProcessByName(string name) {
+            int count = 0;
+            
             string[] separator = {
                 ".exe",
                 ".EXE"
@@ -63,6 +66,7 @@ namespace FlaNium.Desktop.Driver.FlaUI {
                     foreach (Process process in Process.GetProcessesByName(processName)) {
                         try {
                             process.Kill();
+                            count++;
                         }
                         catch {
                             // ignored
@@ -73,9 +77,23 @@ namespace FlaNium.Desktop.Driver.FlaUI {
             catch {
                 // ignored
             }
+
+            return count;
         }
 
-        public static void StartApp(string appPath, string arguments) {
+        public static bool KillProcessById(int id) {
+            try {
+                Process process = Process.GetProcessById(id);
+                process.Kill();
+
+                return true;
+            }
+            catch {
+                return false;
+            }
+        }
+
+        public static void StartApp(string appPath, string arguments, bool startSecondInstance = false) {
             appPath = appPath.Replace("\\\\", "\\");
 
             if (!File.Exists(appPath)) {
@@ -101,7 +119,7 @@ namespace FlaNium.Desktop.Driver.FlaUI {
                     processStartInfo.Arguments = arguments;
                 }
 
-                Application = Application.AttachOrLaunch(processStartInfo);
+                Application = startSecondInstance ? Application.Launch(processStartInfo) : Application.AttachOrLaunch(processStartInfo);
 
                 Application.WaitWhileBusy(TimeSpan.FromSeconds(10.0));
             }
@@ -118,6 +136,24 @@ namespace FlaNium.Desktop.Driver.FlaUI {
                 ResetRootElement();
             }
             else throw new Exception("Unable to find process with name: " + processName);
+        }
+
+        public static int[] GetProcessIdsByName(String processName) {
+            Process[] processes = Process.GetProcessesByName(processName);
+
+            return processes.Select(process => process.Id).ToArray();
+        }
+
+        public static void AttachToProcessById(int id) {
+            try {
+                Process process = Process.GetProcessById(id);
+
+                Application = Application.Attach(process);
+                ResetRootElement();
+            }
+            catch (Exception e) {
+                throw new Exception($"Unable to attach to process with id {id}: {e.Message}");
+            }
         }
 
         public static bool AttachToProcessIfExist(string processName) {

@@ -776,7 +776,11 @@
         public static readonly string SetRootElement = "SetRootElement";
         
         public static readonly string ChangeProcess = "ChangeProcess";
+        public static readonly string ChangeProcessById = "ChangeProcessById";
+        public static readonly string GetProcessIdByName = "GetProcessIdByName";
+        public static readonly string GetCurrentProcessId = "GetCurrentProcessId";
         public static readonly string KillProcesses = "KillProcesses";
+        public static readonly string KillProcessById = "KillProcessById";
         
         public static readonly string FileOrDirectoryExists = "FileOrDirectoryExists";
         public static readonly string DeleteFileOrDirectory = "DeleteFileOrDirectory";

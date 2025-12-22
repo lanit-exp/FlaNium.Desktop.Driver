@@ -27,7 +27,7 @@
         public bool Silent { get; set; }
         
         
-        [Option( "cashed-strategy-default", Required = false, Default = false, HelpText = "Set the search strategy to use cached items by default")]
+        [Option( "cached-strategy-default", Required = false, Default = false, HelpText = "Set the search strategy to use cached items by default")]
         public bool CachedStrategyDefault { get; set; }
 
     }

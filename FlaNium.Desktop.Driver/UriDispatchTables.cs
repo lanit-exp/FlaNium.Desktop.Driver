@@ -1083,9 +1083,25 @@ namespace FlaNium.Desktop.Driver {
                 new CommandInfo("POST", "/session/{sessionId}/changeProcess"));
             
             this.commandDictionary.Add(
+                DriverCommand.ChangeProcessById,
+                new CommandInfo("POST", "/session/{sessionId}/changeProcessById"));
+            
+            this.commandDictionary.Add(
+                DriverCommand.GetProcessIdByName,
+                new CommandInfo("POST", "/session/{sessionId}/getProcessIdByName"));
+            
+            this.commandDictionary.Add(
+                DriverCommand.GetCurrentProcessId,
+                new CommandInfo("POST", "/session/{sessionId}/getCurrentProcessId"));
+            
+            this.commandDictionary.Add(
                 DriverCommand.KillProcesses,
                 new CommandInfo("POST", "/session/{sessionId}/killProcesses"));
             
+            this.commandDictionary.Add(
+                DriverCommand.KillProcessById,
+                new CommandInfo("POST", "/session/{sessionId}/killProcessById"));
+
             
             this.commandDictionary.Add(
                 DriverCommand.FileOrDirectoryExists,
