@@ -5,7 +5,7 @@ using FlaUI.Core;
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Definitions;
 
-namespace FlaNium.Desktop.Driver.Extensions {
+namespace FlaNium.Desktop.Driver.ElementFindStrategy {
 
     internal class AutomationElementXPathNavigatorExtended : XPathNavigator {
 

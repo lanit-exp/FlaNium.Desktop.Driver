@@ -1,7 +1,7 @@
 ﻿using System;
 using FlaUI.Core.AutomationElements;
 
-namespace FlaNium.Desktop.Driver.Extensions {
+namespace FlaNium.Desktop.Driver.ElementFindStrategy {
 
     public static class XpathElementAttributes {
 

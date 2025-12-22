@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Xml.XPath;
 using FlaUI.Core.AutomationElements;
 
-namespace FlaNium.Desktop.Driver.Extensions {
+namespace FlaNium.Desktop.Driver.ElementFindStrategy {
 
     public static class ByXpath {
+
+        public static bool CashedStrategy { get; set; } = false;
 
         public static AutomationElement[] FindAllByXPath(string xPath, AutomationElement element) {
             XPathNodeIterator itemNodeIterator = GetXpathIterator(xPath, element);
@@ -46,9 +48,14 @@ namespace FlaNium.Desktop.Driver.Extensions {
         }
 
         private static XPathNodeIterator GetXpathIterator(string xPath, AutomationElement element) {
-
+            bool cashed = CashedStrategy;
+            
             if (xPath.StartsWith("$")) {
                 xPath = xPath.TrimStart('$');
+                cashed = !cashed;
+            }
+
+            if (cashed) {
                 return new CachedElementXPathNavigator(element).Select(xPath);
             }
 

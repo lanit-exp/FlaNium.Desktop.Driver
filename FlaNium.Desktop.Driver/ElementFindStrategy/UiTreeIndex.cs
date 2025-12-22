@@ -2,7 +2,7 @@
 using FlaUI.Core.AutomationElements;
 
 
-namespace FlaNium.Desktop.Driver.Extensions {
+namespace FlaNium.Desktop.Driver.ElementFindStrategy {
 
     internal sealed class UiTreeIndex {
 

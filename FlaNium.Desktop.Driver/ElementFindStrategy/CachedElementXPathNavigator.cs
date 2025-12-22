@@ -4,7 +4,7 @@ using System.Xml.XPath;
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Definitions;
 
-namespace FlaNium.Desktop.Driver.Extensions {
+namespace FlaNium.Desktop.Driver.ElementFindStrategy {
 
     public class CachedElementXPathNavigator : XPathNavigator {
 
