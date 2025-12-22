@@ -375,6 +375,7 @@
     <Compile Include="Extensions\CachedElementXPathNavigator.cs" />
     <Compile Include="Extensions\UiIndexedNode.cs" />
     <Compile Include="Extensions\UiTreeIndex.cs" />
+    <Compile Include="Extensions\XpathElementAttributes.cs" />
     <Compile Include="FlaUI\DriverManager.cs" />
     <Compile Include="FlaUI\FlaUIDriverElement.cs" />
     <Compile Include="FlaUI\WhiteNetElementProperties.cs" />

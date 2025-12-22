@@ -13,9 +13,7 @@ namespace FlaNium.Desktop.Driver.Extensions {
 
         private UiIndexedNode current;
         private int attributeIndex = -1;
-
-        private static readonly int ElementAttributesCount = Enum.GetNames(typeof(ElementAttributes)).Length;
-
+        
         //--------------------------------------------------------------------------------------------------------------
 
         public CachedElementXPathNavigator(AutomationElement root) {
@@ -36,8 +34,7 @@ namespace FlaNium.Desktop.Driver.Extensions {
             return attributeIndex != -1;
         }
 
-        public override string Value => IsAttributeElement() ? GetAttributeValue(attributeIndex) : string.Empty;
-
+        public override string Value => IsAttributeElement() ? XpathElementAttributes.GetAttributeValue(attributeIndex, current.Element) : string.Empty;
 
         public override XPathNodeType NodeType {
             get {
@@ -51,7 +48,7 @@ namespace FlaNium.Desktop.Driver.Extensions {
 
         public override string LocalName {
             get {
-                if (IsAttributeElement()) return GetAttributeName(attributeIndex);
+                if (IsAttributeElement()) return XpathElementAttributes.GetAttributeName(attributeIndex);
 
                 var controlType = current.Element.Properties.ControlType.IsSupported
                     ? current.Element.Properties.ControlType.Value
@@ -84,7 +81,7 @@ namespace FlaNium.Desktop.Driver.Extensions {
         }
 
         public override bool MoveToNextAttribute() {
-            if (attributeIndex >= ElementAttributesCount - 1) return false;
+            if (attributeIndex >= XpathElementAttributes.ElementAttributesCount - 1) return false;
             if (attributeIndex == -1) return false;
             attributeIndex++;
 
@@ -94,9 +91,9 @@ namespace FlaNium.Desktop.Driver.Extensions {
 
         public override string GetAttribute(string localName, string namespaceUri) {
             if (IsAttributeElement()) return String.Empty;
-            var index = GetAttributeIndexFromName(localName);
+            var index = XpathElementAttributes.GetAttributeIndexFromName(localName);
 
-            if (index != -1) return GetAttributeValue(index);
+            if (index != -1) return XpathElementAttributes.GetAttributeValue(index, current.Element);
 
             return String.Empty;
         }
@@ -104,7 +101,7 @@ namespace FlaNium.Desktop.Driver.Extensions {
 
         public override bool MoveToAttribute(string localName, string namespaceUri) {
             if (IsAttributeElement()) return false;
-            var index = GetAttributeIndexFromName(localName);
+            var index = XpathElementAttributes.GetAttributeIndexFromName(localName);
 
             if (index != -1) {
                 attributeIndex = index;
@@ -202,63 +199,8 @@ namespace FlaNium.Desktop.Driver.Extensions {
         public override bool MoveToNextNamespace(XPathNamespaceScope namespaceScope) {
             throw new NotImplementedException();
         }
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        private string GetAttributeValue(int attributeIndex) {
-            switch ((ElementAttributes)attributeIndex) {
-                case ElementAttributes.AutomationId:
-                    return current.Element.Properties.AutomationId.ValueOrDefault;
-                case ElementAttributes.Name:
-                    return current.Element.Properties.Name.ValueOrDefault;
-                case ElementAttributes.ClassName:
-                    return current.Element.Properties.ClassName.ValueOrDefault;
-                case ElementAttributes.HelpText:
-                    return current.Element.Properties.HelpText.ValueOrDefault;
-                case ElementAttributes.ControlType:
-                    return current.Element.Properties.ControlType.ToString();
-                case ElementAttributes.IsEnabled:
-                    return current.Element.Properties.IsEnabled.ValueOrDefault.ToString().ToLower();
-                case ElementAttributes.IsOffscreen:
-                    return current.Element.Properties.IsOffscreen.ValueOrDefault.ToString().ToLower();
-                case ElementAttributes.ProcessId:
-                    return current.Element.Properties.ProcessId.ValueOrDefault.ToString();
-                
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(attributeIndex));
-            }
-        }
-
-        private enum ElementAttributes {
-
-            AutomationId,
-            Name,
-            ClassName,
-            HelpText,
-            ControlType,
-            IsEnabled,
-            IsOffscreen,
-            ProcessId
-
-        }
-
-        private string GetAttributeName(int attributeIndex) {
-            var name = Enum.GetName(typeof(ElementAttributes), attributeIndex);
-            if (name == null) {
-                throw new ArgumentOutOfRangeException(nameof(attributeIndex));
-            }
-
-            return name;
-        }
-
-        private int GetAttributeIndexFromName(string attributeName) {
-            if (Enum.TryParse(attributeName, out ElementAttributes parsedValue)) {
-                return (int)parsedValue;
-            }
-
-            return -1;
-        }
-
+       
+        
     }
 
 }
