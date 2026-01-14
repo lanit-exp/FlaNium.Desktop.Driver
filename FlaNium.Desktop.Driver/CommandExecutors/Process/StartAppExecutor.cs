@@ -3,7 +3,7 @@ using System.Threading;
 using FlaNium.Desktop.Driver.Common;
 using FlaNium.Desktop.Driver.FlaUI;
 
-namespace FlaNium.Desktop.Driver.CommandExecutors {
+namespace FlaNium.Desktop.Driver.CommandExecutors.Process {
 
     internal class StartAppExecutor : CommandExecutorBase {
 
@@ -14,10 +14,10 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
             
             string appArguments = ExecutedCommand.Parameters["appArguments"]?.ToString() ?? "";
             int launchDelay = int.Parse(ExecutedCommand.Parameters["launchDelay"].ToString());
-
+            bool startSecondInstance = bool.Parse(ExecutedCommand.Parameters["startSecondInstance"].ToString());
 
             try {
-                DriverManager.StartApp(appPath, appArguments);
+                DriverManager.StartApp(appPath, appArguments, startSecondInstance);
                 DriverManager.ResetRootElement();
                 Thread.Sleep(launchDelay);
             }
@@ -25,7 +25,9 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
                 return JsonResponse(ResponseStatus.UnknownError, e);
             }
 
-            return this.JsonResponse();
+            int id = DriverManager.Application?.ProcessId ?? -1;
+            
+            return JsonResponse(ResponseStatus.Success, id);
         }
 
     }

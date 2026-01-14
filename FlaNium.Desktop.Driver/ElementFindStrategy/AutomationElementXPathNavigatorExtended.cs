@@ -5,7 +5,7 @@ using FlaUI.Core;
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Definitions;
 
-namespace FlaNium.Desktop.Driver.Extensions {
+namespace FlaNium.Desktop.Driver.ElementFindStrategy {
 
     internal class AutomationElementXPathNavigatorExtended : XPathNavigator {
 
@@ -31,7 +31,7 @@ namespace FlaNium.Desktop.Driver.Extensions {
         public override bool HasAttributes => !IsInAttribute;
 
         /// <inheritdoc />
-        public override string Value => IsInAttribute ? GetAttributeValue(attributeIndex) : currentElement.ToString();
+        public override string Value => IsInAttribute ? XpathElementAttributes.GetAttributeValue(attributeIndex, currentElement) : currentElement.ToString();
 
         /// <inheritdoc />
         public override object UnderlyingObject => currentElement;
@@ -55,7 +55,7 @@ namespace FlaNium.Desktop.Driver.Extensions {
         public override string LocalName {
             get {
                 if (IsInAttribute) {
-                    return GetAttributeName(attributeIndex);
+                    return XpathElementAttributes.GetAttributeName(attributeIndex);
                 }
 
                 // Map unknown types to custom so they are at least findable
@@ -108,7 +108,7 @@ namespace FlaNium.Desktop.Driver.Extensions {
 
         /// <inheritdoc />
         public override bool MoveToNextAttribute() {
-            if (attributeIndex >= Enum.GetNames(typeof(ElementAttributes)).Length - 1) {
+            if (attributeIndex >= XpathElementAttributes.ElementAttributesCount - 1) {
                 // No more attributes
                 return false;
             }
@@ -128,9 +128,9 @@ namespace FlaNium.Desktop.Driver.Extensions {
                 return String.Empty;
             }
 
-            var attributeIndex = GetAttributeIndexFromName(localName);
+            var attributeIndex = XpathElementAttributes.GetAttributeIndexFromName(localName);
             if (attributeIndex != NoAttributeValue) {
-                return GetAttributeValue(attributeIndex);
+                return XpathElementAttributes.GetAttributeValue(attributeIndex, currentElement);
             }
 
             return String.Empty;
@@ -142,7 +142,7 @@ namespace FlaNium.Desktop.Driver.Extensions {
                 return false;
             }
 
-            var attributeIndex = GetAttributeIndexFromName(localName);
+            var attributeIndex = XpathElementAttributes.GetAttributeIndexFromName(localName);
             if (attributeIndex != NoAttributeValue) {
                 this.attributeIndex = attributeIndex;
 
@@ -267,56 +267,7 @@ namespace FlaNium.Desktop.Driver.Extensions {
             return currentElement.Equals(specificNavigator.currentElement)
                    && attributeIndex == specificNavigator.attributeIndex;
         }
-
-        private string GetAttributeValue(int attributeIndex) {
-            switch ((ElementAttributes)attributeIndex) {
-                case ElementAttributes.AutomationId:
-                    return currentElement.Properties.AutomationId.ValueOrDefault;
-                case ElementAttributes.Name:
-                    return currentElement.Properties.Name.ValueOrDefault;
-                case ElementAttributes.ClassName:
-                    return currentElement.Properties.ClassName.ValueOrDefault;
-                case ElementAttributes.HelpText:
-                    return currentElement.Properties.HelpText.ValueOrDefault;
-                case ElementAttributes.ControlType:
-                    return currentElement.Properties.ControlType.ToString();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(attributeIndex));
-            }
-        }
-
-        private string GetAttributeName(int attributeIndex) {
-            var name = Enum.GetName(typeof(ElementAttributes), attributeIndex);
-            if (name == null) {
-                throw new ArgumentOutOfRangeException(nameof(attributeIndex));
-            }
-
-            return name;
-        }
-
-        private int GetAttributeIndexFromName(string attributeName) {
-#if NET35
-            if (EnumExtensions.TryParse(attributeName, out ElementAttributes parsedValue))
-#else
-            if (Enum.TryParse(attributeName, out ElementAttributes parsedValue))
-#endif
-            {
-                return (int)parsedValue;
-            }
-
-            return NoAttributeValue;
-        }
-
-        private enum ElementAttributes {
-
-            AutomationId,
-            Name,
-            ClassName,
-            HelpText,
-            ControlType
-
-        }
-
+        
     }
 
 }

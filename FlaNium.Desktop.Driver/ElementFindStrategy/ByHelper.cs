@@ -2,7 +2,7 @@
 using FlaUI.Core.Conditions;
 using FlaUI.UIA3;
 
-namespace FlaNium.Desktop.Driver.Extensions {
+namespace FlaNium.Desktop.Driver.ElementFindStrategy {
 
     public static class ByHelper {
 

@@ -146,7 +146,6 @@
     <Compile Include="CommandExecutors\Auxiliary\SetClipboardTextExecutor.cs" />
     <Compile Include="CommandExecutors\Auxiliary\SetKeyboardLayoutExecutor.cs" />
     <Compile Include="CommandExecutors\Auxiliary\FileUploadExecutor.cs" />
-    <Compile Include="CommandExecutors\ChangeProcessExecutor.cs" />
     <Compile Include="CommandExecutors\ElementProperty\ElementEqualsExecutor.cs" />
     <Compile Include="CommandExecutors\ElementProperty\GetCurrentWindowHandleExecutor.cs" />
     <Compile Include="CommandExecutors\ElementProperty\GetElementAttributeExecutor.cs" />
@@ -318,7 +317,13 @@
     <Compile Include="CommandExecutors\FindElement\FindElementsExecutor.cs" />
     <Compile Include="CommandExecutors\FindElement\GetActiveElementExecutor.cs" />
     <Compile Include="CommandExecutors\FindElement\GetActiveWindowExecutor.cs" />
-    <Compile Include="CommandExecutors\KillProcessesExecutor.cs" />
+    <Compile Include="CommandExecutors\Process\ChangeProcessByIdExecutor.cs" />
+    <Compile Include="CommandExecutors\Process\ChangeProcessExecutor.cs" />
+    <Compile Include="CommandExecutors\Process\GetCurrentProcessIdExecutor.cs" />
+    <Compile Include="CommandExecutors\Process\GetProcessIdByNameExecutor.cs" />
+    <Compile Include="CommandExecutors\Process\KillProcessByIdExecutor.cs" />
+    <Compile Include="CommandExecutors\Process\KillProcessesExecutor.cs" />
+    <Compile Include="CommandExecutors\Process\StartAppExecutor.cs" />
     <Compile Include="CommandExecutors\SetElementFocusExecutor.cs" />
     <Compile Include="CommandExecutors\SetRootElementExecutor.cs" />
     <Compile Include="CommandExecutors\StandardActions\ClearElementExecutor.cs" />
@@ -335,7 +340,6 @@
     <Compile Include="CommandExecutors\StandardActions\SendKeysToElementExecutor.cs" />
     <Compile Include="CommandExecutors\StandardActions\SetOrientationExecutor.cs" />
     <Compile Include="CommandExecutors\StandardActions\SubmitElementExecutor.cs" />
-    <Compile Include="CommandExecutors\StartAppExecutor.cs" />
     <Compile Include="CommandExecutors\StatusExecutor.cs" />
     <Compile Include="CommandExecutors\ExecuteScriptExecutor.cs" />
     <Compile Include="CommandExecutors\QuitExecutor.cs" />
@@ -369,9 +373,13 @@
     <Compile Include="ElementsRegistry.cs" />
     <Compile Include="Exceptions\AutomationException.cs" />
     <Compile Include="Exceptions\InnerDriverRequestException.cs" />
-    <Compile Include="Extensions\AutomationElementXPathNavigatorExtended.cs" />
-    <Compile Include="Extensions\ByHelper.cs" />
-    <Compile Include="Extensions\ByXpath.cs" />
+    <Compile Include="ElementFindStrategy\AutomationElementXPathNavigatorExtended.cs" />
+    <Compile Include="ElementFindStrategy\ByHelper.cs" />
+    <Compile Include="ElementFindStrategy\ByXpath.cs" />
+    <Compile Include="ElementFindStrategy\CachedElementXPathNavigator.cs" />
+    <Compile Include="ElementFindStrategy\UiIndexedNode.cs" />
+    <Compile Include="ElementFindStrategy\UiTreeIndex.cs" />
+    <Compile Include="ElementFindStrategy\XpathElementAttributes.cs" />
     <Compile Include="FlaUI\DriverManager.cs" />
     <Compile Include="FlaUI\FlaUIDriverElement.cs" />
     <Compile Include="FlaUI\WhiteNetElementProperties.cs" />

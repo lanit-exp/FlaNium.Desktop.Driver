@@ -1,6 +1,6 @@
 ﻿using FlaNium.Desktop.Driver.Common;
 using FlaNium.Desktop.Driver.Exceptions;
-using FlaNium.Desktop.Driver.Extensions;
+using FlaNium.Desktop.Driver.ElementFindStrategy;
 using FlaNium.Desktop.Driver.FlaUI;
 using FlaUI.Core.AutomationElements;
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using CommandLine;
+using FlaNium.Desktop.Driver.ElementFindStrategy;
 
 namespace FlaNium.Desktop.Driver {
 
@@ -30,6 +31,7 @@ namespace FlaNium.Desktop.Driver {
                 Logger.TargetNull();
             }
 
+            ByXpath.CachedStrategy = options.CachedStrategyDefault;
 
             try {
                 var listener = new Listener(options.Port, options.AllowedIps);
