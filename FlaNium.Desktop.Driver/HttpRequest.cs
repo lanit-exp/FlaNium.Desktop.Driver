@@ -41,15 +41,26 @@ namespace FlaNium.Desktop.Driver {
         }
 
         
-        private static string ReadContent(TextReader textReader, int contentLength) {
+        // todo переписать через HttpListener
+        private static string ReadContent(StreamReader textReader, int contentLength) {
             var sb = new StringBuilder(contentLength);
             var buffer = new char[4096];
             int totalBytesRead = 0;
+
+            textReader.BaseStream.ReadTimeout = 300;
     
             while (totalBytesRead < contentLength)
             {
                 int bytesToRead = Math.Min(buffer.Length, contentLength - totalBytesRead);
-                int bytesRead = textReader.Read(buffer, 0, bytesToRead);
+
+                int bytesRead;  
+                
+                try {
+                    bytesRead = textReader.Read(buffer, 0, bytesToRead);
+                }
+                catch (Exception) {
+                    bytesRead = 0;
+                }
         
                 if (bytesRead == 0) break;
         
