@@ -5,9 +5,9 @@ namespace FlaNium.Desktop.Driver.Common {
 
     public class CommandResponse {
 
-        public string Content { get; set; }
+        public string Content { get; private set; }
 
-        public HttpStatusCode HttpStatusCode { get; set; }
+        public HttpStatusCode HttpStatusCode { get; private set; }
 
         
         public static CommandResponse Create(JsonResponse jsonResponse) {
@@ -18,7 +18,7 @@ namespace FlaNium.Desktop.Driver.Common {
         }
 
         public override string ToString() {
-            return string.Format("{0}: {1}", this.HttpStatusCode, this.Content);
+            return $"{HttpStatusCode}: {Content}";
         }
 
     }

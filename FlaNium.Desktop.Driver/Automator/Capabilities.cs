@@ -51,10 +51,6 @@ namespace FlaNium.Desktop.Driver.Automator {
             return capabilities;
         }
 
-        public string CapabilitiesToJsonString() {
-            return JsonConvert.SerializeObject(this);
-        }
-
     }
 
 }

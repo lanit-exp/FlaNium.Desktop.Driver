@@ -2,18 +2,14 @@
 using WindowsInput;
 
 namespace FlaNium.Desktop.Driver.Automator {
-
     internal class Automator {
 
-        private static readonly object LockObject = new object();
+        private static Automator _instance;
 
-        private static volatile Automator _instance;
-
-
-        public Automator(string session) {
-            this.Session = session;
-            this.ElementsRegistry = new ElementsRegistry();
-            this.InputSimulator = new InputSimulator();
+        private Automator() {
+            Session = Guid.NewGuid().ToString();
+            ElementsRegistry = new ElementsRegistry();
+            InputSimulator = new InputSimulator();
         }
 
 
@@ -22,23 +18,14 @@ namespace FlaNium.Desktop.Driver.Automator {
         public string Session { get; }
         public InputSimulator InputSimulator { get; }
 
-        
-        public static Automator InstanceForSession(string sessionId) {
-            if (_instance == null) {
-                lock (LockObject) {
-                    if (_instance == null) {
-                        if (sessionId == null) {
-                            sessionId = Guid.NewGuid().ToString();
-                        }
 
-                        _instance = new Automator(sessionId);
-                    }
-                }
+        public static Automator GetInstance() {
+            if (_instance == null) {
+                _instance = new Automator();
             }
 
             return _instance;
         }
 
     }
-
 }

@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 
 namespace FlaNium.Desktop.Driver.CommandHelpers {
 
-    // ReSharper disable once InconsistentNaming
     public class OSInfo {
 
         private static string _architecture;

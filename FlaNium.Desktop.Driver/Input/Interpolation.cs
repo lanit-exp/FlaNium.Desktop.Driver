@@ -90,7 +90,7 @@ namespace FlaNium.Desktop.Driver.Input {
             }
         }
 
-        internal static Point GetNewPoint(Point start, Point end, double factor) {
+        private static Point GetNewPoint(Point start, Point end, double factor) {
             var newPoint = new Point {
                 X = (int)(start.X + (factor * (end.X - start.X))),
                 Y = (int)(start.Y + (factor * (end.Y - start.Y))),

@@ -3,7 +3,7 @@ using System.Net;
 
 namespace FlaNium.Desktop.Driver.Common {
 
-    public class HttpResponseStatusMap {
+    public static class HttpResponseStatusMap {
 
         private static readonly Dictionary<ResponseStatus, HttpStatusCode> Map = new Dictionary<ResponseStatus, HttpStatusCode>() {
             { ResponseStatus.Success, HttpStatusCode.OK },

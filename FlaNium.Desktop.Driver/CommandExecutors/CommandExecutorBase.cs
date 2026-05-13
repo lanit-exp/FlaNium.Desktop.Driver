@@ -20,8 +20,7 @@ namespace FlaNium.Desktop.Driver.CommandExecutors {
             }
 
             try {
-                var session = this.ExecutedCommand.SessionId;
-                this.Automator = Driver.Automator.Automator.InstanceForSession(session);
+                this.Automator = Driver.Automator.Automator.GetInstance();
 
                 return CommandResponse.Create(DoInOtherThread());
             }

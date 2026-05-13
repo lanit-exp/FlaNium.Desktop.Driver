@@ -4,10 +4,9 @@ namespace FlaNium.Desktop.Driver.Common {
 
     public class Command {
 
-        private readonly int _bodySize;
+        private readonly int bodySize;
 
         public string Name { get; }
-        public string SessionId { get; set; }
 
         public JObject Parameters { get; }
 
@@ -17,22 +16,22 @@ namespace FlaNium.Desktop.Driver.Common {
 
             if (!string.IsNullOrEmpty(jsonParameters)) {
                 Parameters = JObject.Parse(jsonParameters);
-                _bodySize = jsonParameters.Length;
+                bodySize = jsonParameters.Length;
             }
             else {
                 Parameters = new JObject();
-                _bodySize = 0;
+                bodySize = 0;
             }
         }
 
 
         public string GetParametersAsString() {
-            if (_bodySize > 100_000)
+            if (bodySize > 100_000)
                 return
                     "REQUEST:\r\n" +
                     "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n" +
                     "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n" +
-                    $" Content length: {_bodySize}\n" +
+                    $" Content length: {bodySize}\n" +
                     "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n" +
                     "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n";
 
