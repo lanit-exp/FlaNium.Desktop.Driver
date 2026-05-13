@@ -32,7 +32,7 @@ namespace FlaNium.Desktop.Driver.Common {
 
 
         public static string Parse(ResponseStatus status) {
-            return ErrorMap.ContainsKey(status) ? ErrorMap[status] : status.ToString();
+            return ErrorMap.TryGetValue(status, out var value) ? value : status.ToString();
         }
 
     }

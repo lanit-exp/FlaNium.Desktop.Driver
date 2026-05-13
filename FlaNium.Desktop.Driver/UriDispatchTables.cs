@@ -19,34 +19,34 @@ namespace FlaNium.Desktop.Driver {
 
 
         public UriDispatchTables() {
-            this.InitializeSeleniumCommandDictionary();
-            this.InitializeFlaNiumCommandDictionary();
-            this.ConstructDispatcherTables(prefix);
+            InitializeSeleniumCommandDictionary();
+            InitializeFlaNiumCommandDictionary();
+            ConstructDispatcherTables(prefix);
         }
 
 
         public UriTemplateMatch Match(string httpMethod, string uriToMatch) {
-            var table = this.FindDispatcherTable(httpMethod);
+            var table = FindDispatcherTable(httpMethod);
 
-            return table != null ? table.MatchSingle(new Uri(prefix, uriToMatch)) : null;
+            return table?.MatchSingle(new Uri(prefix, uriToMatch));
         }
 
 
-        internal UriTemplateTable FindDispatcherTable(string httpMethod) {
+        private UriTemplateTable FindDispatcherTable(string httpMethod) {
             UriTemplateTable tableToReturn = null;
             switch (httpMethod) {
                 case CommandInfo.GetCommand:
-                    tableToReturn = this.getDispatcherTable;
+                    tableToReturn = getDispatcherTable;
 
                     break;
 
                 case CommandInfo.PostCommand:
-                    tableToReturn = this.postDispatcherTable;
+                    tableToReturn = postDispatcherTable;
 
                     break;
 
                 case CommandInfo.DeleteCommand:
-                    tableToReturn = this.deleteDispatcherTable;
+                    tableToReturn = deleteDispatcherTable;
 
                     break;
             }
@@ -293,15 +293,15 @@ namespace FlaNium.Desktop.Driver {
 
             this.commandDictionary.Add(
                 DriverCommand.ComboBoxSelect,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/combobox/select/{value}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/combobox/select"));
 
             this.commandDictionary.Add(
                 DriverCommand.ComboBoxSelectIndex,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/combobox/selectIndex/{value}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/combobox/selectIndex"));
 
             this.commandDictionary.Add(
                 DriverCommand.ComboBoxSetEditableText,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/combobox/setEditableText/{value}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/combobox/setEditableText"));
 
             this.commandDictionary.Add(
                 DriverCommand.ComboBoxIsEditable,
@@ -387,7 +387,7 @@ namespace FlaNium.Desktop.Driver {
 
             this.commandDictionary.Add(
                 DriverCommand.SliderSetValue,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/slider/setValue/{value}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/slider/setValue"));
 
             this.commandDictionary.Add(
                 DriverCommand.SliderSmallIncrement,
@@ -436,7 +436,7 @@ namespace FlaNium.Desktop.Driver {
 
             this.commandDictionary.Add(
                 DriverCommand.DataGridViewCellSetValue,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/dataGridViewCell/setValue/{value}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/dataGridViewCell/setValue"));
 
             #endregion
 
@@ -480,41 +480,41 @@ namespace FlaNium.Desktop.Driver {
 
             this.commandDictionary.Add(
                 DriverCommand.GridSelect,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/grid/select/{index}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/grid/select"));
 
             this.commandDictionary.Add(
                 DriverCommand.GridSelectText,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/grid/selectText/{index}/{text}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/grid/selectText"));
 
             this.commandDictionary.Add(
                 DriverCommand.GridAddToSelection,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/grid/addToSelection/{index}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/grid/addToSelection"));
 
             this.commandDictionary.Add(
                 DriverCommand.GridAddToSelectionText,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/grid/addToSelectionText/{index}/{text}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/grid/addToSelectionText"));
 
             this.commandDictionary.Add(
                 DriverCommand.GridRemoveFromSelection,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/grid/removeFromSelection/{index}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/grid/removeFromSelection"));
 
             this.commandDictionary.Add(
                 DriverCommand.GridRemoveFromSelectionText,
                 new CommandInfo("POST",
-                    "/session/{sessionId}/element/{id}/grid/removeFromSelectionText/{index}/{text}"));
+                    "/session/{sessionId}/element/{id}/grid/removeFromSelectionText"));
 
             this.commandDictionary.Add(
                 DriverCommand.GridGetRowByIndex,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/grid/getRowByIndex/{index}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/grid/getRowByIndex"));
 
             this.commandDictionary.Add(
                 DriverCommand.GridGetRowByValue,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/grid/getRowByValue/{index}/{text}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/grid/getRowByValue"));
 
             this.commandDictionary.Add(
                 DriverCommand.GridGetRowsByValue,
                 new CommandInfo("POST",
-                    "/session/{sessionId}/element/{id}/grid/getRowsByValue/{index}/{text}/{count}"));
+                    "/session/{sessionId}/element/{id}/grid/getRowsByValue"));
 
 
             this.commandDictionary.Add(
@@ -541,7 +541,7 @@ namespace FlaNium.Desktop.Driver {
 
             this.commandDictionary.Add(
                 DriverCommand.GridRowFindCellByText,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/gridRow/findCellByText/{value}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/gridRow/findCellByText"));
 
             this.commandDictionary.Add(
                 DriverCommand.GridRowScrollIntoView,
@@ -643,27 +643,27 @@ namespace FlaNium.Desktop.Driver {
 
             this.commandDictionary.Add(
                 DriverCommand.ListBoxSelectIndex,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/listBox/selectIndex/{index}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/listBox/selectIndex"));
 
             this.commandDictionary.Add(
                 DriverCommand.ListBoxSelectText,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/listBox/selectText/{value}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/listBox/selectText"));
 
             this.commandDictionary.Add(
                 DriverCommand.ListBoxAddToSelectionIndex,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/listBox/addToSelectionIndex/{index}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/listBox/addToSelectionIndex"));
 
             this.commandDictionary.Add(
                 DriverCommand.ListBoxAddToSelectionText,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/listBox/addToSelectionText/{value}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/listBox/addToSelectionText"));
 
             this.commandDictionary.Add(
                 DriverCommand.ListBoxRemoveFromSelectionIndex,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/listBox/removeFromSelectionIndex/{index}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/listBox/removeFromSelectionIndex"));
 
             this.commandDictionary.Add(
                 DriverCommand.ListBoxRemoveFromSelectionText,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/listBox/removeFromSelectionText/{value}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/listBox/removeFromSelectionText"));
 
             #endregion
 
@@ -680,7 +680,7 @@ namespace FlaNium.Desktop.Driver {
 
             this.commandDictionary.Add(
                 DriverCommand.ListBoxItemSetChecked,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/listBoxItem/setChecked/{value}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/listBoxItem/setChecked"));
 
             #endregion
 
@@ -748,7 +748,7 @@ namespace FlaNium.Desktop.Driver {
 
             this.commandDictionary.Add(
                 DriverCommand.SpinnerSetValue,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/spinner/setValue/{value}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/spinner/setValue"));
 
             this.commandDictionary.Add(
                 DriverCommand.SpinnerIncrement,
@@ -776,11 +776,11 @@ namespace FlaNium.Desktop.Driver {
 
             this.commandDictionary.Add(
                 DriverCommand.TabSelectTabItemIndex,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/tab/selectTabItemIndex/{index}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/tab/selectTabItemIndex"));
 
             this.commandDictionary.Add(
                 DriverCommand.TabSelectTabItemText,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/tab/selectTabItemText/{value}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/tab/selectTabItemText"));
 
             #endregion
 
@@ -808,7 +808,7 @@ namespace FlaNium.Desktop.Driver {
 
             this.commandDictionary.Add(
                 DriverCommand.TextBoxSetText,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/textBox/setText/{value}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/textBox/setText"));
 
             this.commandDictionary.Add(
                 DriverCommand.TextBoxIsReadOnly,
@@ -816,7 +816,7 @@ namespace FlaNium.Desktop.Driver {
 
             this.commandDictionary.Add(
                 DriverCommand.TextBoxEnter,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/textBox/enter/{value}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/textBox/enter"));
 
             #endregion
 
@@ -824,11 +824,11 @@ namespace FlaNium.Desktop.Driver {
 
             this.commandDictionary.Add(
                 DriverCommand.ThumbSlideHorizontally,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/thumb/slideHorizontally/{index}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/thumb/slideHorizontally"));
 
             this.commandDictionary.Add(
                 DriverCommand.ThumbSlideVertically,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/thumb/slideVertically/{index}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/thumb/slideVertically"));
 
             #endregion
 
@@ -864,7 +864,7 @@ namespace FlaNium.Desktop.Driver {
 
             this.commandDictionary.Add(
                 DriverCommand.ToggleButtonSetToggleState,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/toggleButton/setToggleState/{value}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/toggleButton/setToggleState"));
 
             #endregion
 
@@ -920,7 +920,7 @@ namespace FlaNium.Desktop.Driver {
 
             this.commandDictionary.Add(
                 DriverCommand.TreeItemSetChecked,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/treeItem/setChecked/{value}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/treeItem/setChecked"));
 
             #endregion
 
@@ -956,11 +956,11 @@ namespace FlaNium.Desktop.Driver {
 
             this.commandDictionary.Add(
                 DriverCommand.WindowMove,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/window/move/{x}/{y}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/window/move"));
 
             this.commandDictionary.Add(
                 DriverCommand.WindowSetTransparency,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/window/setTransparency/{index}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/window/setTransparency"));
 
             this.commandDictionary.Add(
                 DriverCommand.WindowGetActiveWindow,
@@ -976,11 +976,11 @@ namespace FlaNium.Desktop.Driver {
 
             this.commandDictionary.Add(
                 DriverCommand.CalendarSelectDate,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/calendar/selectDate/{dateTime}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/calendar/selectDate"));
 
             this.commandDictionary.Add(
                 DriverCommand.CalendarAddToSelection,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/calendar/addToSelection/{dateTime}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/calendar/addToSelection"));
 
             #endregion
 
@@ -992,7 +992,7 @@ namespace FlaNium.Desktop.Driver {
 
             this.commandDictionary.Add(
                 DriverCommand.DateTimePickerSetDate,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/dateTimePicker/setDate/{dateTime}"));
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/dateTimePicker/setDate"));
 
             #endregion
 
@@ -1001,7 +1001,7 @@ namespace FlaNium.Desktop.Driver {
 
             this.commandDictionary.Add(
                 DriverCommand.CustomScreenshot,
-                new CommandInfo("POST", "/session/{sessionId}/customScreenshot/{format}"));
+                new CommandInfo("POST", "/session/{sessionId}/customScreenshot"));
 
             this.commandDictionary.Add(
                 DriverCommand.ElementScreenshot,

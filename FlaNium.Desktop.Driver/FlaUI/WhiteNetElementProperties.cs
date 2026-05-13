@@ -6,24 +6,24 @@ namespace FlaNium.Desktop.Driver.FlaUI {
 
     class WhiteNetElementProperties {
 
-        private FrameworkAutomationElementBase.IProperties properties;
+        private readonly FrameworkAutomationElementBase.IProperties properties;
 
-        public Rectangle BoundingRectangle => this.properties.BoundingRectangle.ValueOrDefault;
+        public Rectangle BoundingRectangle => properties.BoundingRectangle.ValueOrDefault;
 
-        public Point ClickablePoint => this.properties.ClickablePoint.ValueOrDefault;
+        public Point ClickablePoint => properties.ClickablePoint.ValueOrDefault;
 
-        public bool IsEnabled => this.properties.IsEnabled.ValueOrDefault;
+        public bool IsEnabled => properties.IsEnabled.ValueOrDefault;
 
-        public bool IsOffscreen => this.properties.IsOffscreen.ValueOrDefault;
+        public bool IsOffscreen => properties.IsOffscreen.ValueOrDefault;
 
-        public string Name => this.properties.Name.ValueOrDefault;
+        public string Name => properties.Name.ValueOrDefault;
 
         public string RuntimeId =>
-            string.Join("", this.properties.RuntimeId.ValueOrDefault ?? Array.Empty<int>());
+            string.Join("", properties.RuntimeId.ValueOrDefault ?? Array.Empty<int>());
 
-        public string AutomationId => this.properties.AutomationId.ValueOrDefault;
+        public string AutomationId => properties.AutomationId.ValueOrDefault;
 
-        public string ClassName => this.properties.ClassName.ValueOrDefault;
+        public string ClassName => properties.ClassName.ValueOrDefault;
 
         public WhiteNetElementProperties(
             FrameworkAutomationElementBase.IProperties properties) {

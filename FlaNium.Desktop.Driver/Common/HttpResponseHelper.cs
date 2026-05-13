@@ -14,21 +14,18 @@ namespace FlaNium.Desktop.Driver.Common {
         private static Dictionary<HttpStatusCode, string> _statusCodeDescriptors;
 
 
-        public static Dictionary<HttpStatusCode, string> StatusCodeDescriptors {
-            get {
-                return _statusCodeDescriptors
-                       ?? (_statusCodeDescriptors =
-                           new Dictionary<HttpStatusCode, string> {
-                               { HttpStatusCode.OK, "OK" },
-                               { HttpStatusCode.BadRequest, "Bad Request" },
-                               { HttpStatusCode.NotFound, "Not Found" },
-                               { HttpStatusCode.NotImplemented, "Not Implemented" }
-                           });
-            }
-        }
+        private static Dictionary<HttpStatusCode, string> StatusCodeDescriptors =>
+            _statusCodeDescriptors
+            ?? (_statusCodeDescriptors =
+                new Dictionary<HttpStatusCode, string> {
+                    { HttpStatusCode.OK, "OK" },
+                    { HttpStatusCode.BadRequest, "Bad Request" },
+                    { HttpStatusCode.NotFound, "Not Found" },
+                    { HttpStatusCode.NotImplemented, "Not Implemented" }
+                });
 
 
-        public static bool IsClientError(int code) {
+        private static bool IsClientError(int code) {
             return code >= 400 && code < 500;
         }
 
@@ -38,8 +35,8 @@ namespace FlaNium.Desktop.Driver.Common {
             StatusCodeDescriptors.TryGetValue(statusCode, out string statusDescription);
 
             var responseString = new StringBuilder();
-            responseString.AppendLine(string.Format("HTTP/1.1 {0} {1}", (int)statusCode, statusDescription));
-            responseString.AppendLine(string.Format("Content-Type: {0}", contentType));
+            responseString.AppendLine($"HTTP/1.1 {(int)statusCode} {statusDescription}");
+            responseString.AppendLine($"Content-Type: {contentType}");
             responseString.AppendLine("Connection: close");
             responseString.AppendLine(string.Empty);
             responseString.AppendLine(content);

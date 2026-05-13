@@ -10,9 +10,9 @@ namespace FlaNium.Desktop.Driver {
 
     public class Listener {
 
-        private UriDispatchTables dispatcher;
+        private readonly UriDispatchTables dispatcher;
 
-        private CommandExecutorDispatchTable executorDispatcher;
+        private readonly CommandExecutorDispatchTable executorDispatcher;
 
         private TcpListener listener;
 

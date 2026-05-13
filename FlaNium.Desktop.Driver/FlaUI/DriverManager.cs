@@ -10,8 +10,7 @@ using FlaUI.Core.Tools;
 using FlaUI.UIA3;
 
 namespace FlaNium.Desktop.Driver.FlaUI {
-
-    class DriverManager {
+    static class DriverManager {
 
         private static TimeSpan _implicitTimeout = new TimeSpan(0, 0, 30);
         private static AutomationBase _automation = new UIA3Automation();

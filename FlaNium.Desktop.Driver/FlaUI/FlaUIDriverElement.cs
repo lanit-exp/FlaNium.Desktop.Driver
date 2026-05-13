@@ -10,9 +10,9 @@ namespace FlaNium.Desktop.Driver.FlaUI {
 
     class FlaUiDriverElement {
 
-        public AutomationElement FlaUiElement { get; private set; }
+        public AutomationElement FlaUiElement { get; }
 
-        public WhiteNetElementProperties Properties { get; set; }
+        public WhiteNetElementProperties Properties { get; }
 
         public FlaUiDriverElement(AutomationElement uiItem) {
             this.Properties = new WhiteNetElementProperties(uiItem.Properties);

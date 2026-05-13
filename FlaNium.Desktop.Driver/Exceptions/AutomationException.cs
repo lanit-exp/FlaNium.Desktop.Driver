@@ -5,15 +5,12 @@ namespace FlaNium.Desktop.Driver.Exceptions {
 
     public class AutomationException : Exception {
 
-        private ResponseStatus responseStatus = ResponseStatus.UnknownError;
-
-
         public AutomationException() {
         }
 
         public AutomationException(string message, ResponseStatus status)
             : base(message) {
-            this.Status = status;
+            Status = status;
         }
 
         public AutomationException(string message, params object[] args)
@@ -25,11 +22,7 @@ namespace FlaNium.Desktop.Driver.Exceptions {
         }
 
 
-        public ResponseStatus Status {
-            get { return this.responseStatus; }
-
-            set { this.responseStatus = value; }
-        }
+        public ResponseStatus Status { get; } = ResponseStatus.UnknownError;
 
     }
 

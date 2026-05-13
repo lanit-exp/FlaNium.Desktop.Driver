@@ -10,14 +10,14 @@
 
 
         public CommandInfo(string method, string resourcePath) {
-            this.ResourcePath = resourcePath;
-            this.Method = method;
+            ResourcePath = resourcePath;
+            Method = method;
         }
 
 
-        public string Method { get; set; }
+        public string Method { get; }
 
-        public string ResourcePath { get; set; }
+        public string ResourcePath { get; }
 
     }
 
